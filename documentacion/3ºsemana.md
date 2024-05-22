@@ -1,0 +1,2 @@
+# Diario de trabajo 3º semana
+En esta 3º semana de proyecto he estado realizando el controller completo del modelo Usuario y ahora mismo estoy haciendo el controller de Clothes,una vez termine con este,empezaré el de Order además de probar de que la api funciona correctamente y pasar a hacer el frontend.

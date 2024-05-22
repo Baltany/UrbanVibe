@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanVibe - Sign up</title>
+    <link rel="icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url('/img/Default_A_skyscraper_in_new_yorkalso_i_want_the_statue_of_libe_0.jpg'); /* URL de la imagen de fondo */
+            background-size: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 350px;
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        input.form-control {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        label.form-label {
+            color: black;
+            font-weight: bold;
+            display: flex;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+        }
+
+        .button-container button {
+            flex: 1; /* Que ambos botones ocupen el mismo espacio */
+            margin-right: 10px; /* Espacio entre los botones */
+        }
+
+        button.btn-primary {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button.btn-primary:hover {
+            background-color: black;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>UrbanVibe</h1>
+            <br>
+        </div>
+
+        <form th:action="@{/users/signup}" th:object="${user}" method="POST">
+            <div class="form-group">
+                <label for="mail" class="form-label">Email:</label>
+                <input name="mail" type="email" id="mail" class="form-control" th:field="*{mail}" required>
+            </div>
+            <div class="form-group">
+                <label for="username" class="form-label">Username:</label>
+                <input name="username" id="username" class="form-control" type="text" th:field="*{username}" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input name="password" type="password" id="password" class="form-control" required>
+                <br/>
+                <div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="error"></div>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
+
+
+            </div>
+            
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary" onclick="window.location.href='/login'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

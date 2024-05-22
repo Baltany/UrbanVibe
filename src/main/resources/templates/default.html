@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanVibe</title>
+    <link rel="icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+    <!-- Cargar Three.js antes de Vanta.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Cargar Vanta.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+        }
+        a {
+            display: inline-block; /* Hacer que el enlace se comporte como un bloque en línea */
+            background-color: black;
+            padding: 20px 30px; /* Aumentar el espaciado interno para un aspecto más amplio */
+            border-radius: 8px; /* Esquinas más redondeadas */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            transition: transform 0.3s ease-in-out; /* Efecto de transición al pasar el cursor */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre el enlace */
+            color: white; /* Color del texto */
+            text-decoration: none; /* Quitar el subrayado del enlace */
+        }
+
+        /* Estilos al pasar el cursor sobre el enlace */
+        a:hover {
+            transform: translateY(-2px); /* Desplazamiento hacia arriba al pasar el cursor */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+        }
+    </style>
+</head>
+<body>
+    <a href="/users">Reflect your vibe in your style</a>
+
+    <script>
+        // Inicializar Vanta.js después de que la página esté completamente cargada
+        document.addEventListener('DOMContentLoaded', () => {
+            VANTA.BIRDS({
+                el: "body", // Elemento HTML donde se aplicará el efecto (en este caso, 'body' para toda la página)
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200,
+                minWidth: 200,
+                scale: 1,
+                scaleMobile: 1,
+                backgroundColor: 0xffffff,
+                color1: 0x000000,
+                color2: 0x000000,
+                birdSize: 0.90,
+                backgroundAlpha: 0.98
+            });
+        });
+    </script>
+</body>
+</html>

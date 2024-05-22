@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <head th:fragment="headerfiles">
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- No me lee mi archivo de estilos -->
+
+            <link rel="stylesheet" href="/static/css/styles.css">
+
+            <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="/webjars/font-awesome/6.5.2/css/all.min.css"/>
+
+            <link
+                href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                rel="stylesheet">
+
+            <style>
+                .card-img-top {
+                    max-width: 4%;
+                    /* Establece el ancho máximo al 100% del contenedor */
+                    height: auto;
+                    /* La altura se ajusta automáticamente para mantener la proporción */
+                    display: block;
+                    /* Asegura que la imagen sea un elemento de bloque */
+                    margin-left: auto;
+                    /* Centra la imagen horizontalmente dentro del contenedor */
+                    margin-right: auto;
+                }
+                nav {
+                    background-color: black;
+                }
+
+                .nav-link {
+                    color: white;
+                }
+
+
+                footer {
+                    position: fixed;
+                    bottom: 0;
+                    width: 100%;
+                    height:4.5%;
+                    background-color: black;
+                    color: #ffffff;
+                    padding: 10px;
+                    text-align: center;
+                    font-size: 1em; /* Tamaño de fuente relativo */
+                    display: flex;
+                    justify-content: space-between; /* Distribuir elementos a los extremos */
+                    align-items: center; /* Alinear verticalmente al centro */
+
+                    flex-direction: column; /* Cambiar a disposición de columna en pantallas pequeñas */
+                }
+                footer a {
+                    text-decoration: none; /* Quitar subrayado de enlaces */
+                    color: #ffffff; /* Color de texto de enlaces */
+                    margin-right: 10px; /* Espacio entre enlaces */
+                }
+                
+                footer a:hover {
+                    text-decoration: none; /* Subrayar enlaces al pasar el mouse */
+                    color:beige
+                }
+                
+
+        
+
+
+            </style>
+        </head>
+        <body>
+            <div class="container-fluid">
+
+                <!-- Falta poner lo que iría aquí,es decir lo que ve cada usuario de forma
+                provisional -->
+                <div th:fragment="navigation">
+                    <nav
+                        sec:authorize="hasAuthority('Admin')"
+                        class="navbar navbar-expand-lg navbar-dark">
+                        <div class="container-fluid">
+                            <img src="img/UrbanVibe-transformed.png" class="card-img-top" alt="UrbanVibe">
+                            <!-- <a class="navbar-brand" href="#">UrbanVibe</a> -->
+                            <button
+                                class="navbar-toggler"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/inicio">Inicio
+                                            <i class="fa-solid fa-house" style="color: #ffffff;"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            href="#"
+                                            role="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Usuarios
+                                            <i class="fa-regular fa-user" style="color: #ffffff;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="menu_modulo" class="dropdown-item" href="/users">Listado</a>
+                                            </li>
+                                            <li>
+                                                <a id="menu_enseñanza" class="dropdown-item" href="/users/add">Alta</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            href="#"
+                                            role="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Pedidos
+                                            <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="menu_modulo" class="dropdown-item" href="/orders">Listado</a>
+                                            </li>
+                                            <!-- <li><a id="menu_enseñanza" class="dropdown-item"
+                                            href="/orders/add">Alta</a></li> -->
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="/help" role="button" aria-expanded="false">
+                                            <i class="fa-solid fa-headset" style="color: #ffffff;"></i>
+                                            <!--Ayuda-->
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">
+                                            <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
+                                            <!--Desconexión-->
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </nav>
+
+                    <nav
+                        sec:authorize="hasAuthority('Customer')"
+                        class="navbar navbar-expand-lg navbar-dark bg-primary">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">Welcome to name!</a>
+                            <button
+                                class="navbar-toggler"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarNav"
+                                aria-controls="navbarNav"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/">Inicio
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/ayuda">Ayuda
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/acerca">Sobre esta Web
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Desconexión
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!--Header-->
+                <div th:fragment="header">
+                    <h2 class="text-center">UrbanVibe
+                    </h2>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="card bg-light text-center" style="width: 18rem;">
+                            <!-- Hacer una imagen -->
+                            <img class="card-img-top" src="/static/" alt="Shop icon">
+                            <div class="card-body">
+                                <h5 class="card-title">UrbanVibe</h5>
+                                <p class="card-text">
+                                    Prototipo de tienda de ropa.
+                                </p>
+                                <a href="#" id="menu_informe" class="btn btn-primary">Generar informe</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div th:fragment="footer">
+                <footer>
+                    <div>
+                        <a href="#">Términos y condiciones</a>
+                        <a href="#">Política de privacidad</a>
+                        <a href="#">Política de cookies</a>
+                        <a href="#">SiteMap</a>
+                        © 2024 UrbanVibe
+                    </div>
+                </footer>
+                <!--
+                    <footer>
+                        <div>
+                            <hr/>
+                            <div sec:authorize="hasAuthority('Admin')" class="footermain">
+                                <div class="pfooter">
+                                    <p >
+                                        <b>This paragraph is only visible if you are an admin</b>
+                                    </p>
+                                </div>
+                                <div class="urbanfooter">
+                                    <span >Ⓒ 2024 UrbanVibe</span>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                        <script src="/webjars/jquery/jquery.min.js"></script>
+                        <script src="/webjars/popper.js/umd/popper.min.js"></script>
+                        <script src="/webjars/bootstrap/js/bootstrap.js"></script>
+                    </footer>
+                -->
+                </div>
+
+            </div>
+
+        </body>
+    </html>

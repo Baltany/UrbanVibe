@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head th:replace="{fragments/head :: head}"></head>
+    <link rel="icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+
+
+
+
+    <th:block th:replace="~{fragments/main.html :: headerfiles}"></th:block>
+
+
+</head>
+<body>
+  <!-- <div id="vanta-bg"> -->
+  <div th:replace="~{fragments/main.html :: navigation}"> </div>
+    <center>
+        <div class="container-fluid" >
+          
+          <div class="container">
+            <div class="card m-4" style="width: 18rem;">
+              <img src="img/UrbanVibe-transformed.png" alt="UrbanVibe">
+              <div class="card-body">
+                <h5 class="card-title">UrbanVibe</h5>
+                <p class="card-text">Bienvenido a nuestra tienda virtual donde encontrará cualquier tipo de ropa.</p>
+                <a sec:authorize="isAnonymous()"  href="/users" class="btn btn-primary">Gestión</a>
+              </div>
+            </div>
+          </div>
+          <div th:replace="~{fragments/main.html :: footer}"></div>
+        </div>
+      </center>
+    <!-- </div> -->
+
+</body>
+</html>

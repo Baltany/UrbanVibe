@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Vibe: Gestión de usuarios</title>
+    <th:block th:replace="~{fragments/main.html :: head}"></th:block>
+</head>
+<body>
+    <div th:replace="~{fragments/main.html :: navigation}"></div>
+    
+    <div class="container">
+        <br>
+        <br>
+        <h3>Añadir usuario:</h3>
+        <br>
+    
+        <form th:action="|/users/add|" th:object="${user}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="border">
+                <div class="row g-3 m-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre de usuario:</label>
+                        <input type="text" th:field="*{username}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Contraseña:</label>
+                        <input type="password" th:field="*{password}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre:</label>
+                        <input type="text" th:field="*{name}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Apellidos:</label>
+                        <input type="text" th:field="*{surname}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">DNI:</label>
+                        <input type="text" th:field="*{dni}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email:</label>
+                        <input type="text" th:field="*{mail}" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Dirección:</label>
+                        <input type="text" th:field="*{address}" class="form-control"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Rol(es):</label>
+                        <select th:field="*{rolList}" class="form-select" >
+                            <option th:each="rol : ${userRol}" th:value="${rol.id}" th:text="${rol.rol}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Habilitado:</label>
+                        <input type="checkbox" th:field="*{enable}" class="form-check-input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="border">
+                <div class="row g-3 m-2">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">Añadir</button>
+                        <a href="/users" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div th:replace="~{fragments/main.html :: footer}"></div>
+
+</body>
+</html>

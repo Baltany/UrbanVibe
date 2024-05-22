@@ -1,0 +1,27 @@
+.card-img-top {
+    max-width: 4%; /* Establece el ancho máximo al 100% del contenedor */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    display: block; /* Asegura que la imagen sea un elemento de bloque */
+    margin-left: auto; /* Centra la imagen horizontalmente dentro del contenedor */
+    margin-right: auto;
+}
+nav{
+    background-color: black;
+}
+
+.nav-link{
+    color: white;
+}
+
+/* BIRDS({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    scale: 1.00,
+    scaleMobile:1.00,
+    backgroundColor: 0x0,
+    color1: 0xfffff,
+    color2: 0x11111,
+    cohesion: 190.00,
+    quantity: 5.0
+}); */

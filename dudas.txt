@@ -1,0 +1,24 @@
+1.Es mejor hacer 3 roles en los que haya admin,proveedor y cliente o solo 2 en los que haya admin y cliente unicamente.
+
+2.UserController editarUsuario
+
+3.Necesito una explicación de si estoy haciendo bien, 
+o mas bien si lo estoy relacionando bien el Usuario,
+El pedido y la Ropa,
+Yo creo que un usuario hace un pedido con la ropa que el ha elegido,
+pero no se hasta que punto lo estoy haciendo bien
+
+
+7.preguntar si falta algun endpoint en clothesController
+
+8.La tabla pedidos no la añade en la base de datos. ## Era porque en sql la palabra Order es una palabra reservada
+
+-- 9.No inserta los datos en 3 tablas. ##Ya inserta
+
+10.No añade ni edita los usuarios y no se que falla en el añadir.
+
+11.Posibilidad de leer un csv de ropa
+
+12.CRUD usuarios no lo hace
+
+13.Como hacer para ver los pedidos de cada usuario

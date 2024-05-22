@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanVibe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            background-image: url('/img/fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            font-size: 16px; /* Tamaño base de fuente */
+        }
+        
+        .container {
+            max-width: 90%; /* Ancho máximo del contenedor */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em; /* Tamaño de fuente grande */
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+        
+        .gender-selector__images {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 0%; /* Margen superior relativo */
+            margin-bottom: 3%; /* Margen inferior relativo */
+        }
+        
+        .gender-selector__image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 35%; /* Ancho máximo de cada imagen */
+            height: 35vw; /* Altura relativa */
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        
+        .gender-selector__image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .gender-selector__image-wrapper img:hover {
+            transform: scale(1.1);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.5em; /* Tamaño de fuente relativo */
+            line-height: 1.4;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height:5%;
+            background-color: #202020;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1em; /* Tamaño de fuente relativo */
+            display: flex;
+            justify-content: space-between; /* Distribuir elementos a los extremos */
+            align-items: center; /* Alinear verticalmente al centro */
+        }
+        
+        footer a {
+            text-decoration: none; /* Quitar subrayado de enlaces */
+            color: #ffffff; /* Color de texto de enlaces */
+            margin-right: 10px; /* Espacio entre enlaces */
+        }
+        
+        footer a:hover {
+            text-decoration: underline; /* Subrayar enlaces al pasar el mouse */
+        }
+        
+        .footer-copyright {
+            margin-left: 20px; /* Margen izquierdo del texto de copyright */
+            margin-right: 20px; /* Margen derecho del texto de copyright */
+            white-space: nowrap; /* Evitar salto de línea */
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px; /* Reducir el padding en pantallas pequeñas */
+            }
+            
+            .gender-selector__images {
+                flex-direction: column; /* Cambiar a disposición de columna en pantallas pequeñas */
+            }
+            
+            .gender-selector__image-wrapper {
+                max-width: 100%; /* Ancho máximo de imágenes al 100% en pantallas pequeñas */
+                height: auto; /* Altura automática para imágenes en pantallas pequeñas */
+                margin-bottom: 15px; /* Separación entre imágenes en pantallas pequeñas */
+            }
+            
+            footer {
+                flex-direction: column; /* Cambiar a disposición de columna en pantallas pequeñas */
+                padding: 15px; /* Aumentar el padding en el footer en pantallas pequeñas */
+                text-align: center; /* Centrar texto en el footer en pantallas pequeñas */
+            }
+            
+            .footer-copyright {
+                margin-top: 10px; /* Separación superior del texto de copyright en pantallas pequeñas */
+                margin-left: 0; /* Resetear el margen izquierdo en pantallas pequeñas */
+                margin-right: 0; /* Resetear el margen derecho en pantallas pequeñas */
+            }
+        }
+    </style>
+    <link rel="icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <h1>URBANVIBE</h1>
+        <br>
+        <div class="gender-selector__images">
+            <div class="gender-selector__image-wrapper" onclick="window.location.href='';">
+                <img src="/img/WhatsApp Image 2024-04-27 at 6.55.45 PM.jpeg" alt="">
+                <div class="image-overlay">Mujer</div>
+            </div>
+            <div class="gender-selector__image-wrapper" onclick="window.location.href='';">
+                <img src="/img/imagen1.jpeg" alt="">
+                <div class="image-overlay">Hombre</div>
+            </div>
+            <div class="gender-selector__image-wrapper" onclick="window.location.href='';">
+                <img src="/img/WhatsApp Image 2024-04-27 at 6.56.15 PM.jpeg" alt="">
+                <div class="image-overlay">Accesorios</div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <footer>
+        <div>
+            <a href="#">Términos y condiciones de compra</a>
+            <a href="#">Términos y condiciones de #reflectyourvibe</a>
+            <a href="#">Política de privacidad</a>
+            <a href="#">Política de cookies</a>
+            <a href="#">SiteMap</a>
+        </div>
+        <div class="footer-copyright">
+            <span>© 2024 UrbanVibe</span>
+        </div>
+    </footer>
+</body>
+</html>

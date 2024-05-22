@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>UrbanVibe</title>
+    <th:block th:replace="~{fragments/main.html :: headerfiles}"></th:block>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .color-rosa {
+            color: black;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px; /* Ancho máximo del contenedor */
+            margin: 0 auto;
+        }
+
+        .contenidoform {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .titulo_simple {
+            font-size: 28px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+            text-align: center; /* Centrar el título */
+        }
+
+        .linea_sep {
+            border-bottom: 2px solid black;
+            width: 200px;
+            margin: 10px auto; /* Centrar la línea horizontal */
+        }
+
+        .anchoformcontacto {
+            max-width: 700px; /* Ancho máximo del formulario */
+            margin: 0 auto;
+        }
+
+        .anchocontacto {
+            display: flex;
+            align-items: center; /* Alinear verticalmente */
+            margin-bottom: 20px;
+        }
+
+        .campo,
+        .textarea {
+            flex: 1; /* Ocupar todo el espacio restante */
+            padding: 12px;
+            border: 1px solid black;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-left: 10px; /* Separación entre ícono y campo */
+        }
+
+        .enviar,
+        .cancelar {
+            padding: 12px 20px;
+            background-color: black;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Espacio entre último campo y botón */
+            flex: 1; /* Ocupar todo el espacio disponible en la fila */
+        }
+
+        .enviar:hover,
+        .cancelar:hover {
+            background-color: #404040;
+        }
+
+        /* Estilos de iconos */
+        .icocontacto {
+            font-size: 24px; /* Tamaño del ícono */
+            color: #555;
+            margin-right: 10px; /* Separación a la derecha del ícono */
+        }
+
+        .enlaces {
+            color: black;
+        }
+
+        /* Media queries para ajustar el formulario en diferentes tamaños de pantalla */
+        @media (min-width: 768px) {
+            .contenidoform {
+                padding: 40px; /* Aumentar el padding en pantallas más grandes */
+            }
+
+            .anchoformcontacto {
+                max-width: 800px; /* Ajustar el ancho máximo del formulario en pantallas grandes */
+            }
+
+            .campo,
+            .textarea {
+                font-size: 18px; /* Aumentar el tamaño de la fuente en pantallas grandes */
+            }
+
+            .enviar,
+            .cancelar {
+                padding: 15px 25px; /* Aumentar el tamaño del botón en pantallas grandes */
+            }
+        }
+
+        @media (min-height: 600px) {
+            .contenidoform {
+                padding: 50px; /* Aumentar el padding si la altura de la pantalla es mayor a 600px */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav sec:authorize="hasAuthority('Admin')">
+        <div th:replace="~{fragments/main.html :: navigation}"></div>
+    </nav>
+
+    <br>
+    <!-- Formulario de contacto -->
+    <div class="container">
+        <section class="contenidoform anchoformcontacto">
+            <h1 class="titulo_simple">
+                Formulario de Contacto
+                <div class="linea_sep"></div>
+            </h1>
+            <br>
+            
+            <form autocomplete="off" method="post" onsubmit="enviarCorreo(event)">
+                <div class="anchoformcontacto">
+                    <div class="anchocontacto">
+                        <i class="fas fa-user icocontacto" style="color: #000000;"></i>
+                        <input id="name" name="name" type="text" class="campo" placeholder="Nombre" required>
+                    </div>
+                    <div class="anchocontacto">
+                        <i class="fas fa-phone-alt icocontacto" style="color: #000000;"></i>
+                        <input id="phone" name="phone" type="tel" class="campo" placeholder="Teléfono" required>
+                    </div>
+                    <div class="anchocontacto">
+                        <i class="fas fa-file-alt icocontacto" style="color: #000000;"></i>
+                        <input id="subject" name="subject" type="text" class="campo" placeholder="Asunto" required>
+                    </div>
+                    <div class="anchocontacto">
+                        <i class="far fa-envelope icocontacto" style="color: #000000;"></i>
+                        <input id="mail" type="email" name="mail" class="campo" placeholder="Email" required>
+                    </div>
+                    <div class="anchocontacto">
+                        <i class="fas fa-comment-alt icocontacto" style="color: #000000;"></i>
+                        <textarea id="message" name="message" class="textarea" placeholder="Mensaje" required></textarea>
+                    </div>
+                    <div class="checkbox-label">
+                        <input type="checkbox" id="lopd" required>
+                        <label for="lopd">
+                            Al marcar esta casilla confirmas que has sido informado y aceptas la
+                            <a href="#" target="_blank" class="enlaces">LOPD</a>.
+                        </label>
+                    </div>
+                    <br>
+                    <div class="marcoenviar">
+                        <!--Deberia de enviar a los usuarios al endpoint clothes -->
+                        <input type="submit" value="Enviar Consulta" class="enviar">
+                        <!--Necesito que rediriga al sitio anterior donde se encontraba el usuario-->
+                        <button type="button" href="" class="cancelar" sec:authorize="Customer">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+
+    </div>
+    <div th:replace="~{fragments/main.html :: footer}"></div>
+
+    <!-- Scripts adicionales si es necesario -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script>
+        const enviarCorreo = (event) => {
+            event.preventDefault(); // Evita que se envíe el formulario directamente
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const asunto = document.getElementById('subject').value;
+            const mail = document.getElementById('mail').value;
+            const message = document.getElementById('message').value;
+
+            const mailTo = {
+                to: ["prueba.correo.spring.macrosad@gmail.com"], // Define aquí los destinatarios
+                subject: asunto,
+                message: `Nombre: ${name}\nTeléfono: ${phone}\nEmail: ${mail}\nMensaje: ${message}`
+            };
+
+            fetch('/help/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(mailTo),
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Correo enviado correctamente');
+                } else {
+                    alert('Error al enviar el correo');
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar la solicitud:', error);
+                alert('Error al enviar el correo');
+            });
+        };
+
+
+    </script>
+
+</body>
+</html>

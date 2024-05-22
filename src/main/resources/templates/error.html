@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <th:block th:replace="~{fragments/main.html :: headerfiles}"></th:block>
+    <link rel="icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div th:replace="~{fragments/main.html :: navigation}"> </div>
+    <div class="container">
+
+        <div class="container">
+            <h5 th:text="${titulo}?${titulo}:'We are truly sorry!'"></h5>
+            <p>Something is going wrong, please try again later.</p>
+            <p th:text="${mensaje}?${mensaje}:'It was not possible to make your request'"></p>
+        </div>
+        
+    </div>
+    <div th:replace="~{fragments/main.html :: footer}"></div>
+</body>
+
+</html>

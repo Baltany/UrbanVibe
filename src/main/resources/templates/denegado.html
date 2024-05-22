@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <title>Urban-Vibe</title>
+  <th:block th:replace="~{fragments/main.html :: headerfiles}"></th:block>
+  <link rel="icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../static/img/UrbanVibeICON.ico" type="image/x-icon">
+</head>
+
+<body>  
+  <div th:replace="~{fragments/main.html :: navigation}"> </div>
+
+    <h4>Access denied</h4>
+
+    <p>Por favor identifíquese con el usuario con los privilegios correctos para acceder a esta parte de la Web.</p>
+
+    <p><a href="/logout">Salir del sistema</a></p>
+    
+
+  <div th:replace="~{fragments/main.html :: footer}"></div>
+</div>
+</body>
+
+</html>
