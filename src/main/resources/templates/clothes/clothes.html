@@ -287,6 +287,9 @@
         }
         .modal.open {
             display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+
         }
         .modal-content {
             padding: 20px;
@@ -304,9 +307,22 @@
             font-weight: bold;
             color: #333;
         }
+
+        /* no coge los estilos 
+        .close-edit-modal {
+            position: absolute;
+            top: 10px; 
+            right: 10px; 
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+        } 
+        */
+
         .close-modal {
             font-size: 24px;
             cursor: pointer;
+            color: #888;
         }
         .modal-body {
             max-height: calc(100vh - 160px);
@@ -320,6 +336,7 @@
             font-weight: bold;
             margin-bottom: 5px;
             display: block;
+            color: #333;
         }
         .modal-form-group input,
         .modal-form-group select {
@@ -439,19 +456,70 @@
             margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
         }
         .edit-item-details{
-            width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-            height: auto !important; /* Esto mantendrá la proporción de la imagen */
-            max-height: 200px !important; /* Establece una altura máxima para la imagen */
-            display: block !important; /* Asegura que la imagen se muestre como un bloque */
-            margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
-        }
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            margin-bottom: 20px;/* Esto centrará la imagen horizontalmente */
+                }
+
         #edit-item-image{
-            width: auto !important; /* Ajusta el ancho de la imagen según sea necesario */
-            height: auto !important; /* Esto mantendrá la proporción de la imagen */
-            max-height: 200px !important; /* Establece una altura máxima para la imagen */
-            display: block !important; /* Asegura que la imagen se muestre como un bloque */
-            margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+                    width: 45%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 10px; /* Esto centrará la imagen horizontalmente */
+                }
+
+        #edit-item-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
         }
+
+        #edit-item-price {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        #save-changes-btn, 
+        #close-modal-exit {
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+            padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #save-changes-btn:hover, 
+        #close-modal-exit:hover {
+            background-color: #555;
+        }   
+        
+        /* #close-modal {
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+        }
+        #close-modal:hover {
+            background-color: #555;
+        } */
+        /* .close-modal-exit{
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .close-modal-exit:hover{
+            background-color: #555;
+        } */
+
+
+
         
     </style>
 </head>
@@ -540,7 +608,7 @@
                 </div>
             </div>
             <button id="save-changes-btn" style="margin-right: 10px;">Guardar cambios</button>
-            <button class="close-modal">Cancelar</button>
+            <button class="close-modal" id="close-modal-exit">Cancelar</button>
         </div>
     </div>
 
