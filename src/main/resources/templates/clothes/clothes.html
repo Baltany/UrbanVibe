@@ -224,7 +224,8 @@
 
         .checkout-btn {
             display: block;
-            width: 100%;
+            width: 80%; /* Ajusta el ancho del botón según sea necesario */
+            margin: 0 auto; /* Esto centrará el botón horizontalmente */
             padding: 15px;
             background: #333;
             color: #fff;
@@ -235,7 +236,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s ease, transform 0.3s ease;
-        }
+        }        
         .checkout-btn:hover {
             background: #555;
             transform: scale(1.05);
@@ -407,7 +408,7 @@
         }
         .checkout-button {
             display: block;
-            width: 100%;
+            width: 70%;
             padding: 10px;
             background-color: #333;
             color: #fff;
@@ -421,12 +422,14 @@
         .checkout-button:hover {
             background-color: #555;
         }
-        .edit-item-image{
-            width:30%;
-            height:30%
+        .edit-item-image {
+            width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
+            height: auto !important; /* Esto mantendrá la proporción de la imagen */
+            max-height: 200px !important; /* Establece una altura máxima para la imagen */
+            display: block !important; /* Asegura que la imagen se muestre como un bloque */
+            margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
         }
-
-
+        
     </style>
 </head>
 <body>
