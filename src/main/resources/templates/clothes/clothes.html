@@ -325,6 +325,83 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1002;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .modal.open {
+            display: flex;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-body {
+            width: 100%;
+        }
+        
+        /* Agrega estos estilos a tu sección de estilos */
+.modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-item-details {
+    display: flex;
+    gap: 20px;
+}
+
+.edit-item-details img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+#edit-modal {
+    z-index: 3000;
+}
+
+
     </style>
 </head>
 <body>
@@ -395,26 +472,27 @@
         <button class="checkout-btn">Tramitar Pedido</button>
     </div>
 
-        <!-- Modal de Edición -->
-        <div class="modal" id="edit-modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close-modal" id="close-modal">&times;</span>
-                <h2>Editar Artículo</h2>
-                <div class="edit-item-details">
-                    <img id="edit-item-image" src="" alt="">
-                    <div>
-                        <h3 id="edit-item-title"></h3>
-                        <p id="edit-item-price"></p>
-                        <label for="edit-item-size">Talla:</label>
-                        <select id="edit-item-size">
-                            <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
-                        </select>
-                    </div>
+    <!-- Modal de Edición -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-edit-modal">&times;</span>
+            <h2>Editar Artículo</h2>
+            <div class="edit-item-details">
+                <img id="edit-item-image" src="" alt="">
+                <div>
+                    <h3 id="edit-item-title"></h3>
+                    <p id="edit-item-price"></p>
+                    <label for="edit-item-size">Talla:</label>
+                    <select id="edit-item-size">
+                        <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
+                    </select>
                 </div>
-                <button id="save-changes-btn" style="margin-right: 10px;">Guardar cambios</button>
-                <button class="close-modal">Cancelar</button>
             </div>
+            <button id="save-changes-btn" style="margin-right: 10px;">Guardar cambios</button>
+            <button class="close-modal">Cancelar</button>
         </div>
+    </div>
+
 
     <script>
         const heroBanner = document.getElementById('hero-banner');
@@ -450,83 +528,86 @@
             }
         });
 
-        // Carrito de compras
-        const cartIcon = document.querySelector('.cart-icon');
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const closeCart = document.querySelector('.close-cart');
-        const editModal = document.getElementById('edit-modal');
-        const closeModal = document.getElementById('close-modal');
-        const saveChangesBtn = document.getElementById('save-changes-btn');
-        
-        cartIcon.addEventListener('click', () => {
-            cartSidebar.classList.toggle('open');
+// Carrito de compras
+const cartIcon = document.querySelector('.cart-icon');
+const cartSidebar = document.getElementById('cart-sidebar');
+const closeCart = document.querySelector('.close-cart');
+const editModal = document.getElementById('edit-modal');
+const closeEditModal = document.getElementById('close-edit-modal');
+const saveChangesBtn = document.getElementById('save-changes-btn');
+
+closeEditModal.addEventListener('click', () => {
+    editModal.style.display = 'none';
+});
+
+saveChangesBtn.addEventListener('click', () => {
+    // Lógica para guardar cambios
+});
+
+cartIcon.addEventListener('click', () => {
+    cartSidebar.classList.add('open');
+});
+
+closeCart.addEventListener('click', () => {
+    cartSidebar.classList.remove('open');
+});
+
+// Function to add item to cart
+function addToCart(clotheId, size = null) {
+    const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update cart UI based on response data
+        const cartItems = document.querySelector('.cart-items');
+        const cartItem = document.createElement('li');
+        cartItem.classList.add('cart-item');
+        cartItem.dataset.id = data.id;
+
+        cartItem.innerHTML = `
+            <img src="${data.image}" alt="${data.description}">
+            <div class="cart-item-details">
+                <h3 class="cart-item-title">${data.description}</h3>
+                <p class="cart-item-price">${data.price}€</p>
+                <p class="cart-item-size">${data.size ? `Talla: ${data.size}` : ''}</p>
+            </div>
+            <i class="fas fa-edit edit-item" style="margin-right:10px"></i>
+            <i class="fas fa-trash remove-from-cart"></i>
+        `;
+
+        cartItems.appendChild(cartItem);
+        cartSidebar.classList.add('open');
+
+        const removeFromCartButton = cartItem.querySelector('.remove-from-cart');
+        removeFromCartButton.addEventListener('click', () => {
+            removeFromCart(data.id);
+            cartItem.remove();
         });
 
-        closeCart.addEventListener('click', () => {
-            cartSidebar.classList.remove('open');
+        const editItemButton = cartItem.querySelector('.edit-item');
+        editItemButton.addEventListener('click', () => {
+            openEditModal(data);
         });
-
-        closeModal.addEventListener('click', () => {
-            editModal.style.display = 'none';
-        });
-
-        // Function to add item to cart
-        function addToCart(clotheId, size = null) {
-            const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update cart UI based on response data
-                const cartItems = document.querySelector('.cart-items');
-                const cartItem = document.createElement('li');
-                cartItem.classList.add('cart-item');
-                cartItem.dataset.id = data.id;
-
-                cartItem.innerHTML = `
-                    <img src="${data.image}" alt="${data.description}">
-                    <div class="cart-item-details">
-                        <h3 class="cart-item-title">${data.description}</h3>
-                        <p class="cart-item-price">$${data.price}</p>
-                        <p class="cart-item-size">${data.size ? `Talla: ${data.size}` : ''}</p>
-                    </div>
-                    <i class="fas fa-edit edit-item" style="margin-right:10px"></i>
-                    <i class="fas fa-trash remove-from-cart"></i>
-                `;
-
-                cartItems.appendChild(cartItem);
-                cartSidebar.classList.add('open');
-
-                const removeFromCartButton = cartItem.querySelector('.remove-from-cart');
-                removeFromCartButton.addEventListener('click', () => {
-                    removeFromCart(data.id);
-                    cartItem.remove();
-                });
-
-                const editItemButton = cartItem.querySelector('.edit-item');
-                editItemButton.addEventListener('click', () => {
-                    openEditModal(data);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 function openEditModal(data) {
     // Fill modal with item details
     document.getElementById('edit-item-image').src = data.image;
     document.getElementById('edit-item-title').innerText = data.description;
-    document.getElementById('edit-item-price').innerText = `$${data.price}`;
+    document.getElementById('edit-item-price').innerText = `${data.price}€`;
     
     const sizeSelect = document.getElementById('edit-item-size');
     sizeSelect.innerHTML = '';
     
-    // Check if availableSizes is defined and is an array
     if (Array.isArray(data.availableSizes)) {
         data.availableSizes.forEach(size => {
             const option = document.createElement('option');
@@ -542,52 +623,52 @@ function openEditModal(data) {
     }
 
     // Show modal
-    editModal.style.display = 'block';
+    editModal.style.display = 'flex';
 
     saveChangesBtn.onclick = () => {
         saveChanges(data.id, sizeSelect.value);
     };
 }
 
+function saveChanges(clotheId, newSize) {
+    const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update cart item in the UI
+        const cartItem = document.querySelector(`.cart-item[data-id="${clotheId}"]`);
+        cartItem.querySelector('.cart-item-size').innerText = `Talla: ${data.size}`;
 
-        function saveChanges(clotheId, newSize) {
-            const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update cart item in the UI
-                const cartItem = document.querySelector(`.cart-item[data-id="${clotheId}"]`);
-                cartItem.querySelector('.cart-item-size').innerText = `Talla: ${data.size}`;
+        // Close modal
+        editModal.style.display = 'none';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
-                // Close modal
-                editModal.style.display = 'none';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
+function removeFromCart(clotheId) {
+    const url = `/clothes/removeFromCart/${clotheId}`;
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(`Item ${clotheId} removed from cart`);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
-        function removeFromCart(clotheId) {
-            const url = `/clothes/removeFromCart/${clotheId}`;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(`Item ${clotheId} removed from cart`);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
     </script>
 </body>
 </html>
