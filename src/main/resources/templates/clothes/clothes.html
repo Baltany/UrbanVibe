@@ -285,52 +285,58 @@
             z-index: 1001;
             transition: right 0.3s ease;
         }
+        
         .modal.open {
             display: block;
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
-
         }
+        
         .modal-content {
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
         }
-        .modal-header {
+        
+        .modal-header,
+        .modal-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             padding: 15px;
             border-bottom: 1px solid #ddd;
         }
+        
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #ddd;
+        }
+        
         .modal-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
         }
-
-        /* no coge los estilos 
-        .close-edit-modal {
-            position: absolute;
-            top: 10px; 
-            right: 10px; 
-            font-size: 24px;
-            cursor: pointer;
-            color: #aaa;
-        } 
-        */
-
+        
         .close-modal {
             font-size: 24px;
             cursor: pointer;
             color: #888;
         }
+        
         .modal-body {
-            max-height: calc(100vh - 160px);
+            flex: 1;
             overflow-y: auto;
         }
+        
         .modal-form-group {
             margin-bottom: 20px;
         }
+        
         .modal-form-group label {
             font-size: 16px;
             font-weight: bold;
@@ -338,6 +344,7 @@
             display: block;
             color: #333;
         }
+        
         .modal-form-group input,
         .modal-form-group select {
             width: 100%;
@@ -346,17 +353,58 @@
             border-radius: 5px;
             font-size: 16px;
         }
+        
         .modal-form-group select {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
         }
+        
+        #edit-item-image {
+            width: 45%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        
+        #edit-item-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        #edit-item-price {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        #save-changes-btn,
+        #close-modal-exit {
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        #save-changes-btn:hover,
+        #close-modal-exit:hover {
+            background-color: #555;
+        }
+        
+        /* Cart Sidebar Styles */
         .cart-sidebar {
             position: fixed;
             top: 0;
             right: -100%;
-
-            
             width: 300px;
             height: 100%;
             background: #fff;
@@ -367,26 +415,30 @@
             flex-direction: column;
             justify-content: space-between;
         }
+        
         .cart-sidebar.open {
             right: 0;
         }
+        
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
             padding: 15px;
             border-bottom: 1px solid #ddd;
         }
+        
         .cart-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
         }
+        
         .close-cart {
             font-size: 24px;
             cursor: pointer;
         }
+        
         .cart-items {
             list-style: none;
             padding: 0;
@@ -394,6 +446,7 @@
             flex: 1;
             overflow-y: auto;
         }
+        
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -401,28 +454,34 @@
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
+        
         .cart-item img {
             width: 80px;
             height: 80px;
             object-fit: cover;
             margin-right: 15px;
         }
+        
         .cart-item-details {
-            flex: 1;
+
         }
+        
         .cart-item-title {
             font-size: 18px;
             margin: 0 0 5px 0;
             color: #333;
         }
+        
         .cart-item-price {
             font-size: 16px;
             color: #888;
         }
+        
         .checkout-section {
             padding: 15px;
             border-top: 1px solid #ddd;
         }
+        
         .checkout-button {
             display: block;
             width: 70%;
@@ -436,9 +495,11 @@
             text-align: center;
             text-decoration: none;
         }
+        
         .checkout-button:hover {
             background-color: #555;
         }
+
         .edit-item-image {
             width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
             height: auto !important; /* Esto mantendrá la proporción de la imagen */
@@ -456,10 +517,11 @@
             margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
         }
         .edit-item-details{
-            display: flex;
+            display: grid !important;
             justify-content: start;
             align-items: center;
             margin-bottom: 20px;/* Esto centrará la imagen horizontalmente */
+
                 }
 
         #edit-item-image{
@@ -518,10 +580,13 @@
             background-color: #555;
         } */
 
-
-
-        
+        .edith2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
+
 </head>
 <body>
     <header class="header">
@@ -592,25 +657,30 @@
     </div>
 
     <!-- Modal de Edición -->
-    <div class="modal" id="edit-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-edit-modal">&times;</span>
-            <h2>Editar Artículo</h2>
-            <div class="edit-item-details">
-                <img id="edit-item-image" src="" alt="">
-                <div>
-                    <h3 id="edit-item-title"></h3>
-                    <p id="edit-item-price"></p>
-                    <label for="edit-item-size">Talla:</label>
-                    <select id="edit-item-size">
-                        <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
-                    </select>
-                </div>
-            </div>
-            <button id="save-changes-btn" style="margin-right: 10px;">Guardar cambios</button>
-            <button class="close-modal" id="close-modal-exit">Cancelar</button>
+<!-- Modal de Edición -->
+<div class="modal" id="edit-modal">
+    <div class="modal-content">
+        <div class="cart-header">
+            <span class="cart-title">Editar Artículo</span>
+            <i class="fas fa-times close-cart" id="close-edit-modal"></i>
         </div>
+
+        <div class="cart-items edit-item-details">
+            <img id="edit-item-image" src="" alt="" class="edit-item-image">
+            <div>
+                <h3 id="edit-item-title" class="edit-item-title"></h3>
+                <p id="edit-item-price" class="edit-item-price"></p>
+                <label for="edit-item-size">Talla:</label>
+                <select id="edit-item-size">
+                    <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
+                </select>
+            </div>
+        </div>
+        <button id="save-changes-btn">Guardar cambios</button>
+        <button class="close-modal" id="close-modal-exit">Cancelar</button>
     </div>
+</div>
+
 
 
     <script>
