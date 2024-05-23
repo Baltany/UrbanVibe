@@ -818,14 +818,15 @@
         });
     }
 
+
     function openEditModal(data) {
         document.getElementById('edit-item-image').src = data.image;
         document.getElementById('edit-item-title').innerText = data.description;
         document.getElementById('edit-item-price').innerText = `${data.price}€`;
-        
+    
         const sizeSelect = document.getElementById('edit-item-size');
         sizeSelect.innerHTML = '';
-
+    
         if (Array.isArray(data.availableSizes)) {
             data.availableSizes.forEach(size => {
                 const option = document.createElement('option');
@@ -839,11 +840,11 @@
         } else {
             console.warn('availableSizes is not defined or not an array', data);
         }
-
+    
         editModal.style.display = 'flex';
         saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
     }
-
+    
     function saveChanges(clotheId, newSize) {
         const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
         fetch(url, {
@@ -864,7 +865,7 @@
             console.error('Error:', error);
         });
     }
-    
+
     function removeFromCart(clotheId) {
         const url = `/clothes/removeFromCart/${clotheId}`;
         fetch(url, {

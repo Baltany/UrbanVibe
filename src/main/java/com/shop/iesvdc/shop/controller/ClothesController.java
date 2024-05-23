@@ -115,4 +115,25 @@ public class ClothesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found");
         }
     }
+
+    /*Aquí no edita*/
+    @PostMapping("/updateCart/{id}")
+    public ResponseEntity<?> updateCart(@PathVariable Long id, @RequestParam String size) {
+        Optional<Clothes> optionalClothes = clothesRepo.findById(id);
+        if (optionalClothes.isPresent()) {
+            Clothes clothe = optionalClothes.get();
+            // Suponiendo que se está actualizando un artículo en el carrito,
+            // deberías tener una lógica para gestionar el carrito y actualizar el tamaño.
+            // Aquí se está simulando una respuesta para actualizar la UI.
+            return ResponseEntity.ok().body(Map.of(
+                "id", clothe.getId(),
+                "description", clothe.getDescription(),
+                "price", clothe.getPrice(),
+                "image", clothe.getImage(),
+                "size", size
+            ));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found");
+        }
+    }
 }
