@@ -34,6 +34,7 @@ public class User {
     @Column(length = 100)
     private String password;
 
+    //@Pattern(regexp = "[0-9]{8}[A-Za-z]", message = "DNI debe tener 8 dígitos seguidos de una letra")
     private String dni;
 
     private boolean enable;

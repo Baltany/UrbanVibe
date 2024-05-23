@@ -257,7 +257,6 @@ public class UserController {
     }
     
 
-
     @PostMapping("/edit/{id}")
     public String updateUser(@ModelAttribute("user") @Validated User updatedUser,
                              BindingResult bindingResult,
@@ -271,75 +270,63 @@ public class UserController {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
-
+    
             if (!existingUser.getMail().equals(updatedUser.getMail()) && userRepo.findByMail(updatedUser.getMail()).isPresent()) {
                 bindingResult.rejectValue("mail", "error.user", "Email en uso");
                 return "users/edit";
             }
-
+    
             if (!existingUser.getUsername().equals(updatedUser.getUsername()) && userRepo.findByUsername(updatedUser.getUsername()).isPresent()) {
                 bindingResult.rejectValue("username", "error.user", "Nombre de usuario en uso");
                 return "users/edit";
             }
-
     
-            // Actualizar el username solo si se proporciona un valor no nulo
+            if (!existingUser.getDni().equals(updatedUser.getDni()) && userRepo.findByDni(updatedUser.getDni()).isPresent()) {
+                bindingResult.rejectValue("dni", "error.user", "DNI en uso");
+                return "users/edit";
+            }
+    
             if (updatedUser.getUsername() != null) {
                 existingUser.setUsername(updatedUser.getUsername());
             }
-
+    
             if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
                 String password = updatedUser.getPassword();
-                if(!password.equals(existingUser.getPassword())){
+                if (!password.equals(existingUser.getPassword())) {
                     String encodingPass = new BCryptPasswordEncoder().encode(password);
                     existingUser.setPassword(encodingPass);
+                } else {
+                    existingUser.setPassword(updatedUser.getPassword());
                 }
-
-                existingUser.setPassword(updatedUser.getPassword());
             }
     
-            // Actualizar el name solo si se proporciona un valor no nulo
             if (updatedUser.getName() != null) {
                 existingUser.setName(updatedUser.getName());
             }
     
-            // Actualizar el surname solo si se proporciona un valor no nulo
             if (updatedUser.getSurname() != null) {
                 existingUser.setSurname(updatedUser.getSurname());
             }
     
-            // Actualizar el mail solo si se proporciona un valor no nulo
             if (updatedUser.getMail() != null) {
                 existingUser.setMail(updatedUser.getMail());
             }
     
-            // Actualizar el dni solo si se proporciona un valor no nulo
             if (updatedUser.getDni() != null) {
                 existingUser.setDni(updatedUser.getDni());
             }
     
-            // Actualizar la address solo si se proporciona un valor no nulo
             if (updatedUser.getAddress() != null) {
                 existingUser.setAddress(updatedUser.getAddress());
             }
     
-            // Actualizar la habilitación solo si se proporciona un valor no nulo
-            // if (updatedUser.getEnable() != null) {
-            //     existingUser.setEnable((boolean) updatedUser.getEnable());
-            // }
-    
-            // Limpiar y actualizar los roles del usuario
-            existingUser.getRolList().clear(); // Limpiar la lista de roles existente
+            existingUser.getRolList().clear();
     
             List<UserRol> updatedRoles = updatedUser.getRolList();
             if (updatedRoles != null && !updatedRoles.isEmpty()) {
-                existingUser.getRolList().addAll(updatedRoles); // Agregar los nuevos roles seleccionados
-            } else {
-                // Si no se selecciona ningún rol en el formulario, mantener los roles existentes
-                // Aquí no hacemos nada, ya que ya se limpió la lista de roles existente
+                existingUser.getRolList().addAll(updatedRoles);
             }
     
-            // Guardar el usuario actualizado en la base de datos
             userRepo.save(existingUser);
     
             return "redirect:/users";
@@ -348,6 +335,7 @@ public class UserController {
             return "error";
         }
     }
+    
     
 
     /*
