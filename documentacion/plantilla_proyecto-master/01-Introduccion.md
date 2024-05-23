@@ -24,8 +24,7 @@ Esta sería aproximadamente la planificación del proyecto:
 * 4º Semana 
   * He decidio hacer el proyecto con Spring-MVC por que lo veo a pesar de haber estado debatiendo entre hacer Spring de backend y usar React en el frontend,se me sugirío hacerlo entero con Spring y en un futuro ya usaré React para el frontend.
 * 5º Semana 
-  * Resultados iniciales (primeros “bocetos” del programa)
-  * Analizar si hace falta cambiar algo de los requisitos o tecnologías inicialmente planificadas y explicar si hay algún cambio porqué se ha hecho. Esto se plasma en la documentación
+  * Estoy terminando el backend y realizando varios ajustes en cuanto al frontend para hacerlo más visual e intuitivo
 * 6º Semana 
   * Resultados intermedios (demo funcional)
   * Primera revisión de la documentación para ver que estén todos los puntos necesarios 
