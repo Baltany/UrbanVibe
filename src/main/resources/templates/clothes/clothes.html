@@ -751,7 +751,7 @@
         const cartIcon = document.querySelector('.cart-icon');
         const cartSidebar = document.getElementById('cart-sidebar');
         const closeCart = document.querySelector('.close-cart');
-        const cartCounter = document.querySelector('.cart-counter'); // Nuevo
+        const cartCounter = document.querySelector('.cart-counter'); // Contador
 
     
         const editModal = document.getElementById('edit-modal');
@@ -853,11 +853,15 @@
                 });
             });
         }
+
+        
     
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             renderCartItems();
+            // Actualizar el contador del carrito
+            updateCartCounter(getCartItemCount());
         }
     
         function openEditModal(data) {
