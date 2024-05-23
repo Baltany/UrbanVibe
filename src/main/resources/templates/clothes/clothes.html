@@ -589,6 +589,23 @@
             
         
         }
+        .cart-counter {
+            display: none; /* Ocultar el contador por defecto */
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #f44336; /* Color de fondo rojo */
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
+            font-size: 14px; /* Aumentar el tamaño de la fuente */
+            font-weight: bold; /* Hacer el texto en negrita */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+        }
+
+        .cart-icon .cart-counter {
+            display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
+        }
     </style>
 
 </head>
@@ -598,14 +615,16 @@
             <ul class="nav-list">
                 <li><a href="#">Hombre</a></li>
                 <li><a href="#">Mujer</a></li>
-                <li><a href="#">Niños</a></li>
+                <li><a href="#">Accesorios</a></li>
                 <li><a href="#">Nueva Colección</a></li>
             </ul>
             <div class="navbar-icons">
                 <span class="company-name">UrbanVibe</span>
                 <i class="fas fa-search"></i>
                 <input type="text" class="search-input" placeholder="Buscar...">
-                <i class="fas fa-shopping-cart cart-icon"></i>
+                <i class="fas fa-shopping-cart cart-icon">
+                    <span class="cart-counter">0</span> <!--Contador-->
+                </i>
             </div>
         </nav>
     </header>
@@ -731,6 +750,8 @@
         const cartIcon = document.querySelector('.cart-icon');
         const cartSidebar = document.getElementById('cart-sidebar');
         const closeCart = document.querySelector('.close-cart');
+        const cartCounter = document.querySelector('.cart-counter'); // Nuevo
+
     
         const editModal = document.getElementById('edit-modal');
         const closeEditModalIcon = document.getElementById('close-edit-modal');
@@ -760,6 +781,16 @@
         // Inicializar el carrito desde el localStorage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
+        function getTotalCartItems() {
+            return cart.reduce((total, item) => total + 1, 0);
+        }
+
+        // Actualizar el contador del carrito
+        function updateCartCounter() {
+            const totalItems = getTotalCartItems();
+            cartCounter.textContent = totalItems > 0 ? totalItems : '';
+        }
+
         // Function to add item to cart
         function addToCart(clotheId, size = null) {
             const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
@@ -782,7 +813,8 @@
                 cart.push(product);
                 localStorage.setItem('cart', JSON.stringify(cart));
                 renderCartItems();
-                cartSidebar.classList.add('open'); // Abrir el carrito
+                cartSidebar.classList.add('open'); 
+                updateCartCounter();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -893,6 +925,7 @@
     
         // Renderizar los elementos del carrito al cargar la página
         renderCartItems();
+        updateCartCounter();
     </script>
     
 </body>
