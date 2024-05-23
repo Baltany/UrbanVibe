@@ -22,3 +22,7 @@ pero no se hasta que punto lo estoy haciendo bien
 12.CRUD usuarios no lo hace
 
 13.Como hacer para ver los pedidos de cada usuario
+
+14.No muestra el la talla al editar desde el pedido customer
+
+15.No hace el crud completo de la ropa dentro del admin en pedido
