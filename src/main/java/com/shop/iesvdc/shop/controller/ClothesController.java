@@ -1,5 +1,6 @@
 package com.shop.iesvdc.shop.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.iesvdc.shop.model.Clothes;
+import com.shop.iesvdc.shop.model.Size;
 import com.shop.iesvdc.shop.repos.CategoryRepo;
 import com.shop.iesvdc.shop.repos.ClothesRepo;
 import com.shop.iesvdc.shop.repos.SizeRepo;
@@ -82,17 +84,15 @@ public class ClothesController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable @NonNull Long id, Model model) {
+    public ResponseEntity<Map<String, Object>> editForm(@PathVariable @NonNull Long id) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
-        List<Clothes> clothes = clothesRepo.findAll();
-
         if (clothe.isPresent()) {
-            model.addAttribute("clothe", clothe.get());
-            model.addAttribute("clothes", clothes);
-            return "clothes/edit";
+            Map<String, Object> response = new HashMap<>();
+            response.put("clothe", clothe.get());
+            response.put("availableSizes", sizeRepo.findAll());
+            return ResponseEntity.ok(response);
         } else {
-            model.addAttribute("message", "Clothes not found");
-            return "error";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
 
@@ -116,24 +116,24 @@ public class ClothesController {
         }
     }
 
-    /*Aquí no edita*/
     @PostMapping("/updateCart/{id}")
-    public ResponseEntity<?> updateCart(@PathVariable Long id, @RequestParam String size) {
+    public ResponseEntity<Map<String, Object>> updateCart(@PathVariable Long id, @RequestParam String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
         if (optionalClothes.isPresent()) {
             Clothes clothe = optionalClothes.get();
-            // Suponiendo que se está actualizando un artículo en el carrito,
-            // deberías tener una lógica para gestionar el carrito y actualizar el tamaño.
-            // Aquí se está simulando una respuesta para actualizar la UI.
-            return ResponseEntity.ok().body(Map.of(
+            List<Size> newSizeList = sizeRepo.findBySize(size); // Asumiendo que tienes un método en SizeRepo para encontrar una talla por su nombre
+            clothe.setSizeList(newSizeList); // Actualizar la lista de tallas
+            clothesRepo.save(clothe); // Guardar cambios en la base de datos
+            return ResponseEntity.ok(Map.of(
                 "id", clothe.getId(),
                 "description", clothe.getDescription(),
                 "price", clothe.getPrice(),
                 "image", clothe.getImage(),
-                "size", size
+                "size", clothe.getSizeList() // Asegúrate de devolver la lista de tallas actualizada
             ));
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
+    
 }

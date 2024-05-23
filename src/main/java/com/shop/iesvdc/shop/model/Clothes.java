@@ -76,4 +76,10 @@ public class Clothes {
                 '}';
     }
 
+    public void setSizeList(List<Size> sizeList) {
+        this.sizeList.clear();
+        this.sizeList.addAll(sizeList);
+    }
+    
+
 }

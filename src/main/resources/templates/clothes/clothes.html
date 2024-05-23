@@ -865,6 +865,7 @@
             console.error('Error:', error);
         });
     }
+    
 
     function removeFromCart(clotheId) {
         const url = `/clothes/removeFromCart/${clotheId}`;
@@ -882,6 +883,32 @@
             console.error('Error:', error);
         });
     }
+
+    // Función para abrir el modal de edición con datos de la ropa y tallas
+    function fetchAndOpenEditModal(clotheId) {
+        const url = `/clothes/edit/${clotheId}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetch response data:', data); // Log para depuración
+                if (data.clothe) {
+                    openEditModal(data);
+                } else {
+                    console.error('Clothes not found:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Ejemplo de uso, cuando se haga click en el botón de editar
+    document.querySelectorAll('.edit-item').forEach(button => {
+        button.addEventListener('click', () => {
+            const clotheId = button.closest('.cart-item').dataset.id;
+            fetchAndOpenEditModal(clotheId);
+        });
+    });
 
     </script>
 </body>
