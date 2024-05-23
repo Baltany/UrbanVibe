@@ -517,10 +517,10 @@
             margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
         }
         .edit-item-details{
-            display: grid !important;
+            display: block !important;
             justify-content: start;
             align-items: center;
-            margin-bottom: 20px;/* Esto centrará la imagen horizontalmente */
+            margin-top: 20px;/* Esto centrará la imagen horizontalmente */
 
                 }
 
@@ -584,6 +584,10 @@
             font-size: 24px;
             font-weight: bold;
             color: #333;
+        }
+        .show-clothes{
+            display:block;
+            margin:10px;
         }
     </style>
 
@@ -667,7 +671,7 @@
 
         <div class="cart-items edit-item-details">
             <img id="edit-item-image" src="" alt="" class="edit-item-image">
-            <div>
+            <div class="show-clothes">
                 <h3 id="edit-item-title" class="edit-item-title"></h3>
                 <p id="edit-item-price" class="edit-item-price"></p>
                 <label for="edit-item-size">Talla:</label>
