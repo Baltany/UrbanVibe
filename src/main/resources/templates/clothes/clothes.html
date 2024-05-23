@@ -640,7 +640,8 @@
                              th:attr="onclick=|addToCart(${clothe.id})|">Talla única</div>
                         <div th:each="size : ${clothe.sizeList}" th:unless="${clothe.sizeList.size() == 0}" class="sizes" 
                              th:text="${size.size}" th:data-clothe-id="${clothe.id}" th:data-size="${size.size}" 
-                             th:attr="onclick=|addToCart(${clothe.id}, '${size.size}')|"></div>
+                             th:attr="onclick=|addToCart(${clothe.id}, '${size.size}')|">
+                        </div>
                     </div>
                 </div>
                 <h2 class="product-title" th:text="${clothe.description}"></h2>
@@ -704,6 +705,7 @@
             
         </div>
     </div>
+
 
 
 
@@ -820,22 +822,27 @@
 
 
     function openEditModal(data) {
+        console.log("openEditModal data:", data); // Registro de depuración
+    
         document.getElementById('edit-item-image').src = data.image;
         document.getElementById('edit-item-title').innerText = data.description;
         document.getElementById('edit-item-price').innerText = `${data.price}€`;
-    
+        
         const sizeSelect = document.getElementById('edit-item-size');
         sizeSelect.innerHTML = '';
     
-        if (Array.isArray(data.availableSizes)) {
+        // Verificar si availableSizes está definido y es un array
+        if (data.availableSizes && Array.isArray(data.availableSizes)) {
             data.availableSizes.forEach(size => {
                 const option = document.createElement('option');
-                option.value = size;
-                option.innerText = size;
-                if (size === data.size) {
+                option.value = size.size;
+                option.innerText = size.size;
+                sizeSelect.appendChild(option);
+    
+                // Marcar la talla preseleccionada
+                if (data.size && size.size === data.size) {
                     option.selected = true;
                 }
-                sizeSelect.appendChild(option);
             });
         } else {
             console.warn('availableSizes is not defined or not an array', data);
@@ -844,6 +851,9 @@
         editModal.style.display = 'flex';
         saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
     }
+    
+    
+    
     
     function saveChanges(clotheId, newSize) {
         const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
@@ -890,8 +900,8 @@
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('Fetch response data:', data); // Log para depuración
-                if (data.clothe) {
+                console.log('Fetch response data:', data); // Registro de depuración
+                if (data) {
                     openEditModal(data);
                 } else {
                     console.error('Clothes not found:', data.message);
@@ -901,7 +911,7 @@
                 console.error('Error:', error);
             });
     }
-
+    
     // Ejemplo de uso, cuando se haga click en el botón de editar
     document.querySelectorAll('.edit-item').forEach(button => {
         button.addEventListener('click', () => {
@@ -909,6 +919,9 @@
             fetchAndOpenEditModal(clotheId);
         });
     });
+    
+    
+
 
     </script>
 </body>

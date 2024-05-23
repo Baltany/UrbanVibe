@@ -76,10 +76,12 @@ public class Clothes {
                 '}';
     }
 
-    public void setSizeList(List<Size> sizeList) {
-        this.sizeList.clear();
-        this.sizeList.addAll(sizeList);
+    public List<Size> getSizes() {
+        return this.sizeList;
     }
     
+    public void setSizes(List<Size> sizeList) {
+        this.sizeList = sizeList;
+    }
 
 }
