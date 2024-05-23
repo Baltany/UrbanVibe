@@ -16,17 +16,13 @@ Esta sería aproximadamente la planificación del proyecto:
   * En la primera semana de trabajo he esquematizado todo el proyecto,he buscado otras ideas de proyecto,además de hacer un diagrama UML de lo que a mi me gustaría que fuera finalmente este proyecto.
   * He dedicidido hacer el proyecto en spring debido a que he notado un importante interés en esta tecnología por las empresas que actualmente buscan desarrolladores de este estilo.
 * 2º Semana 
-  * Título
-  * Objetivos iniciales (convertimos los deseos o características en requisitos)
-  * Breve resumen del mismo (esta semana debe estar subido al repositorio en nuestro GitLab)
-  * Investigación de estudios y proyectos similares (lo que llamamos “estado del arte”)
+  * He intentado organizarme cada semana de proyecto para establecerme unos objetivos semanales
+  * Breve esquema tanto de base de datos como diagramas
+  * He estado investigando páginas similares:Pull&Bear,Bershka,Zara,Mango...
 * 3º Semana
-  * Investigación de estudios y proyectos similares  (plasmarlo en la documentación)
-  * Introducción (generar este apartado en la documentación)
-  * Objetivos definitivos (generar este apartado en la documentación), exactamente qué estamos haciendo
-  * Material y recursos a utilizar (recoger detalladamente todos los recursos que se disponen y/o necesitarán en la documentación)
+  * He estado investigando más estilos para mi futura página de ropa además de estar mirando la posibilidad de añadir un bot en python para simular un atención al cliente
 * 4º Semana 
-  * Métodos seguidos en el proceso, metodologías, tecnologías (ej. porqué usar un lenguaje o framework concreto y no otro)
+  * He decidio hacer el proyecto con Spring-MVC por que lo veo a pesar de haber estado debatiendo entre hacer Spring de backend y usar React en el frontend,se me sugirío hacerlo entero con Spring y en un futuro ya usaré React para el frontend.
 * 5º Semana 
   * Resultados iniciales (primeros “bocetos” del programa)
   * Analizar si hace falta cambiar algo de los requisitos o tecnologías inicialmente planificadas y explicar si hay algún cambio porqué se ha hecho. Esto se plasma en la documentación
