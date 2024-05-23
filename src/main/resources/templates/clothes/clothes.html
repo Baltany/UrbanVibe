@@ -549,7 +549,6 @@
         #close-modal-exit {
             background-color: #333;
             color: #fff;
-            margin-right: 10px;
             padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
             border: none;
             border-radius: 5px;
@@ -589,6 +588,18 @@
             display:block;
             margin:10px;
             margin-left:15%;
+        }
+
+        .edit-buttons{
+            display: flex;
+            margin: 0 -2rem;
+            align-items:center;
+
+
+        }
+
+        .tusmuertos{
+            margin: 0.8rem 0.2rem 0.2rem !important;
         }
     </style>
 
@@ -679,12 +690,15 @@
                 <select id="edit-item-size">
                     <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
                 </select>
+                <center>
+                <div class="edit-buttons">
+                    <button id="save-changes-btn" class="tusmuertos">Guardar cambios</button>
+                    <button class="close-modal tusmuertos" id="close-modal-exit">Cancelar</button>
+                </div>
+                </center>
             </div>
         </div>
-        <div class="">
-            <button id="save-changes-btn">Guardar cambios</button>
-            <button class="close-modal" id="close-modal-exit">Cancelar</button>
-        </div>
+        
 
     </div>
 </div>
