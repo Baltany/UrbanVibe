@@ -611,6 +611,7 @@
 
 </head>
 <body>
+    <div th:fragment="menu-header">
     <header class="header">
         <nav class="navbar">
             <ul class="nav-list">
@@ -629,6 +630,9 @@
             </div>
         </nav>
     </header>
+    </div>
+
+
     <main class="main-content">
         <section class="hero-banner" id="hero-banner">
             <h1 class="hero-title">Discover our New Collection</h1>
@@ -636,7 +640,9 @@
         </section>
         
         <section class="featured-products">
-            <div th:each="clothe : ${clothes}" class="product-card" th:attr="onclick=|window.location.href='/clothes/details/' + ${clothe.id}|">
+            <!--Si pongo esto en el div=th:attr="onclick=|window.location.href='/clothes/details/' + ${clothe.id}|"
+                no funciona el añadir al carrito-->
+            <div th:each="clothe : ${clothes}" class="product-card" >
                 <div class="image-container">
                     <img th:src="@{${clothe.image}}" th:alt="${clothe.description}">
                     <div class="size-container">
