@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UrbanVibe</title>
+    <link rel="icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    <style>
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 5.5%;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-list li {
+            margin-right: 20px;
+        }
+        .nav-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .company-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            text-align: center;
+            margin-right: 10px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .navbar-icons i {
+            font-size: 20px;
+            color: #fff;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .search-input {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 35px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            width: 0;
+            opacity: 0;
+            transition: width 0.4s ease, opacity 0.4s ease;
+        }
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .company-name {
+                margin-bottom: 10px;
+            }
+            .navbar-icons {
+                margin-top: 20px;
+            }
+            .navbar-icons i {
+                margin-right: 8px;
+            }
+            .product-card {
+                width: 100%;
+            }
+        }
+
+        .cart-counter {
+            display: none; /* Ocultar el contador por defecto */
+            font-family: 'Dancing Script', cursive;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: rgb(245, 245, 220); /* Color de fondo rojo */
+            color: black;
+            border-radius: 50%;
+            padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
+            font-size: 14px; /* Aumentar el tamaño de la fuente */
+            font-weight: bold; /* Hacer el texto en negrita */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+        }
+
+        .cart-icon .cart-counter {
+            display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="#">Hombre</a></li>
+                <li><a href="#">Mujer</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Nueva Colección</a></li>
+            </ul>
+            <div class="navbar-icons">
+                <span class="company-name">UrbanVibe</span>
+                <i class="fas fa-search"></i>
+                <input type="text" class="search-input" placeholder="Buscar...">
+                <i class="fas fa-shopping-cart cart-icon">
+                    <span class="cart-counter">0</span> <!--Contador-->
+                </i>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="details-container">
+            <div class="details-left">
+                <img th:src="@{${clothe.image}}" alt="Imagen de la ropa" class="details-image">
+            </div>
+            <div class="details-right">
+                <h1 th:text="${clothe.description}">Descripción</h1>
+                <p><strong>Precio:</strong> <span th:text="${clothe.price} + '€'">0.00€</span></p>
+                <p><strong>Color:</strong> <span th:text="${clothe.color}">Color</span></p>
+                <p><strong>Tallas:</strong>
+                    <ul>
+                        <li th:each="size : ${clothe.sizeList}" th:text="${size.size}">Talla</li>
+                    </ul>
+                </p>
+                <p><strong>Categorías:</strong>
+                    <ul>
+                        <li th:each="category : ${clothe.categoryList}" th:text="${category.category}">Categoría</li>
+                    </ul>
+                </p>
+                <form th:action="@{/details/{id}(id=${clothe.id})}" method="post">
+                    <label for="description">Descripción:</label>
+                    <input type="text" id="description" name="description" th:value="${clothe.description}">
+                    
+                    <label for="price">Precio:</label>
+                    <input type="number" id="price" name="price" th:value="${clothe.price}">
+                    
+                    <label for="size">Tallas:</label>
+                    <input type="text" id="size" name="size" th:value="${clothe.sizeList[0].size}"> <!-- Example of using first size in list -->
+                    
+                    <button type="submit">Añadir al carrito</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

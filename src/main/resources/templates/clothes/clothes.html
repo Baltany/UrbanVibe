@@ -636,7 +636,7 @@
         </section>
         
         <section class="featured-products">
-            <div th:each="clothe : ${clothes}" class="product-card">
+            <div th:each="clothe : ${clothes}" class="product-card" th:attr="onclick=|window.location.href='/clothes/details/' + ${clothe.id}|">
                 <div class="image-container">
                     <img th:src="@{${clothe.image}}" th:alt="${clothe.description}">
                     <div class="size-container">

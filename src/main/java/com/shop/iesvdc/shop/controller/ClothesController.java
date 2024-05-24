@@ -128,6 +128,8 @@ public class ClothesController {
         }
     }
 
+
+    //posible cambio a Size size
     @PostMapping("/updateCart/{id}")
     public ResponseEntity<Map<String, Object>> updateCart(@PathVariable Long id, @RequestParam String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
@@ -145,6 +147,35 @@ public class ClothesController {
             ));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
+        }
+    }
+
+
+    @GetMapping("/details/{id}")
+    public String seeClothesDetails(@PathVariable Long id, Model model) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            model.addAttribute("clothe", clothe.get());
+            return "clothes/details";
+        } else {
+            return "redirect:/clothes";
+        }
+    }
+
+
+    @PostMapping("/details/{id}")
+    public String updateClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            Clothes existingClothes = clothe.get();
+            // Actualiza los detalles de la ropa
+            existingClothes.setDescription(updatedClothes.getDescription());
+            existingClothes.setPrice(updatedClothes.getPrice());
+            existingClothes.setSizeList(updatedClothes.getSizeList());
+            clothesRepo.save(existingClothes);
+            return "redirect:/details/" + id;
+        } else {
+            return "redirect:/clothes";
         }
     }
     
