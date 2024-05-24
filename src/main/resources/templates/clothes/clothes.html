@@ -642,7 +642,7 @@
         <section class="featured-products">
             <!--Si pongo esto en el div=th:attr="onclick=|window.location.href='/clothes/details/' + ${clothe.id}|"
                 no funciona el añadir al carrito-->
-            <div th:each="clothe : ${clothes}" class="product-card" >
+            <div th:each="clothe : ${clothes}" class="product-card" th:attr="onclick=|redirectToDetails(event, '${clothe.id}')|">
                 <div class="image-container">
                     <img th:src="@{${clothe.image}}" th:alt="${clothe.description}">
                     <div class="size-container">
@@ -752,6 +752,7 @@
                 searchInput.classList.remove('active');
             }
         });
+
     
         // Carrito de compras
         const cartIcon = document.querySelector('.cart-icon');
@@ -798,6 +799,8 @@
             cartCounter.textContent = totalItems > 0 ? totalItems : '';
         }
 
+
+
         // Function to add item to cart
         function addToCart(clotheId, size = null) {
             const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
@@ -819,45 +822,77 @@
                 };
                 cart.push(product);
                 localStorage.setItem('cart', JSON.stringify(cart));
-                renderCartItems();
-                cartSidebar.classList.add('open'); 
-                updateCartCounter();
+                if (event.target.classList.contains('sizes')) {
+                    // Si se hace clic en la talla, hacer algo aquí
+                    // Por ejemplo, redirigir a una página específica
+                    window.location.href = `clothes/details/${data.id}`;
+                }else{
+                    renderCartItems();
+                    cartSidebar.classList.add('open'); 
+                    updateCartCounter();
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         }
+
+
+        // document.querySelectorAll('.cart-items').forEach(card => {
+        //     card.addEventListener('click', event => {
+        //         const productId = card.clotheId;
+        //         const name = card.querySelector('.cart-item-title').textContent;
+        //         const price = card.querySelector('.cart-item-price').textContent.replace('€', '');
+
+        //         if (event.target.classList.contains('sizes')) {
+        //             // Añadir al carrito
+        //             const size = event.target.textContent;
+        //             addToCart(name, size, price);
+        //             event.stopPropagation(); // Prevenir que el click se propague al contenedor de la tarjeta
+        //         } else {
+        //             // Abrir detalles del producto
+        //             window.location.href = `clothes/details/${productId}`;
+        //         }
+        //     });
+        // });
     
+
         function renderCartItems() {
             const cartItems = document.querySelector('.cart-items');
-            cartItems.innerHTML = '';
-            cart.forEach((item, index) => {
-                const cartItem = document.createElement('li');
-                cartItem.classList.add('cart-item');
-                cartItem.dataset.id = item.id;
-                cartItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.description}">
-                    <div class="cart-item-details">
-                        <h3 class="cart-item-title">${item.description}</h3>
-                        <p class="cart-item-price">${item.price}€</p>
-                        <p class="cart-item-size">${item.size ? `Talla: ${item.size}` : ''}</p>
-                    </div>
-                    <i class="fas fa-edit edit-item" style="margin-right:10px"></i>
-                    <i class="fas fa-trash remove-from-cart"></i>
-                `;
-    
-                cartItems.appendChild(cartItem);
-    
-                const removeFromCartButton = cartItem.querySelector('.remove-from-cart');
-                removeFromCartButton.addEventListener('click', () => {
-                    removeFromCart(index);
+            if(event.target.classList.contains('sizes')){
+                cartItems.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('li');
+                    cartItem.classList.add('cart-item');
+                    cartItem.dataset.id = item.id;
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.description}">
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">${item.description}</h3>
+                            <p class="cart-item-price">${item.price}€</p>
+                            <p class="cart-item-size">${item.size ? `Talla: ${item.size}` : ''}</p>
+                        </div>
+                        <i class="fas fa-edit edit-item" style="margin-right:10px"></i>
+                        <i class="fas fa-trash remove-from-cart"></i>
+                    `;
+        
+                    cartItems.appendChild(cartItem);
+        
+                    const removeFromCartButton = cartItem.querySelector('.remove-from-cart');
+                    removeFromCartButton.addEventListener('click', () => {
+                        removeFromCart(index);
+                    });
+        
+                    const editItemButton = cartItem.querySelector('.edit-item');
+                    editItemButton.addEventListener('click', () => {
+                        openEditModal(item);
+                    });
                 });
-    
-                const editItemButton = cartItem.querySelector('.edit-item');
-                editItemButton.addEventListener('click', () => {
-                    openEditModal(item);
-                });
-            });
+            }else{
+                window.location.href = `clothes/details/${clotheId}`;
+
+            }
+            
         }
 
         
