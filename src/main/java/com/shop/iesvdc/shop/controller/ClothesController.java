@@ -113,9 +113,6 @@ public class ClothesController {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
         if (optionalClothes.isPresent()) {
             Clothes clothe = optionalClothes.get();
-            // Add logic to add the clothe to the cart
-            // You may need to add additional attributes to the clothe or create a CartItem object
-            // Example response, adjust based on your CartItem and Cart implementation
             return ResponseEntity.ok().body(Map.of(
                 "id", clothe.getId(),
                 "description", clothe.getDescription(),
@@ -143,7 +140,7 @@ public class ClothesController {
                 "description", clothe.getDescription(),
                 "price", clothe.getPrice(),
                 "image", clothe.getImage(),
-                "size", clothe.getSizeList() // Asegúrate de devolver la lista de tallas actualizada
+                "size", clothe.getSizeList()
             ));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));

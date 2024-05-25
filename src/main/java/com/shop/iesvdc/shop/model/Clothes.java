@@ -53,6 +53,9 @@ public class Clothes {
     @ManyToMany
     private List<Category> categoryList;
 
+    @ManyToMany
+    private List<Sex> sexList;
+
     @ManyToOne
     @JoinColumn(name = "clothes_purchase_order_id")
     @JsonBackReference
