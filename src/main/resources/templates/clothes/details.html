@@ -114,8 +114,15 @@
             background-color: green;
             cursor: default;
         }
-        .subtitle{
+
+        .subtitle {
             margin-top: -1rem;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            display: none;
         }
 
     </style>
@@ -134,17 +141,18 @@
                     <h1 th:text="${clothe.description}">Descripción</h1>
                     <p class="subtitle"><strong><span th:text="${clothe.price} + '€'">0.00€</span></strong></p>
                     <p>Stock:<strong><span th:text="${clothe.stock} + ' unidades'"></span></strong></p>
-                    <p> <span><strong>Categoría</strong></span>
+                    <p><span><strong>Categoría</strong></span>
                         <ul>
                             <li th:each="category : ${clothe.categoryList}" th:text="${category.category}">Categoría</li>
                         </ul>
                     </p>
                     <p>
                         <span><strong>Tallas disponibles</strong></span>
+                        <p class="error-message" id="error-message">Por favor, selecciona una talla.</p>
                         <ul>
-                            <li th:each="size : ${clothe.sizeList}" 
-                                th:text="${size.size}" 
-                                class="size-option" 
+                            <li th:each="size : ${clothe.sizeList}"
+                                th:text="${size.size}"
+                                class="size-option"
                                 th:attr="data-size=${size.size}">Talla</li>
                         </ul>
                     </p>
@@ -157,11 +165,13 @@
         document.addEventListener("DOMContentLoaded", function() {
             const addToCartButton = document.getElementById("addToCartButton");
             const sizeOptions = document.querySelectorAll(".size-option");
+            const errorMessage = document.getElementById("error-message");
 
             sizeOptions.forEach(option => {
                 option.addEventListener("click", function() {
                     sizeOptions.forEach(opt => opt.classList.remove("active"));
                     option.classList.add("active");
+                    errorMessage.style.display = 'none';
                 });
             });
 
@@ -170,16 +180,38 @@
                 const selectedSize = document.querySelector(".size-option.active");
                 if (selectedSize) {
                     const size = selectedSize.dataset.size;
+                    const clothe = {
+                        description: document.querySelector('.details-right h1').innerText,
+                        price: document.querySelector('.subtitle strong span').innerText,
+                        size: size
+                    };
+                    
+                    // Guardar en localStorage
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart.push(clothe);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
                     console.log(`Añadiendo al carrito: Talla ${size}`);
-                    // Aquí puedes realizar una petición AJAX para añadir el artículo al carrito
-                    // Luego, si la petición es exitosa, puedes cambiar el texto del botón a "Añadido!"
                     addToCartButton.innerText = "Añadido!";
                     addToCartButton.classList.add("added");
                     addToCartButton.disabled = true;
+
+                    // Redirigir y abrir el carrito
+                    setTimeout(() => {
+                        window.location.href = "/clothes?openCart=true";
+                    }, 500); // Simula el tiempo de espera de la petición AJAX
                 } else {
-                    alert("Por favor, selecciona una talla.");
+                    errorMessage.style.display = 'block';
                 }
             });
+
+            // Abrir carrito si el parámetro openCart está en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('openCart') === 'true') {
+                // Lógica para abrir el carrito
+                console.log("Carrito abierto");
+                // Aquí se puede ejecutar el código que abre el carrito
+            }
         });
     </script>
 </body>
