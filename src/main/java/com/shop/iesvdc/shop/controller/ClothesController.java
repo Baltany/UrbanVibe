@@ -19,6 +19,7 @@ import com.shop.iesvdc.shop.model.Clothes;
 import com.shop.iesvdc.shop.model.Size;
 import com.shop.iesvdc.shop.repos.CategoryRepo;
 import com.shop.iesvdc.shop.repos.ClothesRepo;
+import com.shop.iesvdc.shop.repos.SexRepo;
 import com.shop.iesvdc.shop.repos.SizeRepo;
 
 import lombok.NonNull;
@@ -33,6 +34,9 @@ public class ClothesController {
 
     @Autowired
     private CategoryRepo categoryRepo;
+
+    @Autowired
+    private SexRepo sexRepo;
 
     @Autowired
     private ClothesRepo clothesRepo;

@@ -46,7 +46,8 @@ public class SecurityConf {
     public SecurityFilterChain filter(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/webjars/**", "/img/**", "/js/**", "/register/**", "/ayuda/**", "/acerca/**", "/login", "/denegado", "/inicio","/menu","/users/signup","/index","/clothes/**","/clothes/details/**")
+                        .requestMatchers("/webjars/**", "/img/**", "/js/**", "/register/**", "/ayuda/**", "/acerca/**", "/login", "/denegado", "/inicio",
+                        "/menu","/users/signup","/index","/clothes/**","/clothes/details/**","/clothes/men","/clothes/women","/clothes/fittings")
                         .permitAll()
                         .requestMatchers("/users/**", "/users/*/**", "/users/*/*/**","/orders/**","/orders/*/**","/orders/*/*/**")
                         .hasAuthority("Admin")

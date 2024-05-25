@@ -8,6 +8,11 @@ INSERT INTO `size` (`size`) VALUES ('XL');
 INSERT INTO `size` (`size`) VALUES ('XXL');
 INSERT INTO `size` (`size`) VALUES ('TALLA UNICA');
 
+--Insertar ropa por sexo
+INSERT INTO `sex` (`sex`) VALUES ('UNISEX');
+INSERT INTO `sex` (`sex`) VALUES ('MEN');
+INSERT INTO `sex` (`sex`) VALUES ('WOMEN');
+
 
 
 -- Insertar datos en la tabla 'user' (no tiene dependencias)
@@ -35,6 +40,12 @@ INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Hoddie', 'Black', '/img/sudaderaFemVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (10, 10, 'Iphone XR Phonecase', 'Black', '/img/PhoneCaseVibe.jpeg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Jeans', 'Black', '/img/PantalonBlancoVibe.jpeg');
+
+-- Insertar lista de ropa por sexo
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('1', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('2', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('3', '3');
+
 
 -- Insertar datos en la tabla 'purchase_order' (depende de 'user')
 INSERT INTO `purchase_order` (`total_price`, `user_purchase_id`, `order_date`) VALUES (59.98, 1, '2024-04-02');

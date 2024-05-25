@@ -52,17 +52,6 @@ public class MainController {
 
 
 
-    // @GetMapping("/login")
-    // public String showLogin() {
-    //     return "login";
-    // }
-    
-    // @GetMapping("/signup")
-    // public String showSignup() {
-    //     return "signup";
-    // }
-
-
     /*Si el usuario no tiene los permisos necesarios,lo redirigimos aquí */
     /*Cambiar nombre del endpoint */
     @GetMapping("/denegado")
