@@ -26,3 +26,5 @@ pero no se hasta que punto lo estoy haciendo bien
 14.No muestra el la talla al editar desde el pedido customer
 
 15.No hace el crud completo de la ropa dentro del admin en pedido
+
+16. Como saldrias de details.html?
