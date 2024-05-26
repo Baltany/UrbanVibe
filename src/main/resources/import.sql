@@ -7,6 +7,9 @@ INSERT INTO `size` (`size`) VALUES ('L');
 INSERT INTO `size` (`size`) VALUES ('XL');
 INSERT INTO `size` (`size`) VALUES ('XXL');
 INSERT INTO `size` (`size`) VALUES ('TALLA UNICA');
+INSERT INTO `size` (`size`) VALUES ('36');
+INSERT INTO `size` (`size`) VALUES ('38');
+INSERT INTO `size` (`size`) VALUES ('42');
 
 --Insertar ropa por sexo
 INSERT INTO `sex` (`sex`) VALUES ('MEN');
@@ -114,7 +117,28 @@ INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (5, 2);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (6, 7);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (7, 8);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (8, 5);
-
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (9, 2);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (9, 3);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (10, 2);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (10, 3);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (10, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (11, 1);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (11, 2);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (11, 3);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (12, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (12, 5);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (13, 3);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (13, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (14, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (15, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (15, 5);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (15, 6);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (16, 4);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (16, 6);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (16, 7);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (17, 9);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (17, 10);
+INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (17, 11);
 
 -- -- Insertar datos en la tabla 'user'
 INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('John', 'john123', 'Doe', 'john@example.com', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', '123 Street, City', '12345678A',1);
