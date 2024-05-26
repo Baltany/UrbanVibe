@@ -47,6 +47,18 @@ public class ClothesController {
         model.addAttribute("clothes", lClothes);
         return "clothes/clothes";
     }
+    @GetMapping("/men")
+    public String findAllMen(Model model) {
+        List<Clothes> lClothes = clothesRepo.findAll();
+        model.addAttribute("clothes", lClothes);
+        return "clothes/men";
+    }
+    @GetMapping("/women")
+    public String findAllWomen(Model model) {
+        List<Clothes> lClothes = clothesRepo.findAll();
+        model.addAttribute("clothes", lClothes);
+        return "clothes/women";
+    }
 
     @GetMapping("/add")
     public String addClothes(Model model) {

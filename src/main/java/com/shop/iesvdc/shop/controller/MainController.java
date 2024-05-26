@@ -50,8 +50,6 @@ public class MainController {
         return "signup";
     }
 
-
-
     /*Si el usuario no tiene los permisos necesarios,lo redirigimos aquí */
     /*Cambiar nombre del endpoint */
     @GetMapping("/denegado")

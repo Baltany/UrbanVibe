@@ -28,3 +28,5 @@ pero no se hasta que punto lo estoy haciendo bien
 15.No hace el crud completo de la ropa dentro del admin en pedido
 
 16. Como saldrias de details.html?
+
+17.Posibildad de adaptar el proyecto y quitar accesorio y fittings.html y poner  Descubre nuestra nueva coleccion o algo asi.
