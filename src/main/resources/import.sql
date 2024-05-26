@@ -9,7 +9,6 @@ INSERT INTO `size` (`size`) VALUES ('XXL');
 INSERT INTO `size` (`size`) VALUES ('TALLA UNICA');
 
 --Insertar ropa por sexo
-INSERT INTO `sex` (`sex`) VALUES ('UNISEX');
 INSERT INTO `sex` (`sex`) VALUES ('MEN');
 INSERT INTO `sex` (`sex`) VALUES ('WOMEN');
 
@@ -27,25 +26,50 @@ INSERT INTO `user_rol_list` (`role_list_id`, `user_id`) VALUES ((SELECT `id` FRO
 INSERT INTO `user_rol_list` (`role_list_id`, `user_id`) VALUES ((SELECT `id` FROM `user_rol` WHERE `rol` = 'Customer'), (SELECT `id` FROM `user` WHERE `username` = 'alice456'));
 
 -- Insertar datos en la tabla 'category' (no tiene dependencias)
-INSERT INTO `category` (`category`) VALUES ('Shirts');
-INSERT INTO `category` (`category`) VALUES ('Pants');
-INSERT INTO `category` (`category`) VALUES ('Dresses');
+INSERT INTO `category` (`category`) VALUES ('Shirts/Top');
+INSERT INTO `category` (`category`) VALUES ('Jeans');
+INSERT INTO `category` (`category`) VALUES ('Urban');
+INSERT INTO `category` (`category`) VALUES ('Blazers');
+INSERT INTO `category` (`category`) VALUES ('Hoodies/Jumper/Polo');
+INSERT INTO `category` (`category`) VALUES ('Clothing Set');
 
 -- Insertar datos en la tabla 'clothes' (depende de 'purchase_order')
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (19.99, 50, 'Winter Hoddie', 'Multicolor', '/img/sudaderaSolo.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (29.99, 30, 'Jumper', 'Blue', '/img/sudaderaMasVibe.jpg');
-INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.99, 20, 'Summer Dress', 'Black&White', '/img/conjuntoFemVibe.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.99, 20, 'Clothing Set', 'Black&White', '/img/conjuntoFemVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (40.95, 20, 'UrbanVibe T-shirt', 'Black', '/img/T-shirtVibe.jpg');
-INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (45.00, 20, 'Trouser', 'Black', '/img/PantalonVibe.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (45.00, 20, 'Clothing Set', 'Black', '/img/PantalonVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Hoddie', 'Black', '/img/sudaderaFemVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (10, 10, 'Iphone XR Phonecase', 'Black', '/img/PhoneCaseVibe.jpeg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Jeans', 'Black', '/img/PantalonBlancoVibe.jpeg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Top', 'Black', '/img/topWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Jeans', 'Black', '/img/PantalonWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Blouse', 'Black', '/img/BlusaWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Jumper', 'Black', '/img/SudaderaWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Clothing Set', 'Black', '/img/ConjuntoWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Top', 'Black', '/img/BasicTopWomenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Polo', 'Black', '/img/PoloMenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'MLS League Collab', 'Black', '/img/PoloCasualMenUrban.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Blazers', 'Black', '/img/ZapatillasMenUrban.jpg');
 
 -- Insertar lista de ropa por sexo
 INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('1', '1');
-INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('2', '2');
-INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('3', '3');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('2', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('3', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('4', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('5', '1');
 
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('6', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('8', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('9', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('10', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('11', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('12', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('13', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('14', '2');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('15', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('16', '1');
+INSERT INTO `clothes_sex_list` (`clothes_id`, `sex_list_id`) VALUES ('17', '1');
 
 -- Insertar datos en la tabla 'purchase_order' (depende de 'user')
 INSERT INTO `purchase_order` (`total_price`, `user_purchase_id`, `order_date`) VALUES (59.98, 1, '2024-04-02');
