@@ -135,7 +135,7 @@
         <div class="details-container">
             <div class="details-content">
                 <div class="details-left">
-                    <img th:src="@{${clothe.image}}" alt="Imagen de la ropa" class="details-image">
+                    <img th:src="@{${clothe.image}}" alt="Imagen de la ropa" class="details-image" id="details-image">
                 </div>
                 <div class="details-right">
                     <h1 th:text="${clothe.description}">Descripción</h1>
@@ -183,7 +183,9 @@
                     const clothe = {
                         description: document.querySelector('.details-right h1').innerText,
                         price: document.querySelector('.subtitle strong span').innerText,
-                        size: size
+                        size: size,
+                        image: document.querySelector('.details-image').src
+
                     };
                     
                     // Guardar en localStorage

@@ -191,7 +191,7 @@ public class ClothesController {
             existingClothes.setDescription(updatedClothes.getDescription());
             existingClothes.setPrice(updatedClothes.getPrice());
             existingClothes.setSizeList(updatedClothes.getSizeList());
-            existingClothes.getImage();
+            existingClothes.setImage(updatedClothes.getImage());
             clothesRepo.save(existingClothes);
             return "redirect:/details/" + id;
         } else {
