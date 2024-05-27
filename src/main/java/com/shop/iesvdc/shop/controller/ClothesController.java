@@ -178,6 +178,10 @@ public class ClothesController {
     }
 
 
+    /*
+     * No muestra la imagen
+     * lo recoge como undefined,no recoge ruta
+     */
     @PostMapping("/details/{id}")
     public String updateClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
@@ -187,6 +191,7 @@ public class ClothesController {
             existingClothes.setDescription(updatedClothes.getDescription());
             existingClothes.setPrice(updatedClothes.getPrice());
             existingClothes.setSizeList(updatedClothes.getSizeList());
+            existingClothes.getImage();
             clothesRepo.save(existingClothes);
             return "redirect:/details/" + id;
         } else {
@@ -205,6 +210,9 @@ public class ClothesController {
         }
     }
 
+    /*
+     * No muestra la imagen
+     */
     @PostMapping("/details/men/{id}")
     public String updateMenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
@@ -213,6 +221,7 @@ public class ClothesController {
             existingClothes.setDescription(updatedClothes.getDescription());
             existingClothes.setPrice(updatedClothes.getPrice());
             existingClothes.setSizeList(updatedClothes.getSizeList());
+            existingClothes.setImage(updatedClothes.getImage());
             clothesRepo.save(existingClothes);
             return "redirect:/clothes/details/men/" + id;
         } else {
@@ -231,6 +240,9 @@ public class ClothesController {
         }
     }
 
+    /*
+     * No muestra la imagen
+     */
     @PostMapping("/details/women/{id}")
     public String updateWomenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
@@ -239,11 +251,19 @@ public class ClothesController {
             existingClothes.setDescription(updatedClothes.getDescription());
             existingClothes.setPrice(updatedClothes.getPrice());
             existingClothes.setSizeList(updatedClothes.getSizeList());
+            existingClothes.setImage(updatedClothes.getImage());
             clothesRepo.save(existingClothes);
             return "redirect:/clothes/details/women/" + id;
         } else {
             return "redirect:/clothes/women";
         }
+    }
+
+    @GetMapping("/orders")
+    public String payCartOrder(){
+        //logica recoger pedido desde localstorage
+        
+        return "redirect:/clothes";
     }
 
     
