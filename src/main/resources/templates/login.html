@@ -82,6 +82,12 @@
         button.btn-primary:hover {
             background-color: black;
         }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -104,6 +110,9 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="rememberMe">
                 <label class="form-check-label" for="rememberMe">Recordar sesión</label>
+            </div>
+            <div class="error-message" th:if="${param.error}">
+                Usuario y/o contraseña incorrectos
             </div>
             <a href="/users/signup" class="forgot-password">Don't you have an account yet? Sign up!</a>
             <button type="submit" class="btn btn-primary">Sign in</button>
