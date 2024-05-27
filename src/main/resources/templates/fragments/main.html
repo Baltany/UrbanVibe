@@ -36,39 +36,47 @@
                     color: white;
                 }
 
-
                 footer {
                     position: fixed;
                     bottom: 0;
                     width: 100%;
-                    height:4.5%;
+                    height: 4.5%;
                     background-color: black;
                     color: #ffffff;
                     padding: 10px;
                     text-align: center;
-                    font-size: 1em; /* Tamaño de fuente relativo */
+                    font-size: 1em;
+                    /* Tamaño de fuente relativo */
                     display: flex;
-                    justify-content: space-between; /* Distribuir elementos a los extremos */
-                    align-items: center; /* Alinear verticalmente al centro */
+                    justify-content: space-between;
+                    /* Distribuir elementos a los extremos */
+                    align-items: center;
+                    /* Alinear verticalmente al centro */
 
-                    flex-direction: column; /* Cambiar a disposición de columna en pantallas pequeñas */
+                    flex-direction: column;
+                    /* Cambiar a disposición de columna en pantallas pequeñas */
                 }
                 footer a {
-                    text-decoration: none; /* Quitar subrayado de enlaces */
-                    color: #ffffff; /* Color de texto de enlaces */
-                    margin-right: 10px; /* Espacio entre enlaces */
+                    text-decoration: none;
+                    /* Quitar subrayado de enlaces */
+                    color: #ffffff;
+                    /* Color de texto de enlaces */
+                    margin-right: 10px;
+                    /* Espacio entre enlaces */
                 }
-                
+
                 footer a:hover {
-                    text-decoration: none; /* Subrayar enlaces al pasar el mouse */
-                    color:beige
+                    text-decoration: none;
+                    /* Subrayar enlaces al pasar el mouse */
+                    color: beige;
                 }
-                
-
-        
-
-
             </style>
+            <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+            
         </head>
         <body>
             <div class="container-fluid">
@@ -76,20 +84,50 @@
                 <!-- Falta poner lo que iría aquí,es decir lo que ve cada usuario de forma
                 provisional -->
                 <div th:fragment="navigation">
-                    <nav
-                        sec:authorize="hasAuthority('Admin')"
-                        class="navbar navbar-expand-lg navbar-dark">
+                    <nav sec:authorize="hasAuthority('Admin')" class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="#">
+                                <img src="img/UrbanVibe-transformed.png" alt="UrbanVibe" style="height: 40px;">
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/inicio">Inicio <i class="fa-solid fa-house" style="color: #ffffff;"></i></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Usuarios <i class="fa-regular fa-user" style="color: #ffffff;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="/users">Listado</a></li>
+                                            <li><a class="dropdown-item" href="/users/add">Alta</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Pedidos <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                                            <li><a class="dropdown-item" href="/orders">Listado</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/help"><i class="fa-solid fa-headset" style="color: #ffffff;"></i> Ayuda</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i> Desconexión</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- <nav sec:authorize="hasAuthority('Admin')" class="navbar navbar-expand-lg navbar-dark">
                         <div class="container-fluid">
                             <img src="img/UrbanVibe-transformed.png" class="card-img-top" alt="UrbanVibe">
-                            <!-- <a class="navbar-brand" href="#">UrbanVibe</a> -->
-                            <button
-                                class="navbar-toggler"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#navbarNav"
-                                aria-controls="navbarNav"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
@@ -100,66 +138,46 @@
                                         </a>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a
-                                            class="nav-link dropdown-toggle"
-                                            href="#"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Usuarios
                                             <i class="fa-regular fa-user" style="color: #ffffff;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>
-                                                <a id="menu_modulo" class="dropdown-item" href="/users">Listado</a>
-                                            </li>
-                                            <li>
-                                                <a id="menu_enseñanza" class="dropdown-item" href="/users/add">Alta</a>
-                                            </li>
+                                            <li><a id="menu_modulo" class="dropdown-item" href="/users">Listado</a></li>
+                                            <li><a id="menu_enseñanza" class="dropdown-item" href="/users/add">Alta</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a
-                                            class="nav-link dropdown-toggle"
-                                            href="#"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Pedidos
                                             <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>
-                                                <a id="menu_modulo" class="dropdown-item" href="/orders">Listado</a>
-                                            </li>
-                                            <!-- <li><a id="menu_enseñanza" class="dropdown-item"
-                                            href="/orders/add">Alta</a></li> -->
+                                            <li><a id="menu_modulo" class="dropdown-item" href="/orders">Listado</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item ">
-                                        <a class="nav-link " href="/help" role="button" aria-expanded="false">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/help" role="button" aria-expanded="false">
                                             <i class="fa-solid fa-headset" style="color: #ffffff;"></i>
-                                            <!--Ayuda-->
+                                            
                                         </a>
                                     </li>
-
                                     <li class="nav-item">
                                         <a class="nav-link" href="/logout">
                                             <i class="fa-solid fa-arrow-right-from-bracket" style="color: #ffffff;"></i>
-                                            <!--Desconexión-->
+                                            Desconexión
                                         </a>
                                     </li>
                                 </ul>
-
                             </div>
                         </div>
-                    </nav>
+                    </nav> -->
 
                     <nav
                         sec:authorize="hasAuthority('Customer')"
                         class="navbar navbar-expand-lg navbar-dark bg-primary">
                         <div class="container-fluid">
-                            <a class="navbar-brand" href="#">Welcome to name!</a>
+                            <a class="navbar-brand" href="#">Welcome to UrbanVibe!</a>
                             <button
                                 class="navbar-toggler"
                                 type="button"
@@ -219,39 +237,26 @@
 
                 <!-- Footer -->
                 <div th:fragment="footer">
-                <footer>
-                    <div>
-                        <a href="#">Términos y condiciones</a>
-                        <a href="#">Política de privacidad</a>
-                        <a href="#">Política de cookies</a>
-                        <a href="#">SiteMap</a>
-                        © 2024 UrbanVibe
-                    </div>
-                </footer>
-                <!--
                     <footer>
                         <div>
-                            <hr/>
-                            <div sec:authorize="hasAuthority('Admin')" class="footermain">
-                                <div class="pfooter">
-                                    <p >
-                                        <b>This paragraph is only visible if you are an admin</b>
-                                    </p>
-                                </div>
-                                <div class="urbanfooter">
-                                    <span >Ⓒ 2024 UrbanVibe</span>
-                                </div>
-                            </div>
-                            <hr/>
+                            <a href="#">Términos y condiciones</a>
+                            <a href="#">Política de privacidad</a>
+                            <a href="#">Política de cookies</a>
+                            <a href="#">SiteMap</a>
+                            © 2024 UrbanVibe
                         </div>
-                        <script src="/webjars/jquery/jquery.min.js"></script>
-                        <script src="/webjars/popper.js/umd/popper.min.js"></script>
-                        <script src="/webjars/bootstrap/js/bootstrap.js"></script>
                     </footer>
-                -->
+                    <!-- <footer> <div> <hr/> <div sec:authorize="hasAuthority('Admin')"
+                    class="footermain"> <div class="pfooter"> <p > <b>This paragraph is only visible
+                    if you are an admin</b> </p> </div> <div class="urbanfooter"> <span >Ⓒ 2024
+                    UrbanVibe</span> </div> </div> <hr/> </div> <script
+                    src="/webjars/jquery/jquery.min.js"></script> <script
+                    src="/webjars/popper.js/umd/popper.min.js"></script> <script
+                    src="/webjars/bootstrap/js/bootstrap.js"></script> </footer> -->
                 </div>
 
             </div>
-
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>        
         </body>
     </html>

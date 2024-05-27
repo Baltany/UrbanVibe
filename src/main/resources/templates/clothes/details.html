@@ -201,7 +201,7 @@
                     // Redirigir y abrir el carrito
                     setTimeout(() => {
                         window.location.href = "/clothes?openCart=true";
-                    }, 500); // Simula el tiempo de espera de la petición AJAX
+                    }, 500); 
                 } else {
                     errorMessage.style.display = 'block';
                 }
@@ -212,7 +212,7 @@
             if (urlParams.get('openCart') === 'true') {
                 // Lógica para abrir el carrito
                 console.log("Carrito abierto");
-                // Aquí se puede ejecutar el código que abre el carrito
+                
             }
         });
     </script>

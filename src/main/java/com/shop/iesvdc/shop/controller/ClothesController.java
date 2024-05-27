@@ -263,7 +263,7 @@ public class ClothesController {
     public String payCartOrder(){
         //logica recoger pedido desde localstorage
         
-        return "redirect:/clothes";
+        return "clothes/orders";
     }
 
     
