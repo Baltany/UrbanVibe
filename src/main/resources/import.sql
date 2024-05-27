@@ -42,7 +42,7 @@ INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.99, 20, 'Clothing Set', 'Black&White', '/img/conjuntoFemVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (40.95, 20, 'UrbanVibe T-shirt', 'Black&White', '/img/T-shirtVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (45.00, 20, 'Clothing Set', 'Black&White', '/img/PantalonVibe.jpg');
-INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Hoddie', 'Black&White', '/img/sudaderaFemVibe.jpg');
+INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Clothing Set', 'Black&White', '/img/sudaderaFemVibe.jpg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (10, 10, 'Iphone XR Phonecase', 'Black', '/img/PhoneCaseVibe.jpeg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Jeans', 'White', '/img/PantalonBlancoVibe.jpeg');
 INSERT INTO `clothes` (`price`, `stock`, `description`, `color`, `image`) VALUES (39.95, 10, 'Top', 'White', '/img/topWomenUrban.jpg');
