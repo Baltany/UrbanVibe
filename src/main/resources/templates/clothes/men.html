@@ -649,7 +649,7 @@
                     <img th:src="@{${clothe.image}}" th:alt="${clothe.description}">
                     <div class="size-container">
                         <div th:if="${clothe.sizeList.size() == 0}" class="sizes" 
-                             th:attr="onclick=|addToCart('${clothe.id}')|">Talla única</div>
+                             th:attr="onclick=|addToCart('${clothe.id}')|">Tallas no disponibles</div>
                         <div th:each="size : ${clothe.sizeList}" th:unless="${clothe.sizeList.size() == 0}" class="sizes" 
                              th:text="${size.size}" th:data-size="${size.size}" 
                              th:attr="onclick=|addToCart('${clothe.id}', '${size.size}')|">
@@ -804,6 +804,7 @@
             cartCounter.textContent = totalItems > 0 ? totalItems : '';
         }
 
+        //Renderizamos los articulos al pinchar fuera de las tallas
         document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('click', function(event) {
                 const target = event.target;
@@ -820,7 +821,8 @@
                     const clotheElement = target.closest('.product-card');
                     if (clotheElement) {
                         const clotheId = clotheElement.dataset.id;
-                        window.location.href = `clothes/details/${clotheId}`;
+                        //Aqui escribe 2 veces clothes/
+                        window.location.href = `/clothes/details/men/${clotheId}`;
                     }
                 }
             });

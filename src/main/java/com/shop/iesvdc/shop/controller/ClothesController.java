@@ -193,5 +193,58 @@ public class ClothesController {
             return "redirect:/clothes";
         }
     }
+
+    @GetMapping("/details/men/{id}")
+    public String seeMenClothesDetails(@PathVariable Long id, Model model) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            model.addAttribute("clothe", clothe.get());
+            return "clothes/details";
+        } else {
+            return "redirect:/clothes/men";
+        }
+    }
+
+    @PostMapping("/details/men/{id}")
+    public String updateMenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            Clothes existingClothes = clothe.get();
+            existingClothes.setDescription(updatedClothes.getDescription());
+            existingClothes.setPrice(updatedClothes.getPrice());
+            existingClothes.setSizeList(updatedClothes.getSizeList());
+            clothesRepo.save(existingClothes);
+            return "redirect:/clothes/details/men/" + id;
+        } else {
+            return "redirect:/clothes/men";
+        }
+    }
+
+    @GetMapping("/details/women/{id}")
+    public String seeWomenClothesDetails(@PathVariable Long id, Model model) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            model.addAttribute("clothe", clothe.get());
+            return "clothes/details";
+        } else {
+            return "redirect:/clothes/women";
+        }
+    }
+
+    @PostMapping("/details/women/{id}")
+    public String updateWomenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
+        Optional<Clothes> clothe = clothesRepo.findById(id);
+        if (clothe.isPresent()) {
+            Clothes existingClothes = clothe.get();
+            existingClothes.setDescription(updatedClothes.getDescription());
+            existingClothes.setPrice(updatedClothes.getPrice());
+            existingClothes.setSizeList(updatedClothes.getSizeList());
+            clothesRepo.save(existingClothes);
+            return "redirect:/clothes/details/women/" + id;
+        } else {
+            return "redirect:/clothes/women";
+        }
+    }
+
     
 }
