@@ -16,16 +16,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.shop.iesvdc.shop.model.Clothes;
+import com.shop.iesvdc.shop.model.PurchaseOrder;
 import com.shop.iesvdc.shop.model.Size;
+import com.shop.iesvdc.shop.model.User;
 import com.shop.iesvdc.shop.repos.CategoryRepo;
 import com.shop.iesvdc.shop.repos.ClothesRepo;
+import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 import com.shop.iesvdc.shop.repos.SexRepo;
 import com.shop.iesvdc.shop.repos.SizeRepo;
+import com.shop.iesvdc.shop.repos.UserRepo;
 
 import lombok.NonNull;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequestMapping("/clothes")
 public class ClothesController {
@@ -40,6 +45,12 @@ public class ClothesController {
 
     @Autowired
     private ClothesRepo clothesRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+    
+    @Autowired
+    private PurchaseOrderRepo orderRepo;
 
     @GetMapping("")
     public String findAll(Model model) {
@@ -261,9 +272,29 @@ public class ClothesController {
 
     @GetMapping("/orders")
     public String payCartOrder(){
-        //logica recoger pedido desde localstorage
-        
         return "clothes/orders";
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<?> createOrder(@RequestBody PurchaseOrder order) {
+        PurchaseOrder savedOrder = orderRepo.save(order);
+        return ResponseEntity.ok(savedOrder);
+    }
+
+    @PostMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        Optional<User> existingUser = userRepo.findById(user.getId());
+        if (existingUser.isPresent()) {
+            User updatedUser = existingUser.get();
+            updatedUser.setName(user.getName());
+            updatedUser.setSurname(user.getSurname());
+            updatedUser.setDni(user.getDni());
+            updatedUser.setAddress(user.getAddress());
+            userRepo.save(updatedUser);
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
     }
 
     

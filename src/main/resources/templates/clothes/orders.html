@@ -174,11 +174,11 @@
                     <form id="order-form">
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" required />
+                            <input type="text" id="name" name="nombre" required />
                         </div>
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input type="text" id="apellidos" name="apellidos" required />
+                            <input type="text" id="surname" name="apellidos" required />
                         </div>
                         <div class="form-group">
                             <label for="dni">DNI:</label>
@@ -186,7 +186,7 @@
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección:</label>
-                            <input type="text" id="direccion" name="direccion" required />
+                            <input type="text" id="address" name="direccion" required />
                         </div>
                         <div class="order-total">
                             <p>Total: <span id="total-price"></span> €</p>
@@ -203,11 +203,11 @@
             const orderItemsContainer = document.getElementById("order-items");
             const totalPriceElement = document.getElementById("total-price");
             let totalPrice = 0;
-
+    
             cartData.forEach((item) => {
                 const itemElement = document.createElement("div");
                 itemElement.classList.add("order-item");
-
+    
                 itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.description}">
                     <div class="details-clothes">
@@ -218,41 +218,60 @@
                         <p>${item.price}€</p>
                     </div>
                 `;
-
+    
                 orderItemsContainer.appendChild(itemElement);
-                totalPrice += item.price;
+                totalPrice += parseFloat(item.price); // Convert to number before adding
             });
-
+    
             totalPriceElement.textContent = totalPrice.toFixed(2);
-
+    
             const orderForm = document.getElementById("order-form");
             orderForm.addEventListener("submit", function (event) {
                 event.preventDefault();
-
-                const nombre = document.getElementById("nombre").value;
-                const apellidos = document.getElementById("apellidos").value;
+    
+                const nombre = document.getElementById("name").value;
+                const apellidos = document.getElementById("surname").value;
                 const dni = document.getElementById("dni").value;
-                const direccion = document.getElementById("direccion").value;
-
-                fetch("/orders", {
+                const direccion = document.getElementById("address").value;
+    
+                const userId = localStorage.getItem("userId"); // Assuming userId is stored in localStorage
+                const user = {
+                    id: userId,
+                    name: nombre,
+                    surname: apellidos,
+                    dni: dni,
+                    address: direccion
+                };
+    
+                // Primero, enviar los datos para actualizar el usuario
+                fetch("/clothes/updateUser", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        cart: cartData,
-                        nombre: nombre,
-                        apellidos: apellidos,
-                        dni: dni,
-                        direccion: direccion,
-                        total: totalPrice,
-                    }),
+                    body: JSON.stringify(user),
                 })
                 .then((response) => response.json())
-                .then((data) => {
-                    console.log("Success:", data);
+                .then((userData) => {
+                    console.log("User updated:", userData);
+    
+                    // Luego, enviar los datos del pedido
+                    return fetch("/clothes/orders", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            cart: cartData,
+                            total: totalPrice,
+                        }),
+                    });
+                })
+                .then((response) => response.json())
+                .then((orderData) => {
+                    console.log("Order placed:", orderData);
                     // Redirigir o mostrar un mensaje de éxito
-                    window.location.href = "/clothes";
+                    window.location.href = "/clothes/orders";
                 })
                 .catch((error) => {
                     console.error("Error:", error);
