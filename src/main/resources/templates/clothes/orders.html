@@ -120,92 +120,135 @@
         min-width:40%;
 
       }
+
+      .form-container {
+        flex: 1;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        margin-left: 0.2rem;
+        max-width: 60%;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: calc(100% - 1rem);
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
     </style>
   </head>
   <body>
     <main>
-      <section class="checkout-container">
-        <h1>Resumen del Pedido</h1>
-        <div class="order-summary">
-          <div class="order-box">
-            <div id="order-items">
-              <!-- Los artículos del carrito serán insertados aquí por JavaScript -->
-            </div>
-          </div>
+        <section class="checkout-container">
+            <h1>Resumen del Pedido</h1>
+            <div class="order-summary">
+                <div class="order-box">
+                    <div id="order-items">
+                        <!-- Los artículos del carrito serán insertados aquí por JavaScript -->
+                    </div>
+                </div>
 
-          <div class="form-container">
-            <form id="order-form">
-              <div class="form-group">
-                <label for="dni">DNI:</label>
-                <input type="text" id="dni" name="dni" required />
-              </div>
-              <div class="order-total">
-                <p>Total: <span id="total-price"></span> €</p>
-              </div>
-              <button type="submit" id="checkout-button">
-                Realizar Pedido
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
+                <div class="form-container">
+                    <form id="order-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos:</label>
+                            <input type="text" id="apellidos" name="apellidos" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="dni">DNI:</label>
+                            <input type="text" id="dni" name="dni" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" id="direccion" name="direccion" required />
+                        </div>
+                        <div class="order-total">
+                            <p>Total: <span id="total-price"></span> €</p>
+                        </div>
+                        <button type="submit" id="checkout-button">Realizar Pedido</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const cartData = JSON.parse(localStorage.getItem("cart")) || [];
-        const orderItemsContainer = document.getElementById("order-items");
-        const totalPriceElement = document.getElementById("total-price");
-        let totalPrice = 0;
+        document.addEventListener("DOMContentLoaded", function () {
+            const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+            const orderItemsContainer = document.getElementById("order-items");
+            const totalPriceElement = document.getElementById("total-price");
+            let totalPrice = 0;
 
-        cartData.forEach((item) => {
-          const itemElement = document.createElement("div");
-          itemElement.classList.add("order-item");
+            cartData.forEach((item) => {
+                const itemElement = document.createElement("div");
+                itemElement.classList.add("order-item");
 
-          itemElement.innerHTML = `
+                itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.description}">
                     <div class="details-clothes">
                         <b><p>${item.description}</p></b>
-                        
                         <p>Tamaño: ${item.size}</p>
                     </div>
                     <div class="details-price"> 
-                    <p>${item.price}€</p>
+                        <p>${item.price}€</p>
                     </div>
                 `;
 
-          orderItemsContainer.appendChild(itemElement);
-          totalPrice += item.price;
-        });
+                orderItemsContainer.appendChild(itemElement);
+                totalPrice += item.price;
+            });
 
-        totalPriceElement.textContent = totalPrice.toFixed(2);
+            totalPriceElement.textContent = totalPrice.toFixed(2);
 
-        const orderForm = document.getElementById("order-form");
-        orderForm.addEventListener("submit", function (event) {
-          event.preventDefault();
-          const dni = document.getElementById("dni").value;
+            const orderForm = document.getElementById("order-form");
+            orderForm.addEventListener("submit", function (event) {
+                event.preventDefault();
 
-          fetch("/orders", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              cart: cartData,
-              dni: dni,
-              total: totalPrice,
-            }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Success:", data);
-              // Redirigir o mostrar un mensaje de éxito
-              window.location.href = "/clothes";
-            })
-            .catch((error) => {
-              console.error("Error:", error);
+                const nombre = document.getElementById("nombre").value;
+                const apellidos = document.getElementById("apellidos").value;
+                const dni = document.getElementById("dni").value;
+                const direccion = document.getElementById("direccion").value;
+
+                fetch("/orders", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        cart: cartData,
+                        nombre: nombre,
+                        apellidos: apellidos,
+                        dni: dni,
+                        direccion: direccion,
+                        total: totalPrice,
+                    }),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Success:", data);
+                    // Redirigir o mostrar un mensaje de éxito
+                    window.location.href = "/clothes";
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
             });
         });
-      });
     </script>
   </body>
 </html>
