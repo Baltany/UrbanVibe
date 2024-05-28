@@ -215,6 +215,8 @@ public class ClothesController {
     }
 
 
+
+    //Los detalles fallan no abre el carro ni los añade
     @GetMapping("/details/{id}")
     public String seeClothesDetails(@PathVariable Long id, Model model) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
@@ -227,10 +229,7 @@ public class ClothesController {
     }
 
 
-    /*
-     * No muestra la imagen
-     * lo recoge como undefined,no recoge ruta
-     */
+
     @PostMapping("/details/{id}")
     public String updateClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
@@ -259,9 +258,7 @@ public class ClothesController {
         }
     }
 
-    /*
-     * No muestra la imagen
-     */
+
     @PostMapping("/details/men/{id}")
     public String updateMenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
