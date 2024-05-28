@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,10 +56,44 @@ public class ClothesController {
 
     @GetMapping("")
     public String findAll(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    
+        // Verificar si el usuario está autenticado
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
+                model.addAttribute("message", "No such user");
+                return "error";
+            }
+        } else {
+            // Manejar el caso en el que el usuario no está autenticado
+            model.addAttribute("message", "User not authenticated");
+            return "error";
+        }
+    
+        // Resto del código para cargar la página de ropa
         List<Clothes> lClothes = clothesRepo.findAll();
         model.addAttribute("clothes", lClothes);
+        
         return "clothes/clothes";
     }
+    
+    
     
     @GetMapping("/men")
     public String findAllMen(Model model) {
@@ -274,7 +310,7 @@ public class ClothesController {
     public String payCartOrder(){
         return "clothes/orders";
     }
-    
+
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody PurchaseOrder order) {
         try {

@@ -636,7 +636,7 @@
     </header>
     </div>
 
-    <div id="app" data-user-id="{{userId}}"></div>
+    <div type="hidden" id="userId" th:data-user-id="${userId}"></div>
 
     <main class="main-content">
         <section class="hero-banner" id="hero-banner">
@@ -811,7 +811,9 @@
         }
     
         // Inicializar el carrito desde el localStorage
-        const userId = document.getElementById('app').dataset.userId;
+        const userIdElement = document.getElementById('userId');
+        const userId = userIdElement.getAttribute('data-user-id');
+
         console.log("User ID:", userId);
 
         const cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
