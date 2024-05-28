@@ -344,6 +344,7 @@ public class ClothesController {
             if (!userOpt.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
+            
             User user = userOpt.get();
 
             // Crear una nueva orden de compra
