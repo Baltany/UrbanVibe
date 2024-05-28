@@ -1,5 +1,7 @@
 package com.shop.iesvdc.shop.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -307,19 +309,70 @@ public class ClothesController {
     }
 
     @GetMapping("/orders")
-    public String payCartOrder(){
+    public String showOrders(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<User> userOptional = userRepo.findByUsername(username);
+    
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                Long userId = user.getId();
+                model.addAttribute("userId", userId);
+            } else {
+                model.addAttribute("message", "User not found");
+                return "error";
+            }
+        } else {
+            model.addAttribute("message", "User not authenticated");
+            return "error";
+        }
+    
         return "clothes/orders";
     }
-
+    
     @PostMapping("/orders")
-    public ResponseEntity<?> createOrder(@RequestBody PurchaseOrder order) {
+    public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
+            Long userId = Long.parseLong(orderData.get("userId").toString());
+            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
+            Double total = Double.parseDouble(orderData.get("total").toString());
+
+            // Obtener el usuario
+            Optional<User> userOpt = userRepo.findById(userId);
+            if (!userOpt.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = userOpt.get();
+
+            // Crear una nueva orden de compra
+            PurchaseOrder order = new PurchaseOrder();
+            order.setTotalPrice(total);
+            order.setUser(user);
+            order.setOrderDate(LocalDate.now().toString()); // o cualquier lógica que uses para la fecha
+
+            // Mapear los items del carrito a los items de la orden
+            List<Clothes> clothesList = new ArrayList<>();
+            for (Map<String, Object> item : cartItems) {
+                Clothes clothes = new Clothes();
+                clothes.setDescription(item.get("description").toString());
+                //clothes.setSizeList(item.get("size").toString());
+                clothes.setPrice(Double.parseDouble(item.get("price").toString()));
+                clothes.setImage(item.get("image").toString());
+                clothes.setPurchaseOrder(order);
+                clothesList.add(clothes);
+            }
+            order.setClothesList(clothesList);
+
             PurchaseOrder savedOrder = orderRepo.save(order);
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
+
+
     
     @PostMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
@@ -343,5 +396,6 @@ public class ClothesController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
         }
     }
+    
     
 }

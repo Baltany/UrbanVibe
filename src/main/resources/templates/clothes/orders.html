@@ -199,24 +199,21 @@
         </section>
     </main>
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
-            // Obtener el ID de usuario desde el atributo data-user-id
-            const appDiv = document.getElementById("userId");
-            const userId = appDiv.getAttribute("data-user-id");
+            const userIdElement = document.getElementById("userId");
+            const userId = userIdElement.getAttribute("data-user-id");
             
-            // Guardar el ID de usuario en localStorage para su uso posterior
             localStorage.setItem("userId", userId);
 
-            const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
             const orderItemsContainer = document.getElementById("order-items");
             const totalPriceElement = document.getElementById("total-price");
             let totalPrice = 0;
-    
+
             cartData.forEach((item) => {
                 const itemElement = document.createElement("div");
                 itemElement.classList.add("order-item");
-    
+
                 itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.description}">
                     <div class="details-clothes">
@@ -227,23 +224,23 @@
                         <p>${item.price}€</p>
                     </div>
                 `;
-    
+
                 orderItemsContainer.appendChild(itemElement);
-                totalPrice += parseFloat(item.price); // Convert to number before adding
+                totalPrice += parseFloat(item.price);
             });
-    
+
             totalPriceElement.textContent = totalPrice.toFixed(2);
-    
+
             const orderForm = document.getElementById("order-form");
             orderForm.addEventListener("submit", function (event) {
                 event.preventDefault();
-    
+
                 const nombre = document.getElementById("name").value;
                 const apellidos = document.getElementById("surname").value;
                 const dni = document.getElementById("dni").value;
                 const direccion = document.getElementById("address").value;
-    
-                const userId = localStorage.getItem("userId"); // Ensure userId is retrieved correctly
+
+                const userId = localStorage.getItem("userId");
                 if (!userId) {
                     console.error("User ID is not set in localStorage.");
                     return;
@@ -255,8 +252,7 @@
                     dni: dni,
                     address: direccion
                 };
-    
-                // Primero, enviar los datos para actualizar el usuario
+
                 fetch("/clothes/updateUser", {
                     method: "POST",
                     headers: {
@@ -272,14 +268,14 @@
                 })
                 .then((userData) => {
                     console.log("User updated:", userData);
-    
-                    // Luego, enviar los datos del pedido
+
                     return fetch("/clothes/orders", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
+                            userId: userId,
                             cart: cartData,
                             total: totalPrice,
                         }),
@@ -293,7 +289,6 @@
                 })
                 .then((orderData) => {
                     console.log("Order placed:", orderData);
-                    // Redirigir o mostrar un mensaje de éxito
                     window.location.href = "/clothes/orders";
                 })
                 .catch((error) => {
@@ -301,6 +296,7 @@
                 });
             });
         });
-    </script>    
+    </script>
+   
   </body>
 </html>
