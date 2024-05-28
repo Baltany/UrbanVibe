@@ -167,6 +167,16 @@
             const sizeOptions = document.querySelectorAll(".size-option");
             const errorMessage = document.getElementById("error-message");
 
+            // Verificar que los elementos existen
+            console.log("addToCartButton:", addToCartButton);
+            console.log("sizeOptions:", sizeOptions);
+            console.log("errorMessage:", errorMessage);
+
+            if (!addToCartButton || !sizeOptions.length || !errorMessage) {
+                console.error("No se encontraron algunos elementos necesarios en el DOM.");
+                return;
+            }
+
             sizeOptions.forEach(option => {
                 option.addEventListener("click", function() {
                     sizeOptions.forEach(opt => opt.classList.remove("active"));
@@ -185,7 +195,6 @@
                         price: document.querySelector('.subtitle strong span').innerText,
                         size: size,
                         image: document.querySelector('.details-image').src
-
                     };
                     
                     // Guardar en localStorage
@@ -212,7 +221,7 @@
             if (urlParams.get('openCart') === 'true') {
                 // Lógica para abrir el carrito
                 console.log("Carrito abierto");
-                
+                // Aquí puedes agregar la lógica para abrir tu carrito
             }
         });
     </script>
