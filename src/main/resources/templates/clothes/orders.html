@@ -125,7 +125,7 @@
   <body>
     <main>
       <section class="checkout-container">
-        <h1>Resumen de Pedido</h1>
+        <h1>Resumen del Pedido</h1>
         <div class="order-summary">
           <div class="order-box">
             <div id="order-items">
@@ -162,14 +162,14 @@
           itemElement.classList.add("order-item");
 
           itemElement.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.description}">
                     <div class="details-clothes">
-                        <p>${item.name}</p>
+                        <b><p>${item.description}</p></b>
                         
                         <p>Tamaño: ${item.size}</p>
                     </div>
                     <div class="details-price"> 
-                    <p>${item.price} €</p>
+                    <p>${item.price}€</p>
                     </div>
                 `;
 
