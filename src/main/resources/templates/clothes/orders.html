@@ -234,7 +234,11 @@
                 const dni = document.getElementById("dni").value;
                 const direccion = document.getElementById("address").value;
     
-                const userId = localStorage.getItem("userId"); // Assuming userId is stored in localStorage
+                const userId = localStorage.getItem("userId"); // Ensure userId is retrieved correctly
+                if (!userId) {
+                    console.error("User ID is not set in localStorage.");
+                    return;
+                }
                 const user = {
                     id: userId,
                     name: nombre,
@@ -251,7 +255,12 @@
                     },
                     body: JSON.stringify(user),
                 })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (!response.ok) {
+                        return response.text().then((text) => { throw new Error(text) });
+                    }
+                    return response.json();
+                })
                 .then((userData) => {
                     console.log("User updated:", userData);
     
@@ -267,7 +276,12 @@
                         }),
                     });
                 })
-                .then((response) => response.json())
+                .then((response) => {
+                    if (!response.ok) {
+                        return response.text().then((text) => { throw new Error(text) });
+                    }
+                    return response.json();
+                })
                 .then((orderData) => {
                     console.log("Order placed:", orderData);
                     // Redirigir o mostrar un mensaje de éxito
@@ -278,6 +292,6 @@
                 });
             });
         });
-    </script>
+    </script>    
   </body>
 </html>

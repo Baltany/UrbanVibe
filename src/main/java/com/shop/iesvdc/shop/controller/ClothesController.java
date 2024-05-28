@@ -274,28 +274,38 @@ public class ClothesController {
     public String payCartOrder(){
         return "clothes/orders";
     }
-
+    
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody PurchaseOrder order) {
-        PurchaseOrder savedOrder = orderRepo.save(order);
-        return ResponseEntity.ok(savedOrder);
-    }
-
-    @PostMapping("/updateUser")
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
-        Optional<User> existingUser = userRepo.findById(user.getId());
-        if (existingUser.isPresent()) {
-            User updatedUser = existingUser.get();
-            updatedUser.setName(user.getName());
-            updatedUser.setSurname(user.getSurname());
-            updatedUser.setDni(user.getDni());
-            updatedUser.setAddress(user.getAddress());
-            userRepo.save(updatedUser);
-            return ResponseEntity.ok(updatedUser);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        try {
+            PurchaseOrder savedOrder = orderRepo.save(order);
+            return ResponseEntity.ok(savedOrder);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
-
+    
+    @PostMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        try {
+            if (user.getId() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User ID must not be null");
+            }
+            Optional<User> existingUser = userRepo.findById(user.getId());
+            if (existingUser.isPresent()) {
+                User updatedUser = existingUser.get();
+                updatedUser.setName(user.getName());
+                updatedUser.setSurname(user.getSurname());
+                updatedUser.setDni(user.getDni());
+                updatedUser.setAddress(user.getAddress());
+                userRepo.save(updatedUser);
+                return ResponseEntity.ok(updatedUser);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
+        }
+    }
     
 }

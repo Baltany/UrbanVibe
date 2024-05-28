@@ -636,6 +636,7 @@
     </header>
     </div>
 
+    <div id="app" data-user-id="{{userId}}"></div>
 
     <main class="main-content">
         <section class="hero-banner" id="hero-banner">
@@ -725,6 +726,7 @@
     <th:block th:fragment="menu-script">
 
     <script>
+        
         const heroBanner = document.getElementById('hero-banner');
         const images = [
             '/img/mainimagen.jpeg',
@@ -790,9 +792,30 @@
     
         closeEditModalIcon.onclick = closeEditModal;
         closeModalButton.onclick = closeEditModal;
+
+        // Función para obtener una cookie por su nombre
+        function getCookie(name) {
+            const cname = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(cname) == 0) {
+                    return c.substring(cname.length, c.length);
+                }
+            }
+            return "";
+        }
     
         // Inicializar el carrito desde el localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const userId = document.getElementById('app').dataset.userId;
+        console.log("User ID:", userId);
+
+        const cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+        //let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
         function getTotalCartItems() {
             return cart.reduce((total, item) => total + 1, 0);
@@ -852,7 +875,8 @@
                         size: data.size
                     };
                     cart.push(product);
-                    localStorage.setItem('cart', JSON.stringify(cart));
+                    localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
+                    //localStorage.setItem('cart', JSON.stringify(cart));
                     console.log('Product added to cart:', product);
                 } else {
                     // The product is already in the cart, do nothing
@@ -907,7 +931,8 @@
     
         function removeFromCart(index) {
             cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
+            //localStorage.setItem('cart', JSON.stringify(cart));
             renderCartItems();
             // Actualizar el contador del carrito
             updateCartCounter(getCartItemCount());
@@ -951,7 +976,8 @@
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
                     cartItem.size = data.size;
-                    localStorage.setItem('cart', JSON.stringify(cart));
+                    localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
+                    //localStorage.setItem('cart', JSON.stringify(cart));
                     renderCartItems();
                 }
                 closeEditModal();
