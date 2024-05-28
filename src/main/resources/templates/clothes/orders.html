@@ -160,7 +160,7 @@
         <p>URBANVIBE</p>
     </div>
     </center>
-    <div id="app" data-user-id="{{userId}}"></div>
+    <div type="hidden" id="userId" th:data-user-id="${userId}"></div>
     <main>
         <section class="checkout-container">
             <h1>Resumen del Pedido</h1>
@@ -202,7 +202,7 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             // Obtener el ID de usuario desde el atributo data-user-id
-            const appDiv = document.getElementById("app");
+            const appDiv = document.getElementById("userId");
             const userId = appDiv.getAttribute("data-user-id");
             
             // Guardar el ID de usuario en localStorage para su uso posterior
