@@ -227,15 +227,12 @@ public class ClothesController {
             return "redirect:/clothes";
         }
     }
-
-
-
+    
     @PostMapping("/details/{id}")
     public String updateClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
         if (clothe.isPresent()) {
             Clothes existingClothes = clothe.get();
-            // Actualiza los detalles de la ropa
             existingClothes.setDescription(updatedClothes.getDescription());
             existingClothes.setPrice(updatedClothes.getPrice());
             existingClothes.setSizeList(updatedClothes.getSizeList());
@@ -246,6 +243,7 @@ public class ClothesController {
             return "redirect:/clothes";
         }
     }
+    
 
     @GetMapping("/details/men/{id}")
     public String seeMenClothesDetails(@PathVariable Long id, Model model) {

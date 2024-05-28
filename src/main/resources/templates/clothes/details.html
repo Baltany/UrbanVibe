@@ -138,8 +138,8 @@
                     <img th:src="@{${clothe.image}}" alt="Imagen de la ropa" class="details-image" id="details-image">
                 </div>
                 <div class="details-right">
-                    <h1 th:text="${clothe.description}">Descripción</h1>
-                    <p class="subtitle"><strong><span th:text="${clothe.price} + '€'">0.00€</span></strong></p>
+                    <h1 th:text="${clothe.description}" id="description">Descripción</h1>
+                    <p class="subtitle" id="subtitle"><strong><span th:text="${clothe.price} + '€'">0.00€</span></strong></p>
                     <p>Stock:<strong><span th:text="${clothe.stock} + ' unidades'"></span></strong></p>
                     <p><span><strong>Categoría</strong></span>
                         <ul>
@@ -148,13 +148,14 @@
                     </p>
                     <p>
                         <span><strong>Tallas disponibles</strong></span>
-                        <p class="error-message" id="error-message">Por favor, selecciona una talla.</p>
                         <ul>
                             <li th:each="size : ${clothe.sizeList}"
                                 th:text="${size.size}"
                                 class="size-option"
                                 th:attr="data-size=${size.size}">Talla</li>
                         </ul>
+                        <p class="error-message" id="error-message">Por favor, selecciona una talla.</p>
+
                     </p>
                     <button id="addToCartButton" type="submit" class="addToCart">Añadir al carrito</button>
                 </div>
@@ -166,17 +167,17 @@
             const addToCartButton = document.getElementById("addToCartButton");
             const sizeOptions = document.querySelectorAll(".size-option");
             const errorMessage = document.getElementById("error-message");
-
+        
             // Verificar que los elementos existen
             console.log("addToCartButton:", addToCartButton);
             console.log("sizeOptions:", sizeOptions);
             console.log("errorMessage:", errorMessage);
-
-            if (!addToCartButton || !sizeOptions.length || !errorMessage) {
+        
+            if (!addToCartButton || sizeOptions.length === 0 || !errorMessage) {
                 console.error("No se encontraron algunos elementos necesarios en el DOM.");
                 return;
             }
-
+        
             sizeOptions.forEach(option => {
                 option.addEventListener("click", function() {
                     sizeOptions.forEach(opt => opt.classList.remove("active"));
@@ -184,38 +185,38 @@
                     errorMessage.style.display = 'none';
                 });
             });
-
+        
             addToCartButton.addEventListener("click", function(event) {
                 event.preventDefault();
                 const selectedSize = document.querySelector(".size-option.active");
                 if (selectedSize) {
-                    const size = selectedSize.dataset.size;
+                    const size = selectedSize.getAttribute('data-size');
                     const clothe = {
-                        description: document.querySelector('.details-right h1').innerText,
-                        price: document.querySelector('.subtitle strong span').innerText,
+                        description: document.getElementById('description').innerText,
+                        price: document.querySelector('#subtitle strong span').innerText,
                         size: size,
-                        image: document.querySelector('.details-image').src
+                        image: document.getElementById('details-image').src
                     };
-                    
+        
                     // Guardar en localStorage
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     cart.push(clothe);
                     localStorage.setItem('cart', JSON.stringify(cart));
-
+        
                     console.log(`Añadiendo al carrito: Talla ${size}`);
                     addToCartButton.innerText = "Añadido!";
                     addToCartButton.classList.add("added");
                     addToCartButton.disabled = true;
-
+        
                     // Redirigir y abrir el carrito
                     setTimeout(() => {
                         window.location.href = "/clothes?openCart=true";
-                    }, 500); 
+                    }, 500);
                 } else {
                     errorMessage.style.display = 'block';
                 }
             });
-
+        
             // Abrir carrito si el parámetro openCart está en la URL
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('openCart') === 'true') {
@@ -224,6 +225,6 @@
                 // Aquí puedes agregar la lógica para abrir tu carrito
             }
         });
-    </script>
+        </script>
 </body>
 </html>
