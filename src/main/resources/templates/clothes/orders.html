@@ -202,18 +202,18 @@
         document.addEventListener("DOMContentLoaded", function () {
             const userIdElement = document.getElementById("userId");
             const userId = userIdElement.getAttribute("data-user-id");
-            
+    
             localStorage.setItem("userId", userId);
-
+    
             const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
             const orderItemsContainer = document.getElementById("order-items");
             const totalPriceElement = document.getElementById("total-price");
             let totalPrice = 0;
-
+    
             cartData.forEach((item) => {
                 const itemElement = document.createElement("div");
                 itemElement.classList.add("order-item");
-
+    
                 itemElement.innerHTML = `
                     <img src="${item.image}" alt="${item.description}">
                     <div class="details-clothes">
@@ -224,22 +224,22 @@
                         <p>${item.price}€</p>
                     </div>
                 `;
-
+    
                 orderItemsContainer.appendChild(itemElement);
                 totalPrice += parseFloat(item.price);
             });
-
+    
             totalPriceElement.textContent = totalPrice.toFixed(2);
-
+    
             const orderForm = document.getElementById("order-form");
             orderForm.addEventListener("submit", function (event) {
                 event.preventDefault();
-
+    
                 const nombre = document.getElementById("name").value;
                 const apellidos = document.getElementById("surname").value;
                 const dni = document.getElementById("dni").value;
                 const direccion = document.getElementById("address").value;
-
+    
                 const userId = localStorage.getItem("userId");
                 if (!userId) {
                     console.error("User ID is not set in localStorage.");
@@ -252,7 +252,7 @@
                     dni: dni,
                     address: direccion
                 };
-
+    
                 fetch("/clothes/updateUser", {
                     method: "POST",
                     headers: {
@@ -268,7 +268,7 @@
                 })
                 .then((userData) => {
                     console.log("User updated:", userData);
-
+    
                     return fetch("/clothes/orders", {
                         method: "POST",
                         headers: {
@@ -297,6 +297,7 @@
             });
         });
     </script>
+    
    
   </body>
 </html>
