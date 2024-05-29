@@ -475,6 +475,10 @@ public class ClothesController {
         return "clothes/orders";
     }
     
+
+    /*
+     * Redirigir al endpoint thnku
+     */
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
@@ -493,7 +497,7 @@ public class ClothesController {
             PurchaseOrder order = new PurchaseOrder();
             order.setTotalPrice(total);
             order.setUser(user);
-            order.setOrderDate(LocalDate.now().toString()); // o cualquier lógica que uses para la fecha falta que quite la cantidad correcta segun cuantas veces la haya comprado
+            order.setOrderDate(LocalDate.now().toString()); // o cualquier lógica que uses para la fecha
     
             // Mapear los items del carrito a los items de la orden
             List<Clothes> clothesList = new ArrayList<>();
@@ -503,7 +507,7 @@ public class ClothesController {
                 if (clothesOpt.isPresent()) {
                     Clothes clothes = clothesOpt.get();
                     clothes.setPurchaseOrder(order); // Asigna la orden de compra a la ropa
-                    clothes.setStock(clothes.getStock()-1); //No resta 1 al stock
+                    clothes.setStock(clothes.getStock() - 1); // Resta 1 al stock
                     clothesList.add(clothes);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found: " + clothesId);
@@ -512,12 +516,14 @@ public class ClothesController {
             order.setClothesList(clothesList);
     
             PurchaseOrder savedOrder = orderRepo.save(order);
-
+            
+            // Retornar una respuesta exitosa con el objeto de la orden creada
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
+    
     
     
     @PostMapping("/updateUser")
