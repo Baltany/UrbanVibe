@@ -951,28 +951,34 @@
         }
     
         function openEditModal(data) {
+            console.log("Opening modal with data:", data); // Log para depurar
             document.getElementById('edit-item-image').src = data.image;
             document.getElementById('edit-item-title').innerText = data.description;
+            document.getElementById('edit-item-size').innerText = data.size;
             document.getElementById('edit-item-price').innerText = `${data.price}€`;
             
             const sizeSelect = document.getElementById('edit-item-size');
             sizeSelect.innerHTML = '';
-    
+
+            // Verificar si availableSizes está presente
+            console.log("Available Sizes:", data.availableSizes); // Log detallado
             if (data.availableSizes && Array.isArray(data.availableSizes)) {
                 data.availableSizes.forEach(size => {
                     const option = document.createElement('option');
                     option.value = size.size;
                     option.innerText = size.size;
-                    sizeSelect.appendChild(option);
-    
                     if (data.size && size.size === data.size) {
                         option.selected = true;
                     }
+                    sizeSelect.appendChild(option);
                 });
+            } else {
+                console.error('No available sizes found');
             }
-    
+
             editModal.style.display = 'flex';
             saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
+
         }
     
         function saveChanges(clotheId, newSize) {
@@ -985,6 +991,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log("Save changes response:", data); // Log para depurar
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
                     cartItem.size = data.size;
@@ -1004,6 +1011,7 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    console.log("Fetched data:", data); // Log detallado
                     if (data) {
                         openEditModal(data);
                     } else {

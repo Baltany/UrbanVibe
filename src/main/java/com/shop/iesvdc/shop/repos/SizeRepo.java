@@ -9,5 +9,8 @@ import com.shop.iesvdc.shop.model.Size;
 public interface SizeRepo extends JpaRepository<Size,Long>{
 
     List<Size> findBySize(String size);
+
+    //List<Size> findByClothesId(Long clothesId);
+
     
 }

@@ -220,16 +220,24 @@ public class ClothesController {
         if (clothe.isPresent()) {
             Map<String, Object> response = new HashMap<>();
             Clothes clothesData = clothe.get();
-            
+    
             response.put("id", clothesData.getId());
             response.put("description", clothesData.getDescription());
             response.put("image", clothesData.getImage());
             response.put("price", clothesData.getPrice());
             response.put("size", clothesData.getSizeList().isEmpty() ? null : clothesData.getSizeList().get(0).getSize());
     
-            // Obtener availableSizes desde tu repositorio o donde sea que lo estés obteniendo
+            // Obtener availableSizes desde el repositorio
             List<Size> availableSizes = sizeRepo.findAll();
+            
+            //List<Size> availableSizes = sizeRepo.findByClothesId(clothesData.getId());
             response.put("availableSizes", availableSizes);
+
+            System.out.println("Fetched Available Sizes: " + availableSizes); // Log detallado
+            response.put("availableSizes", availableSizes);
+    
+            // Log detallado para depuración
+            System.out.println("Response (detailed): " + response);
     
             return ResponseEntity.ok(response);
         } else {
@@ -238,7 +246,6 @@ public class ClothesController {
     }
     
     
-
     @PostMapping("/addToCart/{id}")
     public ResponseEntity<?> addToCart(@PathVariable Long id, @RequestParam(required = false) String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
