@@ -219,6 +219,31 @@ public class ClothesController {
     //Los detalles fallan no abre el carro ni los añade
     @GetMapping("/details/{id}")
     public String seeClothesDetails(@PathVariable Long id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que el usuario no está autenticado
+                model.addAttribute("message", "User not authenticated");
+                return "error";
+            }
+        }
+    
         Optional<Clothes> clothe = clothesRepo.findById(id);
         if (clothe.isPresent()) {
             model.addAttribute("clothe", clothe.get());
@@ -227,6 +252,7 @@ public class ClothesController {
             return "redirect:/clothes";
         }
     }
+    
     
     @PostMapping("/details/{id}")
     public String updateClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
@@ -242,7 +268,7 @@ public class ClothesController {
         } else {
             return "redirect:/clothes";
         }
-    }
+    }    
     
 
     @GetMapping("/details/men/{id}")
