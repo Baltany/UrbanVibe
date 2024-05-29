@@ -244,7 +244,7 @@ public class ClothesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
-     
+    
     
     
     @PostMapping("/addToCart/{id}")
