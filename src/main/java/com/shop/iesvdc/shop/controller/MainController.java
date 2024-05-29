@@ -40,6 +40,11 @@ public class MainController {
         return "menu";
     }
 
+    @GetMapping("/thnku")
+    public String showThnks() {
+        return "thnku";
+    }
+
     @GetMapping("/login")
     public String showLogin() {
         return "login";

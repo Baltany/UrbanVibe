@@ -47,7 +47,8 @@ public class SecurityConf {
         return http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/webjars/**", "/img/**", "/js/**", "/register/**", "/ayuda/**", "/acerca/**", "/login", "/denegado", "/inicio",
-                        "/menu","/users/signup","/index","/clothes/**","/clothes/details/**","/clothes/men","/clothes/women","clothes/orders")
+                        "/menu","/users/signup","/index","/clothes/**","/clothes/details/**","/clothes/men","/clothes/women","clothes/orders",
+                        "/thnku")
                         .permitAll()
                         .requestMatchers("/users/**", "/users/*/**", "/users/*/*/**","/orders/**","/orders/*/**","/orders/*/*/**")
                         .hasAuthority("Admin")

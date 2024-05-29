@@ -130,7 +130,7 @@ public class ClothesController {
         }
     
         // Resto del código para cargar la página de ropa
-        List<Clothes> lClothes = clothesRepo.findAll();
+        List<Clothes> lClothes = clothesRepo.findAllBySex("men");
         model.addAttribute("clothes", lClothes);
         
         return "clothes/men";
@@ -169,7 +169,7 @@ public class ClothesController {
         }
     
         // Resto del código para cargar la página de ropa
-        List<Clothes> lClothes = clothesRepo.findAll();
+        List<Clothes> lClothes = clothesRepo.findAllBySex("women");
         model.addAttribute("clothes", lClothes);
         
         return "clothes/women";
@@ -344,6 +344,7 @@ public class ClothesController {
     public String seeMenClothesDetails(@PathVariable Long id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
+        
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
@@ -511,6 +512,7 @@ public class ClothesController {
             order.setClothesList(clothesList);
     
             PurchaseOrder savedOrder = orderRepo.save(order);
+
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
