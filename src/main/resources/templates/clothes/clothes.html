@@ -628,6 +628,7 @@
             <div class="navbar-icons">
                 <span class="company-name">UrbanVibe</span>
                 <i class="fas fa-search"></i>
+                <!--Buscador-->
                 <input type="text" class="search-input" placeholder="Buscar...">
                 <i class="fas fa-shopping-cart cart-icon">
                     <span class="cart-counter">0</span> <!--Contador-->
@@ -744,9 +745,17 @@
         }
     
         setInterval(changeBackgroundImage, 5000);
+
+
+        
     
         const searchIcon = document.querySelector('.fa-search');
         const searchInput = document.querySelector('.search-input');
+        /*
+            Intentando hacer el buscador
+        */
+        const productCards = document.querySelectorAll('.product-card');
+
     
         searchIcon.addEventListener('click', () => {
             searchInput.classList.toggle('active');
