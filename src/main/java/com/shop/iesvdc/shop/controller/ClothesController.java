@@ -99,15 +99,79 @@ public class ClothesController {
     
     @GetMapping("/men")
     public String findAllMen(Model model) {
-        List<Clothes> lClothes = clothesRepo.findAllBySex("men");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    
+        // Verificar si el usuario está autenticado
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
+                model.addAttribute("message", "No such user");
+                return "error";
+            }
+        } else {
+            // Manejar el caso en el que el usuario no está autenticado
+            model.addAttribute("message", "User not authenticated");
+            return "error";
+        }
+    
+        // Resto del código para cargar la página de ropa
+        List<Clothes> lClothes = clothesRepo.findAll();
         model.addAttribute("clothes", lClothes);
+        
         return "clothes/men";
     }
 
     @GetMapping("/women")
     public String findAllWomen(Model model) {
-        List<Clothes> lClothes = clothesRepo.findAllBySex("women");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    
+        // Verificar si el usuario está autenticado
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
+                model.addAttribute("message", "No such user");
+                return "error";
+            }
+        } else {
+            // Manejar el caso en el que el usuario no está autenticado
+            model.addAttribute("message", "User not authenticated");
+            return "error";
+        }
+    
+        // Resto del código para cargar la página de ropa
+        List<Clothes> lClothes = clothesRepo.findAll();
         model.addAttribute("clothes", lClothes);
+        
         return "clothes/women";
     }
 
@@ -216,7 +280,9 @@ public class ClothesController {
 
 
 
-    //Los detalles fallan no abre el carro ni los añade
+    /*
+     * Endpoint clothes
+     */
     @GetMapping("/details/{id}")
     public String seeClothesDetails(@PathVariable Long id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -271,8 +337,36 @@ public class ClothesController {
     }    
     
 
+    /*
+     * Endpoint men
+     */
     @GetMapping("/details/men/{id}")
     public String seeMenClothesDetails(@PathVariable Long id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que el usuario no está autenticado
+                model.addAttribute("message", "User not authenticated");
+                return "redirect:/clothes/men";
+            }
+        }
+    
         Optional<Clothes> clothe = clothesRepo.findById(id);
         if (clothe.isPresent()) {
             model.addAttribute("clothe", clothe.get());
@@ -280,6 +374,7 @@ public class ClothesController {
         } else {
             return "redirect:/clothes/men";
         }
+
     }
 
 
@@ -299,8 +394,36 @@ public class ClothesController {
         }
     }
 
+    /*
+     * Endpoint women
+     */
     @GetMapping("/details/women/{id}")
     public String seeWomenClothesDetails(@PathVariable Long id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            
+            // Buscar el usuario por nombre de usuario en el repositorio
+            Optional<User> userOptional = userRepo.findByUsername(username);
+            
+            // Verificar si se encontró el usuario
+            if (userOptional.isPresent()) {
+                // Obtener el usuario desde el Optional
+                User user = userOptional.get();
+                
+                // Obtener el ID del usuario
+                Long userId = user.getId();
+                
+                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                model.addAttribute("userId", userId);
+            } else {
+                // Manejar el caso en el que el usuario no está autenticado
+                model.addAttribute("message", "User not authenticated");
+                return "redirect:/clothes/women";
+            }
+        }
+    
         Optional<Clothes> clothe = clothesRepo.findById(id);
         if (clothe.isPresent()) {
             model.addAttribute("clothe", clothe.get());
@@ -310,9 +433,7 @@ public class ClothesController {
         }
     }
 
-    /*
-     * No muestra la imagen
-     */
+
     @PostMapping("/details/women/{id}")
     public String updateWomenClothesDetails(@PathVariable Long id, Clothes updatedClothes) {
         Optional<Clothes> clothe = clothesRepo.findById(id);
