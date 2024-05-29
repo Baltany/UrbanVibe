@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -227,23 +228,23 @@ public class ClothesController {
             response.put("price", clothesData.getPrice());
             response.put("size", clothesData.getSizeList().isEmpty() ? null : clothesData.getSizeList().get(0).getSize());
     
-            // Obtener availableSizes desde el repositorio
-            List<Size> availableSizes = sizeRepo.findAll();
-            
-            //List<Size> availableSizes = sizeRepo.findByClothesId(clothesData.getId());
-            response.put("availableSizes", availableSizes);
-
-            System.out.println("Fetched Available Sizes: " + availableSizes); // Log detallado
-            response.put("availableSizes", availableSizes);
+            // Obtener todas las tallas desde el repositorio
+            List<Size> allSizes = sizeRepo.findAll();
+            List<String> allSizeStrings = allSizes.stream()
+                    .map(Size::getSize)
+                    .collect(Collectors.toList());
+            response.put("availableSizes", allSizeStrings);
     
             // Log detallado para depuración
             System.out.println("Response (detailed): " + response);
+            System.out.println("All Sizes from Repo: " + allSizeStrings);
     
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
+     
     
     
     @PostMapping("/addToCart/{id}")
