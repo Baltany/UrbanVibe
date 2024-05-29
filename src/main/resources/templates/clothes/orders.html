@@ -289,6 +289,7 @@
                 })
                 .then((orderData) => {
                     console.log("Order placed:", orderData);
+                    localStorage.clear();
                     window.location.href = "/thnku";
                   })
                 .catch((error) => {
