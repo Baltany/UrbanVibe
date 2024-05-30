@@ -487,6 +487,9 @@ public class ClothesController {
     /*
      * Redirigir al endpoint thnku
      */
+    /*
+     * Fallo que hay que corregir para que funcione el pedido,crear una linea pedido
+     */
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
@@ -514,7 +517,7 @@ public class ClothesController {
                 Optional<Clothes> clothesOpt = clothesRepo.findById(clothesId);
                 if (clothesOpt.isPresent()) {
                     Clothes clothes = clothesOpt.get();
-                    clothes.setPurchaseOrder(order); // Asigna la orden de compra a la ropa
+                    //clothes.setPurchaseOrder(order); // Asigna la orden de compra a la ropa
                     clothes.setStock(clothes.getStock() - 1); // Resta 1 al stock
                     clothesList.add(clothes);
                 } else {

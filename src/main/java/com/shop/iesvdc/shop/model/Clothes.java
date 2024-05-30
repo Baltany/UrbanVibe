@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -56,12 +57,19 @@ public class Clothes {
     @ManyToMany
     private List<Sex> sexList;
 
-    @ManyToOne
-    @JoinColumn(name = "clothes_purchase_order_id")
-    @JsonBackReference
-    @ToString.Exclude // Evita la recursividad en toString
+    /*
+     * 
+        @ManyToOne
+        @JoinColumn(name = "clothes_purchase_order_id")
+        @JsonBackReference
+        @ToString.Exclude
+        private PurchaseOrder purchaseOrder;
+     * 
+     */
 
-    private PurchaseOrder purchaseOrder;
+    @OneToMany
+    private OrderTraking orderTraking;
+
 
 
     // Si tienes un método toString personalizado, asegúrate de excluir purchaseOrder o hacerlo de manera segura

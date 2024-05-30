@@ -52,6 +52,10 @@ public class PurchaseOrder {
     private User user;
 
 
+    @OneToMany
+    private OrderTraking orderTracking;
+
+
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
     @Override
     public String toString() {
