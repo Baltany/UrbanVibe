@@ -38,12 +38,12 @@ public class PurchaseOrder {
      * Lista de articulos que ha comprado el cliente
      * @JsonManagedRefence:se aplica al lado directo de la referencia cuando usamos relaciones de uno a muchos
      */
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "purcharse_order_clothes_id")
-    @JsonManagedReference
-    @ToString.Exclude // Evita la recursividad en toString
+    // @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // //@JoinColumn(name = "purcharse_order_clothes_id")
+    // @JsonManagedReference
+    // @ToString.Exclude // Evita la recursividad en toString
 
-    private List<Clothes> clothesList;
+    // private List<Clothes> clothesList;
 
     /*
      * Varios pedidos pueden ser realizados por un mismo cliente    
@@ -53,7 +53,7 @@ public class PurchaseOrder {
 
 
     @OneToMany
-    private OrderTraking orderTracking;
+    private List<OrderTraking> orderTracking;
 
 
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
