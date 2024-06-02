@@ -45,7 +45,7 @@ public class PurchaseOrderController {
             System.out.println("User: " + order.getUser().getUsername());
             System.out.println("Total Price: " + order.getTotalPrice());
             System.out.println("Order Date: " + order.getOrderDate());
-            // System.out.println("Clothes List: " + order.getClothesList());
+            System.out.println("Clothes List: " + order);
         }
         model.addAttribute("orders", purchaseOrders);
         return "orders/orders";
