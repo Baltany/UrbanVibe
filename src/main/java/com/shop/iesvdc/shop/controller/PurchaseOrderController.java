@@ -45,7 +45,7 @@ public class PurchaseOrderController {
             System.out.println("User: " + order.getUser().getUsername());
             System.out.println("Total Price: " + order.getTotalPrice());
             System.out.println("Order Date: " + order.getOrderDate());
-            System.out.println("Clothes List: " + order.getClothesList());
+            // System.out.println("Clothes List: " + order.getClothesList());
         }
         model.addAttribute("orders", purchaseOrders);
         return "orders/orders";
@@ -125,6 +125,8 @@ public class PurchaseOrderController {
      * Para hacer la lógica de una ventana flotante que me muestre los datos del pedido
      */
 
+
+    /*
     @GetMapping("/clothes/{id}")
     @ResponseBody
     public ResponseEntity<List<Clothes>> getClothesByOrderId(@PathVariable Long id) {
@@ -136,6 +138,8 @@ public class PurchaseOrderController {
             return ResponseEntity.notFound().build();
         }
     }
+     * 
+     */
 
     @PostMapping("/clothes/{id}")
     @ResponseBody
@@ -143,7 +147,7 @@ public class PurchaseOrderController {
         Optional<PurchaseOrder> purchaseOrderOpt = purchaseOrderRepo.findById(id);
         if (purchaseOrderOpt.isPresent()) {
             PurchaseOrder purchaseOrder = purchaseOrderOpt.get();
-            purchaseOrder.setClothesList(updatedClothes);
+            //purchaseOrder.setClothesList(updatedClothes);
             purchaseOrderRepo.save(purchaseOrder);
             return ResponseEntity.ok("Detalles de ropa actualizados correctamente");
         } else {

@@ -524,7 +524,7 @@ public class ClothesController {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found: " + clothesId);
                 }
             }
-            order.setClothesList(clothesList);
+            //order.setClothesList(clothesList);
     
             PurchaseOrder savedOrder = orderRepo.save(order);
             

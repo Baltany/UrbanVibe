@@ -29,4 +29,8 @@ public class OrderTraking {
 
     private double price;
 
+    private String status;
+
+    private String orderDate;
+
 }

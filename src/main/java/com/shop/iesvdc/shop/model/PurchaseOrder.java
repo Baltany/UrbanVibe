@@ -52,7 +52,7 @@ public class PurchaseOrder {
     private User user;
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "purchaseOrder")
     private List<OrderTraking> orderTracking;
 
 
