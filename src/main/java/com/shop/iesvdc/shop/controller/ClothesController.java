@@ -228,22 +228,22 @@ public class ClothesController {
             response.put("price", clothesData.getPrice());
             response.put("size", clothesData.getSizeList().isEmpty() ? null : clothesData.getSizeList().get(0).getSize());
     
-            // Obtener todas las tallas desde el repositorio
-            List<Size> allSizes = sizeRepo.findAll();
-            List<String> allSizeStrings = allSizes.stream()
+            // Obtener las tallas asignadas a la prenda
+            List<String> assignedSizes = clothesData.getSizeList().stream()
                     .map(Size::getSize)
                     .collect(Collectors.toList());
-            response.put("availableSizes", allSizeStrings);
+            response.put("availableSizes", assignedSizes);
     
             // Log detallado para depuración
             System.out.println("Response (detailed): " + response);
-            System.out.println("All Sizes from Repo: " + allSizeStrings);
     
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
+    
+    
     
     
     
@@ -265,7 +265,6 @@ public class ClothesController {
     }
 
 
-    //posible cambio a Size size
     @PostMapping("/updateCart/{id}")
     public ResponseEntity<Map<String, Object>> updateCart(@PathVariable Long id, @RequestParam String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
@@ -285,6 +284,7 @@ public class ClothesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
+
 
 
 

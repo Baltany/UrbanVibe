@@ -611,6 +611,28 @@
         .cart-icon .cart-counter {
             display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
         }
+        .form-control-description{
+            font-size: 18px;
+            color: #333;
+        }
+        .form-control-price{
+            color:#888;
+        }
+
+        .form-control span {
+            font-size: 1rem;
+            padding: 15px 20px;
+            border: 1px solid #ccc;
+            border-radius: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-control .selected-size {
+            background-color: black;
+            color: white;
+        }
+        
     </style>
 </th:block>
 
@@ -706,12 +728,22 @@
             <div class="cart-items edit-item-details">
                 <img id="edit-item-image" src="" alt="" class="edit-item-image">
                 <div class="show-clothes">
-                    <h3 id="edit-item-title" class="edit-item-title"></h3>
-                    <p id="edit-item-price" class="edit-item-price"></p>
-                    <label for="edit-item-size">Talla:</label>
-                    <select id="edit-item-size">
-                    </select>
-                    <center>
+                    <form id="editClothesForm">
+                        <div class="form-group">
+                            <strong><p id="description" class="form-control-description"></p></strong>
+                        </div>
+                        <div class="form-group">
+                            <p id="price" class="form-control-price"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizes">Sizes</label>
+                            <p id="sizes" class="form-control"></p> <!-- Mostrar todas las tallas aquí -->
+                        </div>
+                        
+                        
+
+                    </form>
+    
                     <div class="edit-buttons">
                         <button id="save-changes-btn" class="buttons-edit-cancel">Guardar cambios</button>
                         <button class="close-modal buttons-edit-cancel" id="close-modal-exit">Cancelar</button>
@@ -934,7 +966,7 @@
     
                 const editItemButton = cartItem.querySelector('.edit-item');
                 editItemButton.addEventListener('click', () => {
-                    openEditModal(item);
+                    openEditModal(item.id);
                 });
             });
         }
@@ -958,8 +990,104 @@
                 .then(data => openEditModal(data))
                 .catch(error => console.error('Error fetching edit data:', error));
         }
+
+        /*function openEditModal(id) {
+            console.log("Opening modal with ID:", id);  // Verifica el ID
+            fetch(`/clothes/edit/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Opening modal with data:", data);
+                    // Aquí puedes usar los datos para llenar tu modal
+                    document.getElementById('image').src = data.image;
+                    document.getElementById('size').value = data.size;
+                    document.getElementById('price').value = data.price;
+                    document.getElementById('description').value = data.description;
+                    // Aquí puedes abrir el modal si estás usando alguna biblioteca como Bootstrap o un modal personalizado
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        }*/
+        
+
+        function openEditModal(id) {
+            console.log("Opening modal with ID:", id);  // Verifica el ID
+            fetch(`/clothes/edit/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Opening modal with data:", data);
+        
+                    // Verifica que los elementos del DOM existen antes de establecer sus propiedades
+                    const imageElement = document.getElementById('edit-item-image');
+                    const descriptionElement = document.getElementById('description');
+                    const sizeElement = document.getElementById('size');
+                    const priceElement = document.getElementById('price');
+                    const sizesParagraph = document.getElementById('sizes');
+        
+                    if (imageElement) {
+                        imageElement.src = data.image;
+                    } else {
+                        console.error("Image element not found");
+                    }
+        
+                    if (descriptionElement) {
+                        descriptionElement.innerText = data.description;
+                    } else {
+                        console.error("Description element not found");
+                    }
+        
+                    if (sizeElement) {
+                        sizeElement.innerText = data.size;
+                    } else {
+                        console.error("Size element not found");
+                    }
+        
+                    if (priceElement) {
+                        priceElement.innerText = `${data.price}€`;
+                    } else {
+                        console.error("Price element not found");
+                    }
+        
+                    if (sizesParagraph) {
+                        sizesParagraph.innerHTML = '';  // Limpiar contenido anterior
+        
+                        const availableSizes = data.availableSizes || [];
+                        availableSizes.forEach(size => {
+                            const sizeSpan = document.createElement('span');
+                            sizeSpan.innerText = size;
+                            if (data.size && size === data.size) {
+                                sizeSpan.classList.add('selected-size');
+                            }
+                            sizesParagraph.appendChild(sizeSpan);
+                        });
+                    } else {
+                        console.error("Sizes paragraph element not found");
+                    }
+        
+                    // Mostrar el modal
+                    document.getElementById('edit-modal').style.display = 'flex';
+        
+                    // Manejar el evento de guardar cambios
+                    document.getElementById('save-changes-btn').onclick = () => saveChanges(data.id, document.getElementById('size').innerText);
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+            
     
-        function openEditModal(data) {
+    
+        /*function openEditModal(data) {
             console.log("Opening modal with data:", data); // Log para depurar
             document.getElementById('edit-item-image').src = data.image;
             document.getElementById('edit-item-title').innerText = data.description;
@@ -974,6 +1102,18 @@
 
             // Verificar si availableSizes está presente
             console.log("Available Sizes:", data.availableSizes); // Log detallado
+            const availableSizes = data.availableSizes || [];
+            availableSizes.forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.innerText = size;
+                if (data.size && size === data.size) {
+                    option.selected = true;
+                }
+                sizeSelect.appendChild(option);
+            });
+
+            /*
             if (data.availableSizes && Array.isArray(data.availableSizes)) {
                 data.availableSizes.forEach(size => {
                     const option = document.createElement('option');
@@ -992,6 +1132,7 @@
             saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
 
         }
+        */
     
         function saveChanges(clotheId, newSize) {
             const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
