@@ -631,6 +631,8 @@
         .form-control .selected-size {
             background-color: black;
             color: white;
+            flex-wrap: wrap;
+
         }
         
     </style>
@@ -991,28 +993,7 @@
                 .catch(error => console.error('Error fetching edit data:', error));
         }
 
-        /*function openEditModal(id) {
-            console.log("Opening modal with ID:", id);  // Verifica el ID
-            fetch(`/clothes/edit/${id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("Opening modal with data:", data);
-                    // Aquí puedes usar los datos para llenar tu modal
-                    document.getElementById('image').src = data.image;
-                    document.getElementById('size').value = data.size;
-                    document.getElementById('price').value = data.price;
-                    document.getElementById('description').value = data.description;
-                    // Aquí puedes abrir el modal si estás usando alguna biblioteca como Bootstrap o un modal personalizado
-                })
-                .catch(error => {
-                    console.error("Error fetching data:", error);
-                });
-        }*/
+
         
 
         function openEditModal(id) {
@@ -1065,9 +1046,20 @@
                         availableSizes.forEach(size => {
                             const sizeSpan = document.createElement('span');
                             sizeSpan.innerText = size;
+                            sizeSpan.classList.add('size-option');
                             if (data.size && size === data.size) {
                                 sizeSpan.classList.add('selected-size');
                             }
+        
+                            sizeSpan.addEventListener('click', () => {
+                                document.querySelectorAll('.size-option').forEach(span => {
+                                    span.classList.remove('selected-size');
+                                });
+                                sizeSpan.classList.add('selected-size');
+                                localStorage.setItem('selectedSize', size);
+                                sizeElement.innerText = size; // Actualizar la talla seleccionada en el modal
+                            });
+        
                             sizesParagraph.appendChild(sizeSpan);
                         });
                     } else {
@@ -1084,56 +1076,10 @@
                     console.error("Error fetching data:", error);
                 });
         }
-            
+         
     
     
-        /*function openEditModal(data) {
-            console.log("Opening modal with data:", data); // Log para depurar
-            document.getElementById('edit-item-image').src = data.image;
-            document.getElementById('edit-item-title').innerText = data.description;
-            document.getElementById('edit-item-size').innerText = data.size;
-            document.getElementById('edit-item-price').innerText = `${data.price}€`;
-            
-            const sizeSelect = document.getElementById('edit-item-size');
-            sizeSelect.innerHTML = '';
 
-            // Añadir log detallado para depuración
-            console.log("Data received in openEditModal:", JSON.stringify(data, null, 2));
-
-            // Verificar si availableSizes está presente
-            console.log("Available Sizes:", data.availableSizes); // Log detallado
-            const availableSizes = data.availableSizes || [];
-            availableSizes.forEach(size => {
-                const option = document.createElement('option');
-                option.value = size;
-                option.innerText = size;
-                if (data.size && size === data.size) {
-                    option.selected = true;
-                }
-                sizeSelect.appendChild(option);
-            });
-
-            /*
-            if (data.availableSizes && Array.isArray(data.availableSizes)) {
-                data.availableSizes.forEach(size => {
-                    const option = document.createElement('option');
-                    option.value = size.size;
-                    option.innerText = size.size;
-                    if (data.size && size.size === data.size) {
-                        option.selected = true;
-                    }
-                    sizeSelect.appendChild(option);
-                });
-            } else {
-                console.error('No available sizes found');
-            }
-
-            editModal.style.display = 'flex';
-            saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
-
-        }
-        */
-    
         function saveChanges(clotheId, newSize) {
             const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
             fetch(url, {
