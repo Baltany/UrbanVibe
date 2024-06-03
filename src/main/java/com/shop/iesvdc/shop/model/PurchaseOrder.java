@@ -53,7 +53,7 @@ public class PurchaseOrder {
 
 
     @OneToMany(mappedBy = "purchaseOrder")
-    private List<OrderTraking> orderTracking;
+    private List<OrderTracking> orderTracking;
 
 
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura

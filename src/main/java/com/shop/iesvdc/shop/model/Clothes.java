@@ -68,7 +68,7 @@ public class Clothes {
      */
 
     @OneToMany
-    private List<OrderTraking> orderTraking;
+    private List<OrderTracking> orderTraking;
 
 
 

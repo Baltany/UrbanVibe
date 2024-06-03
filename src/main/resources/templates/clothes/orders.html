@@ -85,18 +85,38 @@
 
       #checkout-button {
         display: block;
-        width: 100%;
+        width: 50%;
         padding: 1rem;
         background-color: #333;
         color: white;
         border: none;
         cursor: pointer;
         font-size: 1.2rem;
+        margin:1rem;
+
       }
 
       #checkout-button:hover {
         background-color: #555;
       }
+
+      .cancel-btn{
+        display: block;
+        width: 50%;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin:1rem;
+      }
+      .cancel-btn:hover{
+        background-color: #555;
+
+      }
+
+
       .details-clothes {
         display: grid;
         align-items: left;
@@ -152,6 +172,10 @@
         font-weight: bold;
 
     }
+    .btns-action{
+      display:flex;
+      width:100%;
+    }
     </style>
   </head>
   <body>
@@ -192,7 +216,10 @@
                         <div class="order-total">
                             <p>Total: <span id="total-price"></span> €</p>
                         </div>
+                        <div class="btns-action">
+                        <button class="cancel-btn" onclick="window.location.href='/clothes'">Cancelar</button>
                         <button type="submit" id="checkout-button">Realizar Pedido</button>
+                        </div>
                     </form>
                 </div>
             </div>
