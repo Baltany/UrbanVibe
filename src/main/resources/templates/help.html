@@ -6,135 +6,157 @@
     <style>
         /* Estilos generales */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f0f0;
             color: #333;
             margin: 0;
             padding: 0;
         }
-
-        .color-rosa {
-            color: black;
-        }
-
+        
         .container {
             width: 90%;
-            max-width: 900px; /* Ancho máximo del contenedor */
-            margin: 0 auto;
-        }
-
-        .contenidoform {
+            max-width: 800px;
+            margin: 50px auto;
             background-color: #fff;
-            padding: 30px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
-
+        
         .titulo_simple {
-            font-size: 28px;
-            font-weight: bold;
-            color: black;
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
             margin-bottom: 20px;
-            text-align: center; /* Centrar el título */
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-
+        
         .linea_sep {
-            border-bottom: 2px solid black;
-            width: 200px;
-            margin: 10px auto; /* Centrar la línea horizontal */
+            border-bottom: 3px solid #000;
+            width: 100px;
+            margin: 20px auto;
         }
-
+        
         .anchoformcontacto {
-            max-width: 700px; /* Ancho máximo del formulario */
+            max-width: 700px;
             margin: 0 auto;
         }
-
+        
         .anchocontacto {
             display: flex;
-            align-items: center; /* Alinear verticalmente */
+            align-items: center;
             margin-bottom: 20px;
+            position: relative;
         }
-
+        
         .campo,
         .textarea {
-            flex: 1; /* Ocupar todo el espacio restante */
-            padding: 12px;
-            border: 1px solid black;
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
+            transition: border-color 0.3s, background-color 0.3s;
+            background-color: #f7f7f7;
             box-sizing: border-box;
-            margin-left: 10px; /* Separación entre ícono y campo */
+            padding-left: 50px;
         }
-
+        
+        .campo:focus,
+        .textarea:focus {
+            border-color: #000;
+            outline: none;
+            background-color: #fff;
+        }
+        
         .enviar,
         .cancelar {
-            padding: 12px 20px;
-            background-color: black;
+            padding: 15px 30px;
+            background-color: #000;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s ease;
-            margin-top: 20px; /* Espacio entre último campo y botón */
-            flex: 1; /* Ocupar todo el espacio disponible en la fila */
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 20px;
+            width: 48%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+        
         .enviar:hover,
         .cancelar:hover {
-            background-color: #404040;
+            background-color: #444;
+            transform: scale(1.05);
         }
-
-        /* Estilos de iconos */
+        
+        .marcoenviar {
+            display: flex;
+            justify-content: space-between;
+        }
+        
         .icocontacto {
-            font-size: 24px; /* Tamaño del ícono */
+            font-size: 24px;
             color: #555;
-            margin-right: 10px; /* Separación a la derecha del ícono */
+            position: absolute;
+            left: 15px;
         }
-
-        .enlaces {
-            color: black;
-        }
-
-        /* Media queries para ajustar el formulario en diferentes tamaños de pantalla */
+        
         @media (min-width: 768px) {
-            .contenidoform {
-                padding: 40px; /* Aumentar el padding en pantallas más grandes */
+            .container {
+                padding: 50px;
             }
-
-            .anchoformcontacto {
-                max-width: 800px; /* Ajustar el ancho máximo del formulario en pantallas grandes */
-            }
-
+        
             .campo,
             .textarea {
-                font-size: 18px; /* Aumentar el tamaño de la fuente en pantallas grandes */
+                font-size: 18px;
             }
-
+        
             .enviar,
             .cancelar {
-                padding: 15px 25px; /* Aumentar el tamaño del botón en pantallas grandes */
+                padding: 15px 25px;
             }
         }
-
+        
         @media (min-height: 600px) {
-            .contenidoform {
-                padding: 50px; /* Aumentar el padding si la altura de la pantalla es mayor a 600px */
+            .container {
+                padding: 60px;
             }
         }
-    </style>
+          
+        .urban-title {
+            margin-top: 1.75rem;
+            color: black;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+
+        }
+        
+        </style>
 </head>
 <body>
     <nav sec:authorize="hasAuthority('Admin')">
         <div th:replace="~{fragments/main.html :: navigation}"></div>
     </nav>
 
+    <center>
+        <div class="urban-title">
+            <p onclick="window.location.href='/menu'">URBANVIBE</p>
+        </div>
+    </center>
+
     <br>
     <!-- Formulario de contacto -->
     <div class="container">
         <section class="contenidoform anchoformcontacto">
             <h1 class="titulo_simple">
-                Formulario de Contacto
+                Contact us
                 <div class="linea_sep"></div>
             </h1>
             <br>
@@ -143,37 +165,37 @@
                 <div class="anchoformcontacto">
                     <div class="anchocontacto">
                         <i class="fas fa-user icocontacto" style="color: #000000;"></i>
-                        <input id="name" name="name" type="text" class="campo" placeholder="Nombre" required>
+                        <input id="name" name="name" type="text" class="campo" placeholder="User's name" required>
                     </div>
                     <div class="anchocontacto">
                         <i class="fas fa-phone-alt icocontacto" style="color: #000000;"></i>
-                        <input id="phone" name="phone" type="tel" class="campo" placeholder="Teléfono" required>
+                        <input id="phone" name="phone" type="tel" class="campo" placeholder="Phone Number" required>
                     </div>
                     <div class="anchocontacto">
                         <i class="fas fa-file-alt icocontacto" style="color: #000000;"></i>
-                        <input id="subject" name="subject" type="text" class="campo" placeholder="Asunto" required>
+                        <input id="subject" name="subject" type="text" class="campo" placeholder="Subject" required>
                     </div>
                     <div class="anchocontacto">
                         <i class="far fa-envelope icocontacto" style="color: #000000;"></i>
-                        <input id="mail" type="email" name="mail" class="campo" placeholder="Email" required>
+                        <input id="mail" type="email" name="mail" class="campo" placeholder="Mail" required>
                     </div>
                     <div class="anchocontacto">
                         <i class="fas fa-comment-alt icocontacto" style="color: #000000;"></i>
-                        <textarea id="message" name="message" class="textarea" placeholder="Mensaje" required></textarea>
+                        <textarea id="message" name="message" class="textarea" placeholder="What is your problem?" required></textarea>
                     </div>
-                    <div class="checkbox-label">
+                    <!--<div class="checkbox-label">
                         <input type="checkbox" id="lopd" required>
                         <label for="lopd">
                             Al marcar esta casilla confirmas que has sido informado y aceptas la
                             <a href="#" target="_blank" class="enlaces">LOPD</a>.
                         </label>
-                    </div>
+                    </div>-->
                     <br>
                     <div class="marcoenviar">
                         <!--Deberia de enviar a los usuarios al endpoint clothes -->
-                        <input type="submit" value="Enviar Consulta" class="enviar">
+                        <input type="submit" value="Enviar" class="enviar">
                         <!--Necesito que rediriga al sitio anterior donde se encontraba el usuario-->
-                        <button type="button" href="" class="cancelar" sec:authorize="Customer">Cancelar</button>
+                        <button type="button" onclick="window.location.href='/menu'" class="cancelar">Cancelar</button>
                     </div>
                 </div>
             </form>
@@ -181,7 +203,7 @@
 
 
     </div>
-    <div th:replace="~{fragments/main.html :: footer}"></div>
+    <!--<div th:replace="~{fragments/main.html :: footer}"></div>->
 
     <!-- Scripts adicionales si es necesario -->
     <script src="https://smtpjs.com/v3/smtp.js"></script>
