@@ -97,7 +97,7 @@
 
         <form th:action="@{/users/signup}" th:object="${user}" method="POST">
             <div class="form-group">
-                <label for="mail" class="form-label">Email:</label>
+                <label for="mail" class="form-label">Mail:</label>
                 <input name="mail" type="email" id="mail" class="form-control" placeholder="example@example.es" th:field="*{mail}" required>
             </div>
             <div class="form-group">
