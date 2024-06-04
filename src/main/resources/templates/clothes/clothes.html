@@ -40,6 +40,7 @@
             padding: 0 20px;
         }
         .nav-list {
+            cursor: pointer;
             list-style: none;
             padding: 0;
             display: flex;
@@ -633,6 +634,12 @@
             flex-wrap: wrap;
 
         }
+
+        .urban-contact{
+            text-decoration:none;
+            color:white;
+            cursor: pointer;
+        }
         
     </style>
 </th:block>
@@ -702,7 +709,9 @@
             Términos y condiciones de #reflectyourvibe |
             Política de privacidad |
             Política de cookies |
-            SiteMap
+            SiteMap |
+            <a class="urban-contact" onclick="window.location.href='/help'">Contáctanos</a>
+
             <span class="footercompany">© 2024 UrbanVibe</span>
         </p>
     </footer>
