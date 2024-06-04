@@ -833,6 +833,18 @@
             cartSidebar.classList.remove('open');
             updateCartCounter();
         });
+
+        /* Cierra la ventana si se clicka fuera de ella
+        document.addEventListener('click', (event) => {
+            if (!cartSidebar.contains(event.target) && !cartIcon.contains(event.target)) {
+                cartSidebar.classList.remove('open');
+            }
+        });
+        
+        window.onload = function() {
+            updateCartCounter();
+        };*/
+
     
         closeEditModalIcon.onclick = closeEditModal;
         closeModalButton.onclick = closeEditModal;
