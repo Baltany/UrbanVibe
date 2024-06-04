@@ -9,608 +9,632 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
     <th:block th:fragment="styles">
-    <style>
-        /* Estilos Generales */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        .header {
-            background-color: #000;
-            color: #fff;
-            padding: 20px 0;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            height: 5.5%;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-        .nav-list li {
-            margin-right: 20px;
-        }
-        .nav-list li a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-        }
-        .company-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            text-align: center;
-            margin-right: 10px;
-            letter-spacing: 1px;
-            color: #fff;
-        }
-        .navbar-icons {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        .navbar-icons i {
-            font-size: 20px;
-            color: #fff;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        .search-input {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 35px;
-            padding: 5px;
-            border: none;
-            border-radius: 5px;
-            width: 0;
-            opacity: 0;
-            transition: width 0.4s ease, opacity 0.4s ease;
-        }
-        .search-input.active {
-            width: 200px;
-            opacity: 1;
-        }
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            margin-top: 80px;
-        }
-        .hero-banner {
-            background: #000;
-            text-align: center;
-            color: #fff;
-            padding: 100px 0;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-title {
-            font-size: 48px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-        .btn-primary {
-            background-color: #333;
-            padding: 15px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-        .btn-primary:hover {
-            background-color: #555;
-        }
-        .featured-products {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            padding: 20px 0;
-            margin: 0;
-        }
-        .product-card {
-            background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            transition: transform 0.3s;
-            padding: 10px;
-            width: 25%;
-            box-sizing: border-box;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .product-card:hover .size-container {
-            opacity: 1;
-        }
-        .product-card img {
-            width: 100%;
-            height: 450px;
-            object-fit: cover;
-            margin-bottom: 5px;
-        }
-        .image-container {
-            position: relative;
-        }
-        .size-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .sizes {
-            color: #fff;
-            font-size: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .product-title {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .product-price {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-        .footer {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: auto;
-        }
-        .footer p {
-            margin: 0;
-        }
-        @media (max-width: 768px) {
-            .navbar {
+        <style>
+            /* Estilos Generales */
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f5f5f5;
+                display: flex;
                 flex-direction: column;
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+            .header {
+                background-color: #000;
+                color: #fff;
+                padding: 20px 0;
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1000;
+                height: 5.5%;
+            }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px;
+            }
+            .nav-list {
+                list-style: none;
+                padding: 0;
+                display: flex;
                 align-items: center;
             }
+            .nav-list li {
+                margin-right: 20px;
+            }
+            .nav-list li a {
+                text-decoration: none;
+                color: #fff;
+                font-weight: bold;
+            }
             .company-name {
-                margin-bottom: 10px;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 20px;
+                text-align: center;
+                margin-right: 10px;
+                letter-spacing: 1px;
+                color: #fff;
             }
             .navbar-icons {
-                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                position: relative;
             }
             .navbar-icons i {
-                margin-right: 8px;
+                font-size: 20px;
+                color: #fff;
+                margin-right: 10px;
+                cursor: pointer;
             }
-            .product-card {
-                width: 100%;
+            .search-input {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 35px;
+                padding: 5px;
+                border: none;
+                border-radius: 5px;
+                width: 0;
+                opacity: 0;
+                transition: width 0.4s ease, opacity 0.4s ease;
             }
-        }
-        @media (max-width: 480px) {
+            .search-input.active {
+                width: 200px;
+                opacity: 1;
+            }
+            .main-content {
+                flex: 1;
+                padding: 20px;
+                margin-top: 80px;
+            }
+            .hero-banner {
+                background: #000;
+                text-align: center;
+                color: #fff;
+                padding: 100px 0;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                overflow: hidden;
+            }
             .hero-title {
-                font-size: 36px;
+                font-size: 48px;
+                margin-bottom: 20px;
+                position: relative;
+                z-index: 2;
             }
             .btn-primary {
-                padding: 10px 20px;
+                background-color: #333;
+                padding: 15px 30px;
+                border-radius: 5px;
+                text-decoration: none;
+                color: #fff;
+                font-weight: bold;
+                transition: background-color 0.3s ease;
+                position: relative;
+                z-index: 2;
             }
-        }
-
-        .checkout-btn {
-            display: block;
-            width: 80%; /* Ajusta el ancho del botón según sea necesario */
-            margin: 0 auto; /* Esto centrará el botón horizontalmente */
-            padding: 15px;
-            background: #333;
-            color: #fff;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }        
-        .checkout-btn:hover {
-            background: #555;
-            transform: scale(1.05);
-        }
-        .marquee-container {
-            position: sticky;
-            bottom: 0;
-            width: 100%;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            z-index: 1000;
-            overflow: hidden;
-        }
-        .marquee {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 10s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            transition: right 0.3s ease;
-        }
-        
-        .modal.open {
-            display: block;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .modal-content {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
-        }
-        
-        .modal-header,
-        .modal-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .modal-header {
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .modal-footer {
-            border-top: 1px solid #ddd;
-        }
-        
-        .modal-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .close-modal {
-            font-size: 24px;
-            cursor: pointer;
-            color: #888;
-        }
-        
-        .modal-body {
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        .modal-form-group {
-            margin-bottom: 20px;
-        }
-        
-        .modal-form-group label {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-            color: #333;
-        }
-        
-        .modal-form-group input,
-        .modal-form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .modal-form-group select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-        }
-        
-        #edit-item-image {
-            width: 45%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 10px;
-        }
-        
-        #edit-item-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        #edit-item-price {
-            font-size: 18px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-        
-        #save-changes-btn,
-        #close-modal-exit {
-            background-color: #333;
-            color: #fff;
-            margin-right: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        #save-changes-btn:hover,
-        #close-modal-exit:hover {
-            background-color: #555;
-        }
-        
-        /* Cart Sidebar Styles */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: right 0.3s ease;
-            z-index: 1001;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .cart-sidebar.open {
-            right: 0;
-        }
-        
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .cart-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .close-cart {
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        .cart-items {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .cart-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-        
-
-        .cart-items.edit-item-details{
-            overflow-x: hidden;
-        }
-        
-        .cart-item-title {
-            font-size: 18px;
-            margin: 0 0 5px 0;
-            color: #333;
-        }
-        
-        .cart-item-price {
-            font-size: 16px;
-            color: #888;
-        }
-        
-        .checkout-section {
-            padding: 15px;
-            border-top: 1px solid #ddd;
-        }
-        
-        .checkout-button {
-            display: block;
-            width: 70%;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            text-align: center;
-            text-decoration: none;
-        }
-        
-        .checkout-button:hover {
-            background-color: #555;
-        }
-
-        .edit-item-image {
-            width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-            height: auto !important; /* Esto mantendrá la proporción de la imagen */
-            max-height: 200px !important; /* Establece una altura máxima para la imagen */
-            display: block !important; /* Asegura que la imagen se muestre como un bloque */
-            margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
-        }
-        
-        /* Añade estos estilos específicamente para las imágenes con la clase .edit-item-image */
-        .edit-item-image img {
-            width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-            height: auto !important; /* Esto mantendrá la proporción de la imagen */
-            max-height: 200px !important; /* Establece una altura máxima para la imagen */
-            display: block !important; /* Asegura que la imagen se muestre como un bloque */
-            margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
-        }
-        .edit-item-details{
-            display: block !important;
-            justify-content: start;
-            align-items: center;
-            margin-top: 20px;/* Esto centrará la imagen horizontalmente */
-
+            .btn-primary:hover {
+                background-color: #555;
+            }
+            .featured-products {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                padding: 20px 0;
+                margin: 0;
+            }
+            .product-card {
+                background-color: #fff;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                text-align: left;
+                transition: transform 0.3s;
+                padding: 10px;
+                width: 25%;
+                box-sizing: border-box;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
+            .product-card:hover .size-container {
+                opacity: 1;
+            }
+            .product-card img {
+                width: 100%;
+                height: 450px;
+                object-fit: cover;
+                margin-bottom: 5px;
+            }
+            .image-container {
+                position: relative;
+            }
+            .size-container {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 10px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .sizes {
+                color: #fff;
+                font-size: 12px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .product-title {
+                font-size: 16px;
+                margin-bottom: 5px;
+                color: #333;
+            }
+            .product-price {
+                font-size: 14px;
+                color: #888;
+                margin-bottom: 10px;
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                text-align: center;
+                padding: 20px 0;
+                margin-top: auto;
+            }
+            .footer p {
+                margin: 0;
+            }
+            @media (max-width: 768px) {
+                .navbar {
+                    flex-direction: column;
+                    align-items: center;
                 }
-
-        #edit-item-image{
-                    width: 45%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 10px; /* Esto centrará la imagen horizontalmente */
+                .company-name {
+                    margin-bottom: 10px;
                 }
-
-        #edit-item-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        #edit-item-price {
-            font-size: 18px;
-            color: #888;
-            margin-bottom: 10px;
-        }
-        #save-changes-btn, 
-        #close-modal-exit {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #save-changes-btn:hover, 
-        #close-modal-exit:hover {
-            background-color: #555;
-        }   
-        
-
-        .edith2 {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        .show-clothes{
-            display:block;
-            margin:10px;
-            margin-left:15%;
-        }
-
-        .edit-buttons{
-            display: flex;
-            margin: 0 -2rem;
-            align-items:center;
-
-
-        }
-
-        .buttons-edit-cancel{
-            margin: 0.8rem 0.2rem 0.2rem !important;
+                .navbar-icons {
+                    margin-top: 20px;
+                }
+                .navbar-icons i {
+                    margin-right: 8px;
+                }
+                .product-card {
+                    width: 100%;
+                }
+            }
+            @media (max-width: 480px) {
+                .hero-title {
+                    font-size: 36px;
+                }
+                .btn-primary {
+                    padding: 10px 20px;
+                }
+            }
+    
+            .checkout-btn {
+                display: block;
+                width: 80%; /* Ajusta el ancho del botón según sea necesario */
+                margin: 0 auto; /* Esto centrará el botón horizontalmente */
+                padding: 15px;
+                background: #333;
+                color: #fff;
+                text-align: center;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }        
+            .checkout-btn:hover {
+                background: #555;
+                transform: scale(1.05);
+            }
+            .marquee-container {
+                position: sticky;
+                bottom: 0;
+                width: 100%;
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                z-index: 1000;
+                overflow: hidden;
+            }
+            .marquee {
+                display: inline-block;
+                white-space: nowrap;
+                animation: marquee 10s linear infinite;
+            }
+            @keyframes marquee {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
+            }
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 300px;
+                height: 100%;
+                background: #fff;
+                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+                z-index: 1001;
+                transition: right 0.3s ease;
+            }
             
-        
-        }
-        .cart-counter {
-            display: none; /* Ocultar el contador por defecto */
-            font-family: 'Dancing Script', cursive;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: rgb(245, 245, 220); /* Color de fondo rojo */
-            color: black;
-            border-radius: 50%;
-            padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
-            font-size: 14px; /* Aumentar el tamaño de la fuente */
-            font-weight: bold; /* Hacer el texto en negrita */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
-        }
-
-        .cart-icon .cart-counter {
-            display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
-        }
-    </style>
+            .modal.open {
+                display: block;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            
+            .modal-content {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .modal-header,
+            .modal-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .modal-header {
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .modal-footer {
+                border-top: 1px solid #ddd;
+            }
+            
+            .modal-title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            
+            .close-modal {
+                font-size: 24px;
+                cursor: pointer;
+                color: #888;
+            }
+            
+            .modal-body {
+                flex: 1;
+                overflow-y: auto;
+            }
+            
+            .modal-form-group {
+                margin-bottom: 20px;
+            }
+            
+            .modal-form-group label {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+                color: #333;
+            }
+            
+            .modal-form-group input,
+            .modal-form-group select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+            
+            .modal-form-group select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+            
+            #edit-item-image {
+                width: 45%;
+                height: auto;
+                max-height: 200px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-right: 10px;
+            }
+            
+            #edit-item-title {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 5px;
+            }
+            
+            #edit-item-price {
+                font-size: 18px;
+                color: #888;
+                margin-bottom: 10px;
+            }
+            
+            #save-changes-btn,
+            #close-modal-exit {
+                background-color: #333;
+                color: #fff;
+                margin-right: 10px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            
+            #save-changes-btn:hover,
+            #close-modal-exit:hover {
+                background-color: #555;
+            }
+            
+            /* Cart Sidebar Styles */
+            .cart-sidebar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100%;
+                background: #fff;
+                box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+                transition: right 0.3s ease;
+                z-index: 1001;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .cart-sidebar.open {
+                right: 0;
+            }
+            
+            .cart-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .cart-title {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            
+            .close-cart {
+                font-size: 24px;
+                cursor: pointer;
+            }
+            
+            .cart-items {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                flex: 1;
+                overflow-y: auto;
+            }
+            
+            .cart-item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 15px;
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .cart-item img {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                margin-right: 15px;
+            }
+            
+    
+            .cart-items.edit-item-details{
+                overflow-x: hidden;
+            }
+            
+            .cart-item-title {
+                font-size: 18px;
+                margin: 0 0 5px 0;
+                color: #333;
+            }
+            
+            .cart-item-price {
+                font-size: 16px;
+                color: #888;
+            }
+            
+            .checkout-section {
+                padding: 15px;
+                border-top: 1px solid #ddd;
+            }
+            
+            .checkout-button {
+                display: block;
+                width: 70%;
+                padding: 10px;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+                text-align: center;
+                text-decoration: none;
+            }
+            
+            .checkout-button:hover {
+                background-color: #555;
+            }
+    
+            .edit-item-image {
+                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /* Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /* Establece una altura máxima para la imagen */
+                display: block !important; /* Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+            }
+            
+            /* Añade estos estilos específicamente para las imágenes con la clase .edit-item-image */
+            .edit-item-image img {
+                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /* Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /* Establece una altura máxima para la imagen */
+                display: block !important; /* Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+            }
+            .edit-item-details{
+                display: block !important;
+                justify-content: start;
+                align-items: center;
+                margin-top: 20px;/* Esto centrará la imagen horizontalmente */
+    
+                    }
+    
+            #edit-item-image{
+                        width: 45%;
+                height: auto;
+                max-height: 200px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-right: 10px; /* Esto centrará la imagen horizontalmente */
+                    }
+    
+            #edit-item-title {
+                font-size: 20px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 5px;
+            }
+    
+            #edit-item-price {
+                font-size: 18px;
+                color: #888;
+                margin-bottom: 10px;
+            }
+            #save-changes-btn, 
+            #close-modal-exit {
+                background-color: #333;
+                color: #fff;
+                padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+    
+            #save-changes-btn:hover, 
+            #close-modal-exit:hover {
+                background-color: #555;
+            }   
+            
+    
+            .edith2 {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+            }
+            .show-clothes{
+                display:block;
+                margin:10px;
+                margin-left:15%;
+            }
+    
+            .edit-buttons{
+                display: flex;
+                margin: 0 -2rem;
+                align-items:center;
+    
+    
+            }
+    
+            .buttons-edit-cancel{
+                margin: 0.8rem 0.2rem 0.2rem !important;
+                
+            
+            }
+            .cart-counter {
+                display: none; /* Ocultar el contador por defecto */
+                font-family: 'Dancing Script', cursive;
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background-color: rgb(245, 245, 220); /* Color de fondo rojo */
+                color: black;
+                border-radius: 50%;
+                padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
+                font-size: 14px; /* Aumentar el tamaño de la fuente */
+                font-weight: bold; /* Hacer el texto en negrita */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+            }
+    
+            .cart-icon .cart-counter {
+                display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
+            }
+            .form-control-description{
+                font-size: 18px;
+                color: #333;
+            }
+            .form-control-price{
+                color:#888;
+            }
+    
+            .form-control span {
+                font-size: 1rem;
+                padding: 15px 20px;
+                border: 1px solid #ccc;
+                border-radius: 100%;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .form-control .selected-size {
+                background-color: black;
+                color: white;
+                flex-wrap: wrap;
+    
+            }
+            
+        </style>
 </th:block>
 
 
@@ -703,13 +727,22 @@
             <div class="cart-items edit-item-details">
                 <img id="edit-item-image" src="" alt="" class="edit-item-image">
                 <div class="show-clothes">
-                    <h3 id="edit-item-title" class="edit-item-title"></h3>
-                    <p id="edit-item-price" class="edit-item-price"></p>
-                    <label for="edit-item-size">Talla:</label>
-                    <select id="edit-item-size">
-                        <!-- Las tallas disponibles se añadirán aquí dinámicamente -->
-                    </select>
-                    <center>
+                    <form id="editClothesForm">
+                        <div class="form-group">
+                            <strong><p id="description" class="form-control-description"></p></strong>
+                        </div>
+                        <div class="form-group">
+                            <p id="price" class="form-control-price"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="sizes">Sizes</label>
+                            <p id="sizes" class="form-control"></p> <!-- Mostrar todas las tallas aquí -->
+                        </div>
+                        
+                        
+
+                    </form>
+    
                     <div class="edit-buttons">
                         <button id="save-changes-btn" class="buttons-edit-cancel">Guardar cambios</button>
                         <button class="close-modal buttons-edit-cancel" id="close-modal-exit">Cancelar</button>
@@ -720,7 +753,6 @@
             
         </div>
     </div>
-
 
 
     <th:block th:fragment="menu-script">
@@ -924,7 +956,7 @@
     
                 const editItemButton = cartItem.querySelector('.edit-item');
                 editItemButton.addEventListener('click', () => {
-                    openEditModal(item);
+                    openEditModal(item.id);
                 });
             });
         }
@@ -940,31 +972,100 @@
             updateCartCounter(getCartItemCount());
         }
     
-        function openEditModal(data) {
-            document.getElementById('edit-item-image').src = data.image;
-            document.getElementById('edit-item-title').innerText = data.description;
-            document.getElementById('edit-item-price').innerText = `${data.price}€`;
-            
-            const sizeSelect = document.getElementById('edit-item-size');
-            sizeSelect.innerHTML = '';
-    
-            if (data.availableSizes && Array.isArray(data.availableSizes)) {
-                data.availableSizes.forEach(size => {
-                    const option = document.createElement('option');
-                    option.value = size.size;
-                    option.innerText = size.size;
-                    sizeSelect.appendChild(option);
-    
-                    if (data.size && size.size === data.size) {
-                        option.selected = true;
-                    }
-                });
-            }
-    
-            editModal.style.display = 'flex';
-            saveChangesBtn.onclick = () => saveChanges(data.id, sizeSelect.value);
+        function fetchEditData(id) {
+            fetch(`clothes/edit/${id}`)
+                .then(response => response.json())
+                .then(data => openEditModal(data))
+                .catch(error => console.error('Error fetching edit data:', error));
         }
+
+
+        
+
+        function openEditModal(id) {
+            console.log("Opening modal with ID:", id);  // Verifica el ID
+            fetch(`/clothes/edit/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Opening modal with data:", data);
+        
+                    // Verifica que los elementos del DOM existen antes de establecer sus propiedades
+                    const imageElement = document.getElementById('edit-item-image');
+                    const descriptionElement = document.getElementById('description');
+                    const sizeElement = document.getElementById('size');
+                    const priceElement = document.getElementById('price');
+                    const sizesParagraph = document.getElementById('sizes');
+        
+                    if (imageElement) {
+                        imageElement.src = data.image;
+                    } else {
+                        console.error("Image element not found");
+                    }
+        
+                    if (descriptionElement) {
+                        descriptionElement.innerText = data.description;
+                    } else {
+                        console.error("Description element not found");
+                    }
+        
+                    if (sizeElement) {
+                        sizeElement.innerText = data.size;
+                    } else {
+                        console.error("Size element not found");
+                    }
+        
+                    if (priceElement) {
+                        priceElement.innerText = `${data.price}€`;
+                    } else {
+                        console.error("Price element not found");
+                    }
+        
+                    if (sizesParagraph) {
+                        sizesParagraph.innerHTML = '';  // Limpiar contenido anterior
+        
+                        const availableSizes = data.availableSizes || [];
+                        availableSizes.forEach(size => {
+                            const sizeSpan = document.createElement('span');
+                            sizeSpan.innerText = size;
+                            sizeSpan.classList.add('size-option');
+                            if (data.size && size === data.size) {
+                                sizeSpan.classList.add('selected-size');
+                            }
+        
+                            sizeSpan.addEventListener('click', () => {
+                                document.querySelectorAll('.size-option').forEach(span => {
+                                    span.classList.remove('selected-size');
+                                });
+                                sizeSpan.classList.add('selected-size');
+                                localStorage.setItem('selectedSize', size);
+                                sizeElement.innerText = size; // Actualizar la talla seleccionada en el modal
+                            });
+        
+                            sizesParagraph.appendChild(sizeSpan);
+                        });
+                    } else {
+                        console.error("Sizes paragraph element not found");
+                    }
+        
+                    // Mostrar el modal
+                    document.getElementById('edit-modal').style.display = 'flex';
+        
+                    // Manejar el evento de guardar cambios
+                    document.getElementById('save-changes-btn').onclick = () => saveChanges(data.id, document.getElementById('size').innerText);
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+         
     
+    
+
         function saveChanges(clotheId, newSize) {
             const url = `/clothes/updateCart/${clotheId}?size=${newSize}`;
             fetch(url, {
@@ -975,6 +1076,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log("Save changes response:", data); // Log para depurar
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
                     cartItem.size = data.size;
@@ -994,6 +1096,7 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    console.log("Fetched data:", data); // Log detallado
                     if (data) {
                         openEditModal(data);
                     } else {
