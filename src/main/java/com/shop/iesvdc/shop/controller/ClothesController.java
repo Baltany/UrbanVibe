@@ -499,28 +499,40 @@ public class ClothesController {
     /*
      * Fallo que hay que corregir para que funcione el pedido,crear una linea pedido
      */
-    /*
-     * Redirigir al endpoint thnku
-     */
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
-            Long userId = Long.parseLong(orderData.get("userId").toString());
-            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
-            Double total = Double.parseDouble(orderData.get("total").toString());
+            // Obtener el usuario autenticado
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String email;
+            if (principal instanceof UserDetails) {
+                email = ((UserDetails) principal).getUsername();
+            } else {
+                email = principal.toString();
+            }
     
-            // Obtener el usuario
-            Optional<User> userOpt = userRepo.findById(userId);
+            // Obtener el usuario por su correo electrónico
+            Optional<User> userOpt = userRepo.findByMail(email);
             if (!userOpt.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
             User user = userOpt.get();
     
+            // Actualizar la información del usuario
+            user.setName(orderData.get("name").toString());
+            user.setSurname(orderData.get("surname").toString());
+            user.setDni(orderData.get("dni").toString());
+            user.setAddress(orderData.get("address").toString());
+            userRepo.save(user);
+    
+            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
+            Double total = Double.parseDouble(orderData.get("total").toString());
+    
             // Crear una nueva orden de compra
             PurchaseOrder order = new PurchaseOrder();
             order.setTotalPrice(total);
             order.setUser(user);
-            order.setOrderDate(LocalDate.now().toString()); // o cualquier lógica que uses para la fecha
+            order.setOrderDate(LocalDate.now().toString());
     
             // Mapear los items del carrito a los items de la orden
             List<Clothes> clothesList = new ArrayList<>();
@@ -529,25 +541,27 @@ public class ClothesController {
                 Optional<Clothes> clothesOpt = clothesRepo.findById(clothesId);
                 if (clothesOpt.isPresent()) {
                     Clothes clothes = clothesOpt.get();
-                    clothes.setPurchaseOrder(order); // Asigna la orden de compra a la ropa
                     clothes.setStock(clothes.getStock() - 1); // Resta 1 al stock
                     clothesList.add(clothes);
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found: " + clothesId);
                 }
             }
-            order.setClothesList(clothesList);
     
             PurchaseOrder savedOrder = orderRepo.save(order);
-            
+    
+            // Enviar correo electrónico
+            String[] to = { user.getMail() };
+            String subject = "Order Confirmation - UrbanVibe";
+            String message = generateOrderEmailMessage(user, savedOrder, clothesList, total);
+            mailService.sendMail(to, subject, message);
+    
             // Retornar una respuesta exitosa con el objeto de la orden creada
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
-    
-    
     
     private String generateOrderEmailMessage(User user, PurchaseOrder order, List<Clothes> clothesList, Double total) {
         // Genera el contenido del correo electrónico aquí
