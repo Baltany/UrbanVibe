@@ -2,6 +2,7 @@ package com.shop.iesvdc.shop.model;
 
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -20,6 +21,8 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+
 
 @Data
 @Entity
@@ -52,8 +55,8 @@ public class PurchaseOrder {
     private User user;
 
 
-    @OneToMany(mappedBy = "purchaseOrder")
-    private List<OrderTracking> orderTracking;
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+    private Set<OrderTracking> orderTracking;
 
 
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
@@ -68,6 +71,14 @@ public class PurchaseOrder {
                 '}';
     }
 
+
+    public Set<OrderTracking> getOrderTrackings() {
+        return orderTracking;
+    }
+
+    public void setOrderTrackings(Set<OrderTracking> orderTrackings) {
+        this.orderTracking = orderTracking;
+    }
 
 
 

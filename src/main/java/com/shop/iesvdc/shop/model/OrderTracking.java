@@ -33,5 +33,8 @@ public class OrderTracking {
 
     private String orderDate;
 
+    private String size;
+
+
 
 }
