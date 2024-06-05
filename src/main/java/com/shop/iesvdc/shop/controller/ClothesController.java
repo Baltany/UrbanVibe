@@ -506,81 +506,53 @@ public class ClothesController {
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
-            // Obtener el usuario autenticado
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+            }
+
+            Object principal = authentication.getPrincipal();
             String email;
             if (principal instanceof UserDetails) {
                 email = ((UserDetails) principal).getUsername();
             } else {
                 email = principal.toString();
             }
-    
-            // Obtener el usuario por su correo electrónico
+
             Optional<User> userOpt = userRepo.findByMail(email);
             if (!userOpt.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
+
             User user = userOpt.get();
-    
-            // Actualizar la información del usuario
-            user.setName(orderData.get("name").toString());
-            user.setSurname(orderData.get("surname").toString());
-            user.setDni(orderData.get("dni").toString());
-            user.setAddress(orderData.get("address").toString());
-            userRepo.save(user);
-    
-            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
-            Double total = Double.parseDouble(orderData.get("total").toString());
-    
-            // Crear una nueva orden de compra
-            PurchaseOrder order = new PurchaseOrder();
-            order.setTotalPrice(total);
-            order.setUser(user);
-            order.setOrderDate(LocalDate.now().toString());
-    
-            // Mapear los items del carrito a los items de la orden
-            List<Clothes> clothesList = new ArrayList<>();
-            for (Map<String, Object> item : cartItems) {
-                Long clothesId = Long.parseLong(item.get("id").toString());
-                Optional<Clothes> clothesOpt = clothesRepo.findById(clothesId);
-                if (clothesOpt.isPresent()) {
-                    Clothes clothes = clothesOpt.get();
-                    clothes.setStock(clothes.getStock() - 1); // Resta 1 al stock
-                    clothesList.add(clothes);
-                } else {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found: " + clothesId);
-                }
-            }
-    
-            PurchaseOrder savedOrder = orderRepo.save(order);
-    
+            PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
+
             // Enviar correo electrónico
             String[] to = { user.getMail() };
             String subject = "Order Confirmation - UrbanVibe";
-            String message = generateOrderEmailMessage(user, savedOrder, clothesList, total);
+            String message = generateOrderEmailMessage(user, savedOrder);
             mailService.sendMail(to, subject, message);
-    
-            // Retornar una respuesta exitosa con el objeto de la orden creada
+
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
-    
-    private String generateOrderEmailMessage(User user, PurchaseOrder order, List<Clothes> clothesList, Double total) {
-        // Genera el contenido del correo electrónico aquí
+
+    private String generateOrderEmailMessage(User user, PurchaseOrder order) {
         StringBuilder message = new StringBuilder();
         message.append("Thank you for your order, ").append(user.getName()).append("!\n\n");
         message.append("Order Details:\n");
-        for (Clothes clothes : clothesList) {
-            message.append(" - ").append(clothes.getDescription()).append(" (Size: ").append(clothes.getSizeList()).append(")\n");
+        for (Clothes clothes : order.getClothes()) {
+            message.append(" - ").append(clothes.getDescription()).append(" (Size: ")
+                   .append(clothes.getSizeList().stream().map(Size::getSize).collect(Collectors.joining(", ")))
+                   .append(")\n");
         }
-        message.append("\nTotal: ").append(total).append("€");
+        message.append("\nTotal: ").append(order.getTotalPrice()).append("€");
         return message.toString();
     }
 
-    
-    
+
     
     @PostMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
