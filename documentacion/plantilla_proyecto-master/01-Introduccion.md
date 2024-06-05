@@ -26,7 +26,7 @@ Esta sería aproximadamente la planificación del proyecto:
 * 5º Semana 
   * Estoy terminando el backend y realizando varios ajustes en cuanto al frontend para hacerlo más visual e intuitivo
 * 6º Semana 
-  * Resultados intermedios (demo funcional)
+  * Primera versión demo semifuncional
   * Primera revisión de la documentación para ver que estén todos los puntos necesarios 
 * 7º Semana
   * Resultados finales (proyecto terminado: tutorial, aplicación…) 

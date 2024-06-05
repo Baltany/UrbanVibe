@@ -142,6 +142,7 @@
                     <img th:src="@{${clothe.image}}" alt="Imagen de la ropa" class="details-image" id="details-image">
                 </div>
                 <div class="details-right">
+                    <p th:text="${clothe.id}" id="id-clothe" hidden>
                     <h1 th:text="${clothe.description}" id="description">Descripción</h1>
                     <p class="subtitle" id="subtitle"><strong><span th:text="${clothe.price}">0.00€</span>€</strong></p>
                     <p>Stock:<strong><span th:text="${clothe.stock} + ' unidades'"></span></strong></p>
@@ -203,12 +204,27 @@
                 });
             });
     
+
+
             addToCartButton.addEventListener("click", function(event) {
                 event.preventDefault();
                 const selectedSize = document.querySelector(".size-option.active");
+                const idClotheElement = document.getElementById('id-clothe');
+                let idClothe = null;
+                
+                // Verificar si el elemento existe y si su contenido es un número válido
+                if (idClotheElement && !isNaN(idClotheElement.innerText.trim())) {
+                    idClothe = parseInt(idClotheElement.innerText.trim());
+                }
+                
+                // Ahora, idClothe contiene el ID de la ropa como un número natural
+                console.log('ID de la ropa:', idClothe);
+
+
                 if (selectedSize) {
                     const size = selectedSize.getAttribute('data-size');
                     const clothe = {
+                        id: idClothe,
                         description: document.getElementById('description').innerText,
                         price: document.querySelector('.subtitle strong span').innerText,
                         size: size,
