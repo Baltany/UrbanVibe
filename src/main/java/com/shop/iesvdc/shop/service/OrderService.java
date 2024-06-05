@@ -1,18 +1,17 @@
 package com.shop.iesvdc.shop.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.iesvdc.shop.model.Clothes;
+import com.shop.iesvdc.shop.model.OrderTracking;
 import com.shop.iesvdc.shop.model.PurchaseOrder;
 import com.shop.iesvdc.shop.model.User;
-import com.shop.iesvdc.shop.repos.ClothesRepo;
+import com.shop.iesvdc.shop.repos.OrderTrackingRepo;
 import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
 
@@ -23,7 +22,7 @@ public class OrderService {
     private PurchaseOrderRepo orderRepo;
 
     @Autowired
-    private ClothesRepo clothesRepo;
+    private OrderTrackingRepo orderTrackingRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -43,19 +42,20 @@ public class OrderService {
         order.setUser(user);
         order.setOrderDate(LocalDate.now().toString());
 
-        List<Clothes> clothesList = new ArrayList<>();
         for (Map<String, Object> item : cartItems) {
             Long clothesId = Long.parseLong(item.get("id").toString());
-            Optional<Clothes> clothesOpt = clothesRepo.findById(clothesId);
-            if (clothesOpt.isPresent()) {
-                Clothes clothes = clothesOpt.get();
-                clothes.setStock(clothes.getStock() - 1); // Resta 1 al stock
-                clothesList.add(clothes);
-            } else {
-                throw new RuntimeException("Clothes not found: " + clothesId);
-            }
+            String size = item.get("size").toString();
+            int quantity = Integer.parseInt(item.get("quantity").toString());
+
+            OrderTracking orderTracking = new OrderTracking();
+            orderTracking.setPurchaseOrder(order);
+            orderTracking.setClothes(new Clothes(clothesId)); // Asumimos que solo necesitas el ID para referenciar
+            orderTracking.setSize(size);
+            orderTracking.setQuantity(quantity);
+
+            orderTrackingRepo.save(orderTracking);
         }
-        order.setClothesList(clothesList);
+
         return orderRepo.save(order);
     }
 }

@@ -543,11 +543,10 @@ public class ClothesController {
         StringBuilder message = new StringBuilder();
         message.append("Thank you for your order, ").append(user.getName()).append("!\n\n");
         message.append("Order Details:\n");
-        for (Clothes clothes : order.getClothes()) {
-            message.append(" - ").append(clothes.getDescription()).append(" (Size: ")
-                   .append(clothes.getSizeList().stream().map(Size::getSize).collect(Collectors.joining(", ")))
-                   .append(")\n");
-        }
+        order.getOrderTrackings().forEach(orderTracking -> {
+            message.append(" - ").append(orderTracking.getClothes().getDescription()).append(" (Size: ")
+                   .append(orderTracking.getSize()).append(")\n");
+        });
         message.append("\nTotal: ").append(order.getTotalPrice()).append("€");
         return message.toString();
     }
