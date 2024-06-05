@@ -282,17 +282,21 @@ public class ClothesController {
             List<Size> newSizeList = sizeRepo.findBySize(size); // Asumiendo que tienes un método en SizeRepo para encontrar una talla por su nombre
             clothe.setSizeList(newSizeList); // Actualizar la lista de tallas
             clothesRepo.save(clothe); // Guardar cambios en la base de datos
+    
+            // Devuelve la talla como string, no la lista
             return ResponseEntity.ok(Map.of(
                 "id", clothe.getId(),
                 "description", clothe.getDescription(),
                 "price", clothe.getPrice(),
                 "image", clothe.getImage(),
-                "size", clothe.getSizeList()
+                "size", size // Devolver la talla seleccionada
             ));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
+    
+    
 
 
 

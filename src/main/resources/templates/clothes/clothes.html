@@ -1081,7 +1081,7 @@
                                 });
                                 sizeSpan.classList.add('selected-size');
                                 localStorage.setItem('selectedSize', size);
-                                sizeElement.innerText = size; // Actualizar la talla seleccionada en el modal
+                                data.size = size; // Actualizar la talla seleccionada en el modal
                             });
         
                             sizesParagraph.appendChild(sizeSpan);
@@ -1094,7 +1094,8 @@
                     document.getElementById('edit-modal').style.display = 'flex';
         
                     // Manejar el evento de guardar cambios
-                    document.getElementById('save-changes-btn').onclick = () => saveChanges(data.id, document.getElementById('size').innerText);
+                    saveChangesBtn.onclick = () => saveChanges(data.id, data.size);
+
                 })
                 .catch(error => {
                     console.error("Error fetching data:", error);
@@ -1112,14 +1113,18 @@
                     'Content-Type': 'application/json',
                 },
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log("Save changes response:", data); // Log para depurar
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
-                    cartItem.size = data.size;
+                    cartItem.size = newSize; // Usar newSize en lugar de data.size
                     localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-                    //localStorage.setItem('cart', JSON.stringify(cart));
                     renderCartItems();
                 }
                 closeEditModal();
@@ -1128,6 +1133,7 @@
                 console.error('Error:', error);
             });
         }
+
     
         function fetchAndOpenEditModal(clotheId) {
             const url = `/clothes/edit/${clotheId}`;
