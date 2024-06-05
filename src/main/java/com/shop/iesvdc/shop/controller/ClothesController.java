@@ -512,6 +512,7 @@ public class ClothesController {
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            
             if (authentication == null || !authentication.isAuthenticated()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
             }
