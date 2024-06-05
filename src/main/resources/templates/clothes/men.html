@@ -657,8 +657,8 @@
             </ul>
             <div class="navbar-icons">
                 <span class="company-name">UrbanVibe</span>
-                <i class="fas fa-search"></i>
-                <input type="text" class="search-input" placeholder="Buscar...">
+                <a href="/logout"><i class="fas fa-sign-out-alt"></i></a>
+
                 <i class="fas fa-shopping-cart cart-icon">
                     <span class="cart-counter">0</span> <!--Contador-->
                 </i>
@@ -784,21 +784,6 @@
     
         setInterval(changeBackgroundImage, 5000);
     
-        const searchIcon = document.querySelector('.fa-search');
-        const searchInput = document.querySelector('.search-input');
-    
-        searchIcon.addEventListener('click', () => {
-            searchInput.classList.toggle('active');
-            if (searchInput.classList.contains('active')) {
-                searchInput.focus();
-            }
-        });
-    
-        document.addEventListener('click', (event) => {
-            if (!searchIcon.contains(event.target) && !searchInput.contains(event.target)) {
-                searchInput.classList.remove('active');
-            }
-        });
     
         // Carrito de compras
         const cartIcon = document.querySelector('.cart-icon');
