@@ -510,23 +510,30 @@ public class ClothesController {
             } else {
                 email = principal.toString();
             }
-
+    
             // Obtener el usuario por su correo electrónico
             Optional<User> userOpt = userRepo.findByMail(email);
             if (!userOpt.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
             User user = userOpt.get();
-
+    
+            // Actualizar la información del usuario
+            user.setName(orderData.get("name").toString());
+            user.setSurname(orderData.get("surname").toString());
+            user.setDni(orderData.get("dni").toString());
+            user.setAddress(orderData.get("address").toString());
+            userRepo.save(user);
+    
             List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
             Double total = Double.parseDouble(orderData.get("total").toString());
-
+    
             // Crear una nueva orden de compra
             PurchaseOrder order = new PurchaseOrder();
             order.setTotalPrice(total);
             order.setUser(user);
             order.setOrderDate(LocalDate.now().toString());
-
+    
             // Mapear los items del carrito a los items de la orden
             List<Clothes> clothesList = new ArrayList<>();
             for (Map<String, Object> item : cartItems) {
@@ -540,25 +547,32 @@ public class ClothesController {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Clothes not found: " + clothesId);
                 }
             }
-
+    
             PurchaseOrder savedOrder = orderRepo.save(order);
-
+    
             // Enviar correo electrónico
             String[] to = { user.getMail() };
             String subject = "Order Confirmation - UrbanVibe";
             String message = generateOrderEmailMessage(user, savedOrder, clothesList, total);
             mailService.sendMail(to, subject, message);
-
+    
             // Retornar una respuesta exitosa con el objeto de la orden creada
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
-
+    
     private String generateOrderEmailMessage(User user, PurchaseOrder order, List<Clothes> clothesList, Double total) {
         // Genera el contenido del correo electrónico aquí
-        return "Thank you for your order, " + user.getName() + "!";
+        StringBuilder message = new StringBuilder();
+        message.append("Thank you for your order, ").append(user.getName()).append("!\n\n");
+        message.append("Order Details:\n");
+        for (Clothes clothes : clothesList) {
+            message.append(" - ").append(clothes.getDescription()).append(" (Size: ").append(clothes.getSizeList()).append(")\n");
+        }
+        message.append("\nTotal: ").append(total).append("€");
+        return message.toString();
     }
 
     

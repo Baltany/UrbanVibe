@@ -182,7 +182,7 @@
   <body>
     <center>
     <div class="urban-title">
-        <p onclick="window.location.href='/clothes'">URBANVIBE</p>
+        <p>URBANVIBE</p>
     </div>
     </center>
     <div type="hidden" id="userId" th:data-user-id="${userId}"></div>
@@ -197,31 +197,32 @@
                 </div>
 
                 <div class="form-container">
-                    <form id="order-form">
-                        <div class="form-group">
-                            <label for="nombre">Name:</label>
-                            <input type="text" id="name" name="nombre" placeholder="Balbino" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="apellidos">Surname:</label>
-                            <input type="text" id="surname" name="apellidos" placeholder="Moyano López" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="dni">DNI:</label>
-                            <input type="text" id="dni" name="dni" placeholder="12345678x" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion">Address:</label>
-                            <input type="text" id="address" name="direccion" placeholder="Montoro 6" required />
-                        </div>
-                        <div class="order-total">
-                            <p>Total: <span id="total-price"></span> €</p>
-                        </div>
-                        <div class="btns-action">
-                        <button class="cancel-btn" onclick="window.location.href='/clothes'">Cancel</button>
-                        <button type="submit" id="checkout-button">Order</button>
-                        </div>
-                    </form>
+                  <br>
+                  <form id="order-form">
+                    <div class="form-group">
+                        <label for="nombre">Name:</label>
+                        <input type="text" id="name" name="nombre" placeholder="Balbino" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Surname:</label>
+                        <input type="text" id="surname" name="apellidos" placeholder="Moyano López" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI:</label>
+                        <input type="text" id="dni" name="dni" placeholder="12345678x" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Address:</label>
+                        <input type="text" id="address" name="direccion" placeholder="Montoro 6" required />
+                    </div>
+                    <div class="order-total">
+                        <p>Total: <span id="total-price"></span> €</p>
+                    </div>
+                    <div class="btns-action">
+                    <button class="cancel-btn" onclick="window.location.href='/clothes'">Cancel</button>
+                    <button type="submit" id="checkout-button">Order</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </section>
