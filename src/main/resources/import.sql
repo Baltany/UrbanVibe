@@ -99,9 +99,6 @@ INSERT INTO `clothes_category_list` (`category_list_id`, `clothes_id`) VALUES (4
 
 -- Insertar datos en la tabla 'clothes_size_list' (depende de 'size' y 'clothes')
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 1);
-INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 2);
-INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 3);
-INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 4);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 5);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (1, 6);
 
