@@ -33,6 +33,9 @@ public class OrderTracking {
 
     private String orderDate;
 
+    /*
+     * Recojo el valor de la talla como String
+     */
     private String size;
 
 
