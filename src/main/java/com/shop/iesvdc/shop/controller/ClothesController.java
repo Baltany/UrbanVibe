@@ -33,6 +33,7 @@ import com.shop.iesvdc.shop.repos.SexRepo;
 import com.shop.iesvdc.shop.repos.SizeRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
 import com.shop.iesvdc.shop.service.MailService;
+import com.shop.iesvdc.shop.service.OrderService;
 
 import lombok.NonNull;
 
@@ -56,6 +57,10 @@ public class ClothesController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private OrderService orderService;
+
     
     @Autowired
     private PurchaseOrderRepo orderRepo;
@@ -550,7 +555,6 @@ public class ClothesController {
         message.append("\nTotal: ").append(order.getTotalPrice()).append("€");
         return message.toString();
     }
-
 
     
     @PostMapping("/updateUser")

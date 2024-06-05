@@ -95,4 +95,9 @@ public class Clothes {
         this.sizeList = sizeList;
     }
 
+    public static Clothes findById(Long clothesId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    }
+
 }

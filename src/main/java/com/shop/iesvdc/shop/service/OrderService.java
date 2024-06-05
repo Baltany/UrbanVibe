@@ -47,9 +47,11 @@ public class OrderService {
             String size = item.get("size").toString();
             int quantity = Integer.parseInt(item.get("quantity").toString());
 
+            Clothes clothes = Clothes.findById(clothesId);
+
             OrderTracking orderTracking = new OrderTracking();
             orderTracking.setPurchaseOrder(order);
-            orderTracking.setClothes(new Clothes(clothesId)); // Asumimos que solo necesitas el ID para referenciar
+            orderTracking.setClothes(clothes);
             orderTracking.setSize(size);
             orderTracking.setQuantity(quantity);
 
