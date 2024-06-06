@@ -32,6 +32,7 @@ public class OrderService {
         // Crear y guardar la orden
         PurchaseOrder order = new PurchaseOrder();
         order.setUser(user);
+        order.setOrderDate(LocalDate.now().toString());
         order.setTotalPrice(Double.parseDouble(orderData.get("total").toString()));
         orderRepo.save(order);
         return order;
@@ -43,6 +44,9 @@ public class OrderService {
         orderTracking.setPurchaseOrder(order);
         orderTracking.setClothes(clothes);
         orderTracking.setSize(size);
+        orderTracking.setStatus("PENDIENTE");
+        orderTracking.setOrderDate(LocalDate.now().toString());
+        //orderTracking.setPrice(clothes.getPrice());
         //orderTracking.setQuantity(quantity);
         orderTrackingRepo.save(orderTracking);
     }

@@ -502,12 +502,6 @@ public class ClothesController {
     }
     
 
-    /*
-     * Redirigir al endpoint thnku
-     */
-    /*
-     * Fallo que hay que corregir para que funcione el pedido,crear una linea pedido
-     */
     // Endpoint para obtener el usuario autenticado
     @GetMapping("/user")
     public ResponseEntity<?> getAuthenticatedUser() {
@@ -557,6 +551,9 @@ public class ClothesController {
                 if (!item.containsKey("size") || item.get("size") == null) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'size' is missing or invalid");
                 }
+                
+                
+
                 // if (!item.containsKey("quantity") || item.get("quantity") == null) {
                 //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
                 // }
