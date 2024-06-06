@@ -246,87 +246,111 @@
                 
                 // Guardar el ID de usuario en localStorage
                 localStorage.setItem("userId", userData.id);
+    
+                // Obtener el ID de usuario desde localStorage
+                const userId = localStorage.getItem("userId");
+    
+                const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+                const orderItemsContainer = document.getElementById("order-items");
+                const totalPriceElement = document.getElementById("total-price");
+                let totalPrice = 0;
+    
+                cartData.forEach((item) => {
+                    // Asegúrate de que item.id existe y es válido
+                    if (!item.id || isNaN(item.id)) {
+                        console.error("Invalid item in cart:", item);
+                        return;
+                    }
+    
+                    const itemElement = document.createElement("div");
+                    itemElement.classList.add("order-item");
+    
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.description}">
+                        <div class="details-clothes">
+                            <b><p>${item.description}</p></b>
+                            <p>Talla: ${item.size}</p>
+                        </div>
+                        <div class="details-price"> 
+                            <p>${item.price}€</p>
+                        </div>
+                    `;
+    
+                    orderItemsContainer.appendChild(itemElement);
+                    totalPrice += parseFloat(item.price);
+                });
+    
+                totalPriceElement.textContent = totalPrice.toFixed(2);
+    
+                // Añadir evento de envío de formulario aquí
+                const orderForm = document.getElementById("order-form");
+                orderForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+    
+                    const nombre = document.getElementById("name").value;
+                    const apellidos = document.getElementById("surname").value;
+                    const dni = document.getElementById("dni").value;
+                    const direccion = document.getElementById("address").value;
+    
+                    // Validar datos antes de enviarlos
+                    if (!nombre || !apellidos || !dni || !direccion) {
+                        alert("Please fill in all required fields.");
+                        return;
+                    }
+    
+                    const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
+    
+                    // Verificar que todos los ítems tengan un id válido
+                    let invalidItem = false;
+                    cartData.forEach((item) => {
+                        if (!item.id || isNaN(item.id)) {
+                            console.error("Invalid item in cart:", item);
+                            invalidItem = true;
+                        }
+                    });
+    
+                    if (invalidItem) {
+                        alert("There are invalid items in your cart.");
+                        return;
+                    }
+    
+                    const orderData = {
+                        name: nombre,
+                        surname: apellidos,
+                        dni: dni,
+                        address: direccion,
+                        cart: cartData,
+                        total: totalPriceElement.textContent
+                    };
+    
+                    fetch("/clothes/orders", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(orderData),
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            return response.text().then((text) => { throw new Error(text) });
+                        }
+                        return response.json();
+                    })
+                    .then((orderData) => {
+                        console.log("Order placed:", orderData);
+                        localStorage.removeItem(`cart_${userId}`);
+                        window.location.href = "/thnku";
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+                });
             })
             .catch((error) => {
                 console.error("Error:", error);
             });
-    
-        // Obtener el ID de usuario desde localStorage
-        const userId = localStorage.getItem("userId");
-    
-        const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-        const orderItemsContainer = document.getElementById("order-items");
-        const totalPriceElement = document.getElementById("total-price");
-        let totalPrice = 0;
-    
-        cartData.forEach((item) => {
-            const itemElement = document.createElement("div");
-            itemElement.classList.add("order-item");
-    
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.description}">
-                <div class="details-clothes">
-                    <b><p>${item.description}</p></b>
-                    <p>Talla: ${item.size}</p>
-                </div>
-                <div class="details-price"> 
-                    <p>${item.price}€</p>
-                </div>
-            `;
-    
-            orderItemsContainer.appendChild(itemElement);
-            totalPrice += parseFloat(item.price);
-        });
-    
-        totalPriceElement.textContent = totalPrice.toFixed(2);
-    
-        const orderForm = document.getElementById("order-form");
-        orderForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-    
-            const nombre = document.getElementById("name").value;
-            const apellidos = document.getElementById("surname").value;
-            const dni = document.getElementById("dni").value;
-            const direccion = document.getElementById("address").value;
-    
-            // Validar datos antes de enviarlos
-            if (!nombre || !apellidos || !dni || !direccion) {
-                alert("Please fill in all required fields.");
-                return;
-            }
-    
-            const orderData = {
-                name: nombre,
-                surname: apellidos,
-                dni: dni,
-                address: direccion,
-                cart: cartData,
-                total: totalPrice.toFixed(2)
-            };
-    
-            fetch("/clothes/orders", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(orderData),
-            })
-            .then((response) => {
-                if (!response.ok) {
-                    return response.text().then((text) => { throw new Error(text) });
-                }
-                return response.json();
-            })
-            .then((orderData) => {
-                console.log("Order placed:", orderData);
-                localStorage.removeItem(`cart_${userId}`);
-                window.location.href = "/thnku";
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-        });
     });
+      
           </script>
   </body>
 </html>

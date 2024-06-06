@@ -37,13 +37,13 @@ public class OrderService {
         return order;
     }
 
-    public void createOrderTracking(PurchaseOrder order, Long clothesId, String size, int quantity) {
+    public void createOrderTracking(PurchaseOrder order, Long clothesId, String size) {
         Clothes clothes = clothesRepo.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("Invalid clothes ID"));
         OrderTracking orderTracking = new OrderTracking();
         orderTracking.setPurchaseOrder(order);
         orderTracking.setClothes(clothes);
         orderTracking.setSize(size);
-        orderTracking.setQuantity(quantity);
+        //orderTracking.setQuantity(quantity);
         orderTrackingRepo.save(orderTracking);
     }
 }

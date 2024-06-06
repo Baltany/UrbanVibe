@@ -28,7 +28,7 @@ public class OrderTracking {
     @JoinColumn(name = "clothes_id")
     private Clothes clothes;
 
-    private int quantity;
+    //private int quantity;
 
     private double price;
 

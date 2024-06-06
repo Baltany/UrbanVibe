@@ -551,24 +551,24 @@ public class ClothesController {
             List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
     
             for (Map<String, Object> item : cartItems) {
-                if (!item.containsKey("clothesId") || item.get("clothesId") == null) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'clothesId' is missing or invalid");
+                if (!item.containsKey("id") || item.get("id") == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'id' is missing or invalid");
                 }
                 if (!item.containsKey("size") || item.get("size") == null) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'size' is missing or invalid");
                 }
-                if (!item.containsKey("quantity") || item.get("quantity") == null) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
-                }
+                // if (!item.containsKey("quantity") || item.get("quantity") == null) {
+                //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
+                // }
             }
     
             PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
     
             cartItems.forEach(item -> {
-                Long clothesId = Long.parseLong(item.get("clothesId").toString());
+                Long clothesId = Long.parseLong(item.get("id").toString());
                 String size = item.get("size").toString();
-                int quantity = Integer.parseInt(item.get("quantity").toString());
-                orderService.createOrderTracking(savedOrder, clothesId, size, quantity);
+                //int quantity = Integer.parseInt(item.get("quantity").toString());
+                orderService.createOrderTracking(savedOrder, clothesId, size);
             });
     
             String[] to = { user.getMail() };
@@ -603,13 +603,19 @@ public class ClothesController {
         StringBuilder message = new StringBuilder();
         message.append("Thank you for your order, ").append(user.getName()).append("!\n\n");
         message.append("Order Details:\n");
-        order.getOrderTrackings().forEach(orderTracking -> {
-            message.append(" - ").append(orderTracking.getClothes().getDescription()).append(" (Size: ")
-                   .append(orderTracking.getSize()).append(")\n");
-        });
+    
+        // Verificar si la lista de seguimiento de la orden es null antes de iterar
+        if (order.getOrderTrackings() != null) {
+            order.getOrderTrackings().forEach(orderTracking -> {
+                message.append(" - ").append(orderTracking.getClothes().getDescription()).append(" (Size: ")
+                       .append(orderTracking.getSize()).append(")\n");
+            });
+        }
+    
         message.append("\nTotal: ").append(order.getTotalPrice()).append("€");
         return message.toString();
     }
+    
 
 
     @PostMapping("/updateUser")
