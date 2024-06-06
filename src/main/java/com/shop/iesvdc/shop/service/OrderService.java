@@ -11,6 +11,7 @@ import com.shop.iesvdc.shop.model.Clothes;
 import com.shop.iesvdc.shop.model.OrderTracking;
 import com.shop.iesvdc.shop.model.PurchaseOrder;
 import com.shop.iesvdc.shop.model.User;
+import com.shop.iesvdc.shop.repos.ClothesRepo;
 import com.shop.iesvdc.shop.repos.OrderTrackingRepo;
 import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
@@ -25,39 +26,24 @@ public class OrderService {
     private OrderTrackingRepo orderTrackingRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    private ClothesRepo clothesRepo;
 
     public PurchaseOrder createOrder(Map<String, Object> orderData, User user) {
-        user.setName(orderData.get("name").toString());
-        user.setSurname(orderData.get("surname").toString());
-        user.setDni(orderData.get("dni").toString());
-        user.setAddress(orderData.get("address").toString());
-        userRepo.save(user);
-
-        List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
-        Double total = Double.parseDouble(orderData.get("total").toString());
-
+        // Crear y guardar la orden
         PurchaseOrder order = new PurchaseOrder();
-        order.setTotalPrice(total);
         order.setUser(user);
-        order.setOrderDate(LocalDate.now().toString());
+        order.setTotalPrice(Double.parseDouble(orderData.get("total").toString()));
+        orderRepo.save(order);
+        return order;
+    }
 
-        for (Map<String, Object> item : cartItems) {
-            Long clothesId = Long.parseLong(item.get("id").toString());
-            String size = item.get("size").toString();
-            int quantity = Integer.parseInt(item.get("quantity").toString());
-
-            Clothes clothes = Clothes.findById(clothesId);
-
-            OrderTracking orderTracking = new OrderTracking();
-            orderTracking.setPurchaseOrder(order);
-            orderTracking.setClothes(clothes);
-            orderTracking.setSize(size);
-            orderTracking.setQuantity(quantity);
-
-            orderTrackingRepo.save(orderTracking);
-        }
-
-        return orderRepo.save(order);
+    public void createOrderTracking(PurchaseOrder order, Long clothesId, String size, int quantity) {
+        Clothes clothes = clothesRepo.findById(clothesId).orElseThrow(() -> new IllegalArgumentException("Invalid clothes ID"));
+        OrderTracking orderTracking = new OrderTracking();
+        orderTracking.setPurchaseOrder(order);
+        orderTracking.setClothes(clothes);
+        orderTracking.setSize(size);
+        orderTracking.setQuantity(quantity);
+        orderTrackingRepo.save(orderTracking);
     }
 }

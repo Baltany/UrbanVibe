@@ -508,41 +508,95 @@ public class ClothesController {
     /*
      * Fallo que hay que corregir para que funcione el pedido,crear una linea pedido
      */
+    // Endpoint para obtener el usuario autenticado
+    @GetMapping("/user")
+    public ResponseEntity<?> getAuthenticatedUser() {
+        Optional<User> user = getLoggedUser();
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+        }
+    }
+
+    // Método para obtener el usuario autenticado
+    public Optional<User> getLoggedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+                return userRepo.findByUsername(username);
+            }
+        }
+        return Optional.empty();
+    }
+
+    // Endpoint para crear una orden
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
-            if (authentication == null || !authentication.isAuthenticated()) {
+            Optional<User> userOpt = getLoggedUser();
+            if (!userOpt.isPresent()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
             }
-
-            Object principal = authentication.getPrincipal();
-            String email;
-            if (principal instanceof UserDetails) {
-                email = ((UserDetails) principal).getUsername();
-            } else {
-                email = principal.toString();
-            }
-
-            Optional<User> userOpt = userRepo.findByMail(email);
-            if (!userOpt.isPresent()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-            }
-
+    
             User user = userOpt.get();
+            updateUserWithOrderData(user, orderData);
+    
+            if (!orderData.containsKey("cart") || !(orderData.get("cart") instanceof List)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order items are missing or invalid");
+            }
+    
+            List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
+    
+            for (Map<String, Object> item : cartItems) {
+                if (!item.containsKey("clothesId") || item.get("clothesId") == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'clothesId' is missing or invalid");
+                }
+                if (!item.containsKey("size") || item.get("size") == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'size' is missing or invalid");
+                }
+                if (!item.containsKey("quantity") || item.get("quantity") == null) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
+                }
+            }
+    
             PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
-
-            // Enviar correo electrónico
+    
+            cartItems.forEach(item -> {
+                Long clothesId = Long.parseLong(item.get("clothesId").toString());
+                String size = item.get("size").toString();
+                int quantity = Integer.parseInt(item.get("quantity").toString());
+                orderService.createOrderTracking(savedOrder, clothesId, size, quantity);
+            });
+    
             String[] to = { user.getMail() };
             String subject = "Order Confirmation - UrbanVibe";
             String message = generateOrderEmailMessage(user, savedOrder);
             mailService.sendMail(to, subject, message);
-
+    
             return ResponseEntity.ok(savedOrder);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
+    }
+    
+    
+    private void updateUserWithOrderData(User user, Map<String, Object> orderData) {
+        if (orderData.containsKey("name")) {
+            user.setName(orderData.get("name").toString());
+        }
+        if (orderData.containsKey("surname")) {
+            user.setSurname(orderData.get("surname").toString());
+        }
+        if (orderData.containsKey("dni")) {
+            user.setDni(orderData.get("dni").toString());
+        }
+        if (orderData.containsKey("address")) {
+            user.setAddress(orderData.get("address").toString());
+        }
+        userRepo.save(user);
     }
 
     private String generateOrderEmailMessage(User user, PurchaseOrder order) {
@@ -557,7 +611,7 @@ public class ClothesController {
         return message.toString();
     }
 
-    
+
     @PostMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -20,9 +21,11 @@ public class OrderTracking {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "order_id")
     private PurchaseOrder purchaseOrder;
 
-    @ManyToOne 
+    @ManyToOne
+    @JoinColumn(name = "clothes_id")
     private Clothes clothes;
 
     private int quantity;

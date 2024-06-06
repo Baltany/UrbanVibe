@@ -56,7 +56,7 @@ public class PurchaseOrder {
 
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-    private Set<OrderTracking> orderTracking;
+    private List<OrderTracking> orderTracking;
 
 
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
@@ -72,11 +72,11 @@ public class PurchaseOrder {
     }
 
 
-    public Set<OrderTracking> getOrderTrackings() {
+    public List<OrderTracking> getOrderTrackings() {
         return orderTracking;
     }
 
-    public void setOrderTrackings(Set<OrderTracking> orderTrackings) {
+    public void setOrderTrackings(List<OrderTracking> orderTrackings) {
         this.orderTracking = orderTracking;
     }
 
