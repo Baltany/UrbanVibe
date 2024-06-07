@@ -720,7 +720,7 @@
             <i class="fas fa-times close-cart"></i>
         </div>
         <ul class="cart-items"></ul>
-        <button class="checkout-btn" onclick="window.location.href='/clothes/orders'">Tramitar Pedido</button>
+        <button class="checkout-btn" onclick="checkCart()">Purchase Order</button>
     </div>
 
     <!-- Modal de Edición -->
@@ -1099,6 +1099,15 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        }
+
+        function checkCart() {
+            const totalItems = getTotalCartItems();
+            if (totalItems === 0) {
+                alert('Primero deber añadir ropa al carrito!');
+            } else {
+                window.location.href = '/clothes/orders';
+            }
         }
         
         // Renderizar los elementos del carrito al cargar la página
