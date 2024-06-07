@@ -1,5 +1,7 @@
 package com.shop.iesvdc.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderTracking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,6 +17,17 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!-- Jackson Databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<!-- Opcional: Jackson DataType para soporte Java 8 Date/Time API -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.webjars</groupId>

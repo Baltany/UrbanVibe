@@ -57,7 +57,7 @@ public class PurchaseOrder {
     private User user;
 
 
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderTracking> orderTracking;
 
 
