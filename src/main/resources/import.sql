@@ -19,9 +19,9 @@ INSERT INTO `sex` (`sex`) VALUES ('WOMEN');
 
 -- Insertar datos en la tabla 'user' (no tiene dependencias)
 INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`) VALUES 
-('John', 'john123', 'Doe', 'john@example.com', 'password123', '123 Street, City', '12345678A');
+('John', 'john123', 'Doe', 'baltanyml@gmail.com', 'password123', '123 Street, City', '12345678A');
 INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`) VALUES 
-('Alice', 'alice456', 'Smith', 'alice@example.com', 'password456', '456 Avenue, Town', '87654321B');
+('Alice', 'alice456', 'Smith', 'balbinomylz@gmail.com', 'password456', '456 Avenue, Town', '87654321B');
 
 -- Insertar datos en la tabla 'user_rol_list' (depende de 'user_rol' y 'user')
 -- Insertar datos en la tabla 'user_rol_list'
