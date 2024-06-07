@@ -1,6 +1,7 @@
 package com.shop.iesvdc.shop.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -58,8 +59,7 @@ public class PurchaseOrder {
 
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderTracking> orderTracking;
-
+    private List<OrderTracking> orderTracking = new ArrayList<>();
 
     // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
     @Override

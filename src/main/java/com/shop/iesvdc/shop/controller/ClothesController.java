@@ -553,7 +553,6 @@ public class ClothesController {
                 }
             }
     
-            // Verificar stock disponible para todos los ítems en el carrito
             for (Map<String, Object> item : cartItems) {
                 Long clothesId = Long.parseLong(item.get("id").toString());
                 if (!orderService.isStockAvailable(clothesId)) {
@@ -561,10 +560,8 @@ public class ClothesController {
                 }
             }
     
-            // Crear la orden
             PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
     
-            // Añadir ítems al pedido
             for (Map<String, Object> item : cartItems) {
                 Long clothesId = Long.parseLong(item.get("id").toString());
                 String size = item.get("size").toString();
@@ -576,11 +573,17 @@ public class ClothesController {
             String message = generateOrderEmailMessage(user, savedOrder);
             mailService.sendMail(to, subject, message);
     
-            return ResponseEntity.ok(savedOrder);
+            // En lugar de devolver la orden completa, devolver un mensaje de éxito y la URL de redirección
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Order created successfully");
+            response.put("redirectUrl", "/thnku");
+    
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
+        
         
 
     

@@ -336,10 +336,10 @@
                         }
                         return response.json();
                     })
-                    .then((orderData) => {
-                        console.log("Order placed:", orderData);
+                    .then((responseData) => {
+                        console.log("Order placed:", responseData);
                         localStorage.removeItem(`cart_${userId}`);
-                        window.location.href = "/thnku";
+                        window.location.href = responseData.redirectUrl; // Usa la URL de redirección del servidor
                     })
                     .catch((error) => {
                         console.error("Error:", error);

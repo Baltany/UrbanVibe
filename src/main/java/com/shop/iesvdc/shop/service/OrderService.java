@@ -1,6 +1,7 @@
 package com.shop.iesvdc.shop.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class OrderService {
         order.setUser(user);
         order.setOrderDate(LocalDate.now().toString());
         order.setTotalPrice(Double.parseDouble(orderData.get("total").toString()));
+        order.setOrderTracking(new ArrayList<>());
         //order.setStatus("PENDIENTE");
         orderRepo.save(order);
         return order;
