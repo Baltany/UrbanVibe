@@ -526,7 +526,7 @@ public class ClothesController {
         return Optional.empty();
     }
 
-    // Endpoint para crear una orden
+
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
@@ -551,22 +551,25 @@ public class ClothesController {
                 if (!item.containsKey("size") || item.get("size") == null) {
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'size' is missing or invalid");
                 }
-                
-                
-
-                // if (!item.containsKey("quantity") || item.get("quantity") == null) {
-                //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
-                // }
             }
     
+            // Verificar stock disponible para todos los ítems en el carrito
+            for (Map<String, Object> item : cartItems) {
+                Long clothesId = Long.parseLong(item.get("id").toString());
+                if (!orderService.isStockAvailable(clothesId)) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Stock is not available for item ID: " + clothesId);
+                }
+            }
+    
+            // Crear la orden
             PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
     
-            cartItems.forEach(item -> {
+            // Añadir ítems al pedido
+            for (Map<String, Object> item : cartItems) {
                 Long clothesId = Long.parseLong(item.get("id").toString());
                 String size = item.get("size").toString();
-                //int quantity = Integer.parseInt(item.get("quantity").toString());
                 orderService.createOrderTracking(savedOrder, clothesId, size);
-            });
+            }
     
             String[] to = { user.getMail() };
             String subject = "Order Confirmation - UrbanVibe";
@@ -578,6 +581,63 @@ public class ClothesController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
         }
     }
+        
+    // Endpoint para crear una orden
+    // @PostMapping("/orders")
+    // public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
+    //     try {
+    //         Optional<User> userOpt = getLoggedUser();
+    //         if (!userOpt.isPresent()) {
+    //             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+    //         }
+    
+    //         User user = userOpt.get();
+    //         updateUserWithOrderData(user, orderData);
+    
+    //         if (!orderData.containsKey("cart") || !(orderData.get("cart") instanceof List)) {
+    //             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order items are missing or invalid");
+    //         }
+    
+    //         List<Map<String, Object>> cartItems = (List<Map<String, Object>>) orderData.get("cart");
+    
+    //         for (Map<String, Object> item : cartItems) {
+    //             if (!item.containsKey("id") || item.get("id") == null) {
+    //                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'id' is missing or invalid");
+    //             }
+    //             if (!item.containsKey("size") || item.get("size") == null) {
+    //                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'size' is missing or invalid");
+    //             }
+                
+                
+
+    //             // if (!item.containsKey("quantity") || item.get("quantity") == null) {
+    //             //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Item 'quantity' is missing or invalid");
+    //             // }
+    //         }
+    
+    //         PurchaseOrder savedOrder = orderService.createOrder(orderData, user);
+    
+    //         for (Map<String, Object> item : cartItems) {
+    //             Long clothesId = Long.parseLong(item.get("id").toString());
+    //             String size = item.get("size").toString();
+    
+    //             if (orderService.isStockAvailable(clothesId)) {
+    //                 orderService.createOrderTracking(savedOrder, clothesId, size);
+    //             } else {
+    //                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Stock is not available for item ID: " + clothesId);
+    //             }
+    //         }
+    
+    //         String[] to = { user.getMail() };
+    //         String subject = "Order Confirmation - UrbanVibe";
+    //         String message = generateOrderEmailMessage(user, savedOrder);
+    //         mailService.sendMail(to, subject, message);
+    
+    //         return ResponseEntity.ok(savedOrder);
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
+    //     }
+    // }
     
     
     private void updateUserWithOrderData(User user, Map<String, Object> orderData) {

@@ -52,6 +52,7 @@ public class PurchaseOrder {
      * Varios pedidos pueden ser realizados por un mismo cliente    
      */
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
 
