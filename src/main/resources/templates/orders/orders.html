@@ -138,7 +138,7 @@
                         htmlContent += `
                             <li>
                                 <strong>Description:</strong> ${item.description}<br>
-                                <strong>Image:</strong> ${item.image}<br>
+                                <strong>Image:</strong> <img src="${item.image}" alt="${item.description}" style="max-width: 100px;"><br>
                                 <strong>Price:</strong> €${item.price}<br>
                                 <strong>Color:</strong> ${item.color}<br>
                                 <strong>Stock:</strong> ${item.stock}<br>
@@ -162,6 +162,7 @@
                 }
             });
         }
+
     </script>
 </body>
 </html>

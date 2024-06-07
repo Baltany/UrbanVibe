@@ -32,6 +32,8 @@
                     background-color: black;
                 }
 
+                
+
                 .nav-link {
                     color: white;
                 }
@@ -70,6 +72,15 @@
                     /* Subrayar enlaces al pasar el mouse */
                     color: beige;
                 }
+
+                .navbar navbar-expand-lg navbar-dark bg-dark{
+                    background-color: black;
+                }
+
+                .bg-dark{
+                    background-color: black !important;
+                }
+                
             </style>
             <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
 
@@ -84,7 +95,7 @@
                 <!-- Falta poner lo que iría aquí,es decir lo que ve cada usuario de forma
                 provisional -->
                 <div th:fragment="navigation">
-                    <nav sec:authorize="hasAuthority('Admin')" class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <nav sec:authorize="hasAuthority('Admin')" class="navbar navbar-expand-lg navbar-dark bg-dark" style="color: black;">
                         <div class="container-fluid">
                             <a class="navbar-brand" href="#">
                                 <img src="img/UrbanVibe-transformed.png" alt="UrbanVibe" style="height: 40px;">

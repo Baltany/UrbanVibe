@@ -141,6 +141,19 @@ public class PurchaseOrderController {
      * 
      */
 
+    @GetMapping("/clothes/{id}")
+    @ResponseBody
+    public ResponseEntity<List<Clothes>> getClothesByOrderId(@PathVariable Long id) {
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(id);
+        if (purchaseOrder.isPresent()) {
+            List<Clothes> clothesList = purchaseOrder.get().getClothesList();
+            return ResponseEntity.ok(clothesList);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @PostMapping("/clothes/{id}")
     @ResponseBody
     public ResponseEntity<String> updateClothesByOrderId(@PathVariable Long id, @RequestBody List<Clothes> updatedClothes) {

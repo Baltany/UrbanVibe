@@ -3,6 +3,7 @@ package com.shop.iesvdc.shop.model;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.hibernate.annotations.ManyToAny;
 
@@ -79,6 +80,13 @@ public class PurchaseOrder {
 
     public void setOrderTrackings(List<OrderTracking> orderTrackings) {
         this.orderTracking = orderTracking;
+    }
+
+
+    public List<Clothes> getClothesList() {
+        return orderTracking.stream()
+                            .map(OrderTracking::getClothes)
+                            .collect(Collectors.toList());
     }
 
 
