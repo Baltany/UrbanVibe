@@ -20,6 +20,7 @@
                     <th>Usuario <i class="fa-regular fa-user" style="color: #000000;"></i></th>
                     <th>Total €</th>
                     <th>Fecha Pedido <i class="fa-regular fa-calendar" style="color: #000000;"></i></th>
+                    <th>Estado <i class="fa-regular fa-calendar" style="color: #000000;"></i></th>
                     <th>
                         Ropa
                         <i class="fa-solid fa-shirt" style="color: #000000;"></i>
@@ -33,12 +34,18 @@
                     <td th:text="${order.totalPrice}"></td>
                     <td th:text="${order.orderDate}"></td>
                     <td>
+                        <span th:if="${order.orderTrackings.isEmpty()}">No Status</span>
+                        <span th:if="${!order.orderTrackings.isEmpty()}" th:text="${order.orderTrackings.get(0).status}"></span>
+                    </td>
+                    <td>
                         <button class="btn btn-dark" data-toggle="modal" data-target="#detailsModal" 
                                 th:data-order-id="${order.id}" onclick="loadOrderDetails(this)">
                             <i class="fa-solid fa-info"></i>
                         </button>
                     </td>
                     <td>
+                        <a class="btn btn-secondary" th:href="|/orders/edit/${order.id}|">
+                            <i class="fa-solid fa-truck-fast"></i>                        </a>
                         <a class="btn btn-primary" th:href="|/orders/edit/${order.id}|">
                             <i class="fa-solid fa-pen"></i>
                         </a>
@@ -138,7 +145,7 @@
                         htmlContent += `
                             <li>
                                 <strong>Description:</strong> ${item.description}<br>
-                                <strong>Image:</strong> <img src="${item.image}" alt="${item.description}" style="max-width: 100px;"><br>
+                                <img src="${item.image}" alt="${item.description}" style="max-width: 100px;"><br>
                                 <strong>Price:</strong> €${item.price}<br>
                                 <strong>Color:</strong> ${item.color}<br>
                                 <strong>Stock:</strong> ${item.stock}<br>
@@ -151,6 +158,7 @@
                                     ${item.categoryList.map(category => `<li>${category.category}</li>`).join('')}
                                 </ul>
                             </li>
+                            <br>
                         `;
                     });
                     htmlContent += "</ul>";

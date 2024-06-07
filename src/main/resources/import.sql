@@ -138,9 +138,9 @@ INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (17, 10);
 INSERT INTO `clothes_size_list` (`clothes_id`, `size_list_id`) VALUES (17, 11);
 
 -- -- Insertar datos en la tabla 'user'
-INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('John', 'john123', 'Doe', 'john@example.com', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', '123 Street, City', '12345678A',1);
+INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('John', 'john123', 'Doe', 'baltanyml@gmail.com', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', '123 Street, City', '12345678A',1);
 
-INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('Alice', 'alice456', 'Smith', 'alice@example.com', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', '456 Avenue, Town', '87654321B',1);
+INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('Alice', 'alice456', 'Smith', 'balbinomylz@gmail.com', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', '456 Avenue, Town', '87654321B',1);
 
 INSERT INTO `user` (`name`, `username`, `surname`, `mail`, `password`, `address`, `dni`,`enable`) VALUES ('Balbino', 'balbino', 'Moyano', 'bmoylop0903@g.educaand.es', '$2a$10$PMDCjYqXJxGsVlnve1t9Jug2DkDDckvUDl8.vF4Dc6yg0FMjovsXO', 'Calle montoro 6', '50624970s',1);
 

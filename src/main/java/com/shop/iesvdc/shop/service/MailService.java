@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.shop.iesvdc.shop.repos.MailRepo;
+import com.shop.iesvdc.shop.repos.UserRepo;
 
 @Service
 public class MailService implements MailRepo{
@@ -17,7 +18,10 @@ public class MailService implements MailRepo{
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private UserRepo userRepo;
 
+    
     @Override
     public void sendMail(String[] to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
