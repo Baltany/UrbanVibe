@@ -1,11 +1,13 @@
 package com.shop.iesvdc.shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import com.shop.iesvdc.shop.repos.ClothesRepo;
+import com.shop.iesvdc.shop.repos.OrderTrackingRepo;
 import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
 
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.shop.iesvdc.shop.model.Clothes;
+import com.shop.iesvdc.shop.model.OrderTracking;
 import com.shop.iesvdc.shop.model.PurchaseOrder;
 import com.shop.iesvdc.shop.model.User;
 import com.shop.iesvdc.shop.repos.ClothesRepo;
@@ -36,6 +39,9 @@ public class PurchaseOrderController {
 
     @Autowired
     private UserRepo userRepo;
+    
+    @Autowired
+    private OrderTrackingRepo orderTrackingRepo;
 
     @GetMapping("")
     public String findAll(Model model) {
@@ -165,6 +171,23 @@ public class PurchaseOrderController {
             return ResponseEntity.ok("Detalles de ropa actualizados correctamente");
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @PostMapping("/ship/{id}")
+    @ResponseBody
+    public ResponseEntity<String> shipOrder(@PathVariable Long id) {
+        Optional<PurchaseOrder> optionalOrder = purchaseOrderRepo.findById(id);
+        if (optionalOrder.isPresent()) {
+            PurchaseOrder order = optionalOrder.get();
+            OrderTracking tracking = new OrderTracking();
+            tracking.setStatus("ENVIADO");
+            tracking.setPurchaseOrder(order);
+            orderTrackingRepo.save(tracking);
+            return ResponseEntity.ok("Order shipped successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
         }
     }
 

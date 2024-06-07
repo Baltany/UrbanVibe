@@ -44,8 +44,9 @@
                         </button>
                     </td>
                     <td>
-                        <a class="btn btn-secondary" th:href="|/orders/edit/${order.id}|">
-                            <i class="fa-solid fa-truck-fast"></i>                        </a>
+                        <button class="btn btn-secondary" th:data-order-id="${order.id}" onclick="shipOrder(this)">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </button>
                         <a class="btn btn-primary" th:href="|/orders/edit/${order.id}|">
                             <i class="fa-solid fa-pen"></i>
                         </a>
@@ -170,6 +171,23 @@
                 }
             });
         }
+
+        function shipOrder(button) {
+            const orderId = $(button).data('order-id');
+            $.ajax({
+                type: "POST",
+                url: "/orders/ship/" + orderId,
+                success: function (response) {
+                    console.log(response);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error("Error al enviar el pedido:", error);
+                    alert("Error al enviar el pedido. Consulta la consola para más detalles.");
+                }
+            });
+        }
+
 
     </script>
 </body>
