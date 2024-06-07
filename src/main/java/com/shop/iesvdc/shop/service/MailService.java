@@ -17,6 +17,7 @@ public class MailService implements MailRepo{
     @Autowired
     private JavaMailSender mailSender;
 
+
     @Override
     public void sendMail(String[] to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
