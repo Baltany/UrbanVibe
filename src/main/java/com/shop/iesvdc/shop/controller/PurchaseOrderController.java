@@ -11,6 +11,7 @@ import com.shop.iesvdc.shop.repos.OrderTrackingRepo;
 import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -181,15 +182,22 @@ public class PurchaseOrderController {
         Optional<PurchaseOrder> optionalOrder = purchaseOrderRepo.findById(id);
         if (optionalOrder.isPresent()) {
             PurchaseOrder order = optionalOrder.get();
-            OrderTracking tracking = new OrderTracking();
-            tracking.setStatus("ENVIADO");
-            tracking.setPurchaseOrder(order);
-            orderTrackingRepo.save(tracking);
+            
+            // Crear o actualizar el estado del pedido en OrderTracking
+            OrderTracking newTracking = new OrderTracking();
+            newTracking.setStatus("ENVIADO");
+            newTracking.setOrderDate(LocalDate.now().toString());
+            newTracking.setPurchaseOrder(order);
+            orderTrackingRepo.save(newTracking);
+    
             return ResponseEntity.ok("Order shipped successfully");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
         }
     }
+    
+    
+    
 
 
 }

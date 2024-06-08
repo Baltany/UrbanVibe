@@ -20,7 +20,7 @@
                     <th>Usuario <i class="fa-regular fa-user" style="color: #000000;"></i></th>
                     <th>Total €</th>
                     <th>Fecha Pedido <i class="fa-regular fa-calendar" style="color: #000000;"></i></th>
-                    <th>Estado <i class="fa-regular fa-calendar" style="color: #000000;"></i></th>
+                    <th>Estado <i class="fa-solid fa-bars-progress" style="color: #000000;"></i></th>
                     <th>
                         Ropa
                         <i class="fa-solid fa-shirt" style="color: #000000;"></i>
@@ -173,20 +173,24 @@
         }
 
         function shipOrder(button) {
-            const orderId = $(button).data('order-id');
-            $.ajax({
-                type: "POST",
-                url: "/orders/ship/" + orderId,
-                success: function (response) {
-                    console.log(response);
-                    location.reload();
-                },
-                error: function (error) {
-                    console.error("Error al enviar el pedido:", error);
-                    alert("Error al enviar el pedido. Consulta la consola para más detalles.");
-                }
-            });
+    const orderId = $(button).data('order-id');
+    $.ajax({
+        url: "/orders/ship/" + orderId,  // Asegúrate de que esta URL sea correcta
+        method: "POST",
+        success: function (response) {
+            alert(response);
+            $(button).closest('tr').find('span').first().text('ENVIADO');
+        },
+        error: function (error) {
+            console.error("Error al enviar el pedido:", error);
+            alert("Error al enviar el pedido. Consulta la consola para más detalles.");
         }
+    });
+}
+
+
+
+
 
 
     </script>
