@@ -102,7 +102,15 @@
                                 </div>
 
                             </div>
-
+                                <!-- Mostrar mensajes de error generales -->
+                                <div class="col-md-12" th:if="${#fields.hasErrors()}">
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            <li th:each="error : ${#fields.allErrors()}" th:text="${error}">Error</li>
+                                        </ul>
+                                    </div>
+                                </div>
+            
                         
 
                     </div>
@@ -117,6 +125,7 @@
                     </div>
                 </div>
             </form>
+
 
             <!-- <div th:replace="~{fragmentos/general.html :: footer}"></div> -->
 

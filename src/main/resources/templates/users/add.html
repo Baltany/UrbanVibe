@@ -57,6 +57,15 @@
                         <label class="form-label">Habilitado:</label>
                         <input type="checkbox" th:field="*{enable}" class="form-check-input"/>
                     </div>
+
+                                                    <!-- Mostrar mensajes de error generales -->
+                                                    <div class="col-md-12" th:if="${#fields.hasErrors()}">
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                <li th:each="error : ${#fields.allErrors()}" th:text="${error}">Error</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                 </div>
             </div>
             <div class="border">
