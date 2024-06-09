@@ -9,6 +9,6 @@ import com.shop.iesvdc.shop.model.OrderTracking;
 import com.shop.iesvdc.shop.model.PurchaseOrder;
 
 public interface OrderTrackingRepo extends JpaRepository<OrderTracking,Long> {
-    Optional<OrderTracking> findByPurchaseOrder(PurchaseOrder purchaseOrder);
+    List<OrderTracking> findByPurchaseOrder(PurchaseOrder purchaseOrder);
 
 }

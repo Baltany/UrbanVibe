@@ -184,30 +184,29 @@ public class PurchaseOrderController {
             if (optionalOrder.isPresent()) {
                 PurchaseOrder order = optionalOrder.get();
                 System.out.println("PurchaseOrder found: " + order);
-
-                // Buscar si ya existe un OrderTracking para este PurchaseOrder
-                Optional<OrderTracking> existingTrackingOptional = orderTrackingRepo.findByPurchaseOrder(order);
+    
+                List<OrderTracking> existingTrackings = orderTrackingRepo.findByPurchaseOrder(order);
                 OrderTracking tracking;
-
-                if (existingTrackingOptional.isPresent()) {
-                    // Si existe, actualiza solo los campos necesarios
-                    tracking = existingTrackingOptional.get();
-                    tracking.setStatus("ENVIADO");
-                    tracking.setOrderDate(LocalDate.now().toString());
-                    System.out.println("OrderTracking updated: " + tracking);
+    
+                if (!existingTrackings.isEmpty()) {
+                    // Aquí manejamos múltiples resultados, por ejemplo, actualizando todos
+                    for (OrderTracking existingTracking : existingTrackings) {
+                        existingTracking.setStatus("ENVIADO");
+                        existingTracking.setOrderDate(LocalDate.now().toString());
+                        orderTrackingRepo.save(existingTracking);
+                        System.out.println("OrderTracking updated: " + existingTracking);
+                    }
+                    tracking = existingTrackings.get(0);
                 } else {
                     // Si no existe, crea uno nuevo
                     tracking = new OrderTracking();
                     tracking.setStatus("ENVIADO");
                     tracking.setOrderDate(LocalDate.now().toString());
                     tracking.setPurchaseOrder(order);
-                    System.out.println("New OrderTracking created: " + tracking);
+                    orderTrackingRepo.save(tracking);
+                    System.out.println("New OrderTracking created and saved: " + tracking);
                 }
-
-                // Guardar el OrderTracking actualizado o nuevo
-                orderTrackingRepo.save(tracking);
-                System.out.println("OrderTracking saved: " + tracking);
-
+    
                 return ResponseEntity.ok("Order shipped successfully");
             } else {
                 System.out.println("PurchaseOrder not found");
@@ -218,7 +217,6 @@ public class PurchaseOrderController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request: " + e.getMessage());
         }
     }
-    
     
 
 
