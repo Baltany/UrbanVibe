@@ -173,20 +173,20 @@
         }
 
         function shipOrder(button) {
-    const orderId = $(button).data('order-id');
-    $.ajax({
-        url: "/orders/ship/" + orderId,  // Asegúrate de que esta URL sea correcta
-        method: "POST",
-        success: function (response) {
-            alert(response);
-            $(button).closest('tr').find('span').first().text('ENVIADO');
-        },
-        error: function (error) {
-            console.error("Error al enviar el pedido:", error);
-            alert("Error al enviar el pedido. Consulta la consola para más detalles.");
+            const orderId = $(button).data('order-id');
+            $.ajax({
+                url: "/orders/ship/" + orderId,
+                method: "POST",
+                success: function (response) {
+                    alert(response);
+                    $(button).closest('tr').find('span').first().text('ENVIADO');
+                },
+                error: function (error) {
+                    console.error("Error al enviar el pedido:", error);
+                    alert("Error al enviar el pedido. Consulta la consola para más detalles.");
+                }
+            });
         }
-    });
-}
 
 
 

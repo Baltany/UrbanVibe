@@ -179,33 +179,43 @@ public class PurchaseOrderController {
     @PostMapping("/ship/{id}")
     @ResponseBody
     public ResponseEntity<String> shipOrder(@PathVariable Long id) {
-        Optional<PurchaseOrder> optionalOrder = purchaseOrderRepo.findById(id);
-        if (optionalOrder.isPresent()) {
-            PurchaseOrder order = optionalOrder.get();
-    
-            // Buscar si ya existe un OrderTracking para este PurchaseOrder
-            Optional<OrderTracking> existingTrackingOptional = orderTrackingRepo.findByPurchaseOrder(order);
-            OrderTracking tracking;
-    
-            if (existingTrackingOptional.isPresent()) {
-                // Si existe, actualiza solo los campos necesarios
-                tracking = existingTrackingOptional.get();
-                tracking.setStatus("ENVIADO");
-                tracking.setOrderDate(LocalDate.now().toString());
+        try {
+            Optional<PurchaseOrder> optionalOrder = purchaseOrderRepo.findById(id);
+            if (optionalOrder.isPresent()) {
+                PurchaseOrder order = optionalOrder.get();
+                System.out.println("PurchaseOrder found: " + order);
+
+                // Buscar si ya existe un OrderTracking para este PurchaseOrder
+                Optional<OrderTracking> existingTrackingOptional = orderTrackingRepo.findByPurchaseOrder(order);
+                OrderTracking tracking;
+
+                if (existingTrackingOptional.isPresent()) {
+                    // Si existe, actualiza solo los campos necesarios
+                    tracking = existingTrackingOptional.get();
+                    tracking.setStatus("ENVIADO");
+                    tracking.setOrderDate(LocalDate.now().toString());
+                    System.out.println("OrderTracking updated: " + tracking);
+                } else {
+                    // Si no existe, crea uno nuevo
+                    tracking = new OrderTracking();
+                    tracking.setStatus("ENVIADO");
+                    tracking.setOrderDate(LocalDate.now().toString());
+                    tracking.setPurchaseOrder(order);
+                    System.out.println("New OrderTracking created: " + tracking);
+                }
+
+                // Guardar el OrderTracking actualizado o nuevo
+                orderTrackingRepo.save(tracking);
+                System.out.println("OrderTracking saved: " + tracking);
+
+                return ResponseEntity.ok("Order shipped successfully");
             } else {
-                // Si no existe, crea uno nuevo
-                tracking = new OrderTracking();
-                tracking.setStatus("ENVIADO");
-                tracking.setOrderDate(LocalDate.now().toString());
-                tracking.setPurchaseOrder(order);
+                System.out.println("PurchaseOrder not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
             }
-    
-            // Guardar el OrderTracking actualizado o nuevo
-            orderTrackingRepo.save(tracking);
-    
-            return ResponseEntity.ok("Order shipped successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request: " + e.getMessage());
         }
     }
     
