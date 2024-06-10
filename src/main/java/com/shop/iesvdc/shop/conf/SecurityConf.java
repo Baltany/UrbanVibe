@@ -15,22 +15,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-
+/**
+ * Configuro la Seguridad de la App con esta clase
+ * 
+ * @author Balbino Moyano Lopez
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConf {
     @Autowired
     private DataSource dataSource;
 
-
-    /*lo de roles habría que cambiarlo a rols consultar al profesor */
+    /*
+     * Consultas que realizo para hacer el login correcto
+     */
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.jdbcAuthentication()
         .dataSource(dataSource)
+        //En esta consulta selecciono el nombre de usuario la contraseña y si está habilitado o no el usuario en la tabla
         .usersByUsernameQuery("select username, password, enable "
         + "from user "
         + "where username = ?")
+        //Una vez recojo los campos necesarios de la tabla,ahora busco que tipo de rol desempeña ese usuario para redirigirlo a un endpoint o a otro
         .authoritiesByUsernameQuery("select u.username, r.rol "
         + "from user u, user_rol_list url, user_rol r "
         + "where u.id = url.user_id "
@@ -38,10 +45,18 @@ public class SecurityConf {
         + "and u.username = ?");
     }
 
+
+    /*
+     * Usamos el Bcrypt para que una vez el usuario se registre pues se codifique la credencial.
+     */
     @Bean
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
+
+    /*
+     * Definimos todos y cada uno de los endpoints a los que se pueden acceder y le indicamos quien puede acceder a que endpoint
+     */
     @Bean
     public SecurityFilterChain filter(HttpSecurity http) throws Exception {
         return http
