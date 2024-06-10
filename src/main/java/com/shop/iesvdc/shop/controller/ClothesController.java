@@ -49,9 +49,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequestMapping("/clothes")
 public class ClothesController {
+
+    /**
+     * Necesitamos la talla principalmente para hacer una consulta de las tallas disponibles de cada prenda
+     *
+     * @param sizeRepo
+     * @return tallas disponibles por prenda
+     */
+
     @Autowired
     private SizeRepo sizeRepo;
 
+    /**
+     * Necesitamos la categoria principalmente para hacer una consulta de las categorias que tiene cada prenda
+     *
+     * @param categoryRepo
+     * @return categorias de la prenda
+     */
     @Autowired
     private CategoryRepo categoryRepo;
 
