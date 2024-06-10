@@ -2,7 +2,6 @@
 
 ## Datos del proyecto
 
-<!-- How to do a table in md? -->
 | Nombre | Apellidos | Título | Ciclo | Año | Centro educativo |
 | --- | --- | --- | --- | --- | --- |
 | Balbino | Moyano López | Desarrollo de Aplicaciones Multimedia | Superior | 2024 | IES Virgen del Carmen |
@@ -90,7 +89,3 @@ La organización del proyecto está compuesta por las siguientes carpetas:
 - pom.xml: es nuestro archivo de dependecias,sin él, el proyecto sería inservible
 
 
-
-## Esquema de la base de datos
-Aquí podemos ver un breve esquema de los que sería nuestras clases modelo una vez ya creadas en mysql:  
-![Esquema de la base de datos](docs\image.png)
