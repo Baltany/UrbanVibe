@@ -167,3 +167,29 @@ spring.mail.password=password
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 ```
+-------
+Para hacer la lógica de mandar el correo una vez el pedido ha terminado,uso el siguiente método:
+```java
+    public void sendMailToLoggedInUser(String subject, String message) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if (authentication != null && authentication.isAuthenticated()) {
+            /*
+             * Es un método que tiene la clase Authentication de donde saco el Objeto el cuál está actualmente logueado
+             */
+            Object principal = authentication.getPrincipal();
+            String email = null;
+
+            if (principal instanceof UserDetails) {
+                email = ((UserDetails) principal).getUsername();
+            } else if (principal instanceof String) {
+                email = principal.toString();
+            }
+
+            if (email != null) {
+                sendMail(new String[]{email}, subject, message);
+            }
+        }
+    }
+```
+Con este código lo que obtengo es que el usuario el cúal está haciendo el pedido,es decir está logueado,recojo su email,compruebo si es nulo o no y con la ayuda de un instaceof de UserDetails,puedo obtener el nombre del usuario y con ello puedo obtener el email del usuario y paso el email a string y lo mando todo lo importante del pedido.

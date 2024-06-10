@@ -1,4 +1,26 @@
-# Introducción
+# Índice
+
+* Introducción
+  * Datos del proyecto
+  * Planificación
+  * Ejecución del proyecto
+  * Organización del proyecto
+* Tecnologías
+* Analisis de Diagramas
+  * Diagrama clases
+  * Diagrama de la base de datos
+  * Diagrama de ayuda para la lógica
+* Implementación
+* Conclusiones
+  * Experiencias personales y pequeñas explicaciones
+* Bibliografía y Webgrafía   
+
+## Introducción
+El proyecto consiste en una página de ropa urbana que es lo que más a día de hoy está de moda,donde hay ropa tanto de mujer como de hombre,y todo diseñado a mano desde 0 con varias ideas proyectadas en mi cabeza y sobre todo con muchas ganas y dedicación y horas de trabajo en una de las etapas más duras que he vivido,y estoy muy contento de haber conseguido lo que he conseguido con este proyecto a pesar de las adversidades.
+
+Este proyecto surgió de una idea propia la cúal a mi siempre me ha gustado que es la de crear yo mi propia tienda de ropa con los productos que yo mismo he diseñado y poder hacer una venta de lo mismos.
+
+Otra de las principales ideas del proyecto sería una vez finalizado si es posible poder llegar a vender el software a alguna empresa que esté a punto de empezar en este mundo y necesite una tienda virtual, como digo es una idea ya luego al final hay que pulir muchas cosas y muchos detalles.
 
 ## Datos del proyecto
 
@@ -20,19 +42,26 @@ Esta sería aproximadamente la planificación del proyecto:
   * He estado investigando páginas similares:Pull&Bear,Bershka,Zara,Mango...
 * 3º Semana
   * He estado investigando más estilos para mi futura página de ropa además de estar mirando la posibilidad de añadir un bot en python para simular un atención al cliente
+  * He estado estudiando diferentes maneras de contactarme con el usuario con el rol cliente como por ejemplo mensajería via gmail,etc...
 * 4º Semana 
   * He decidio hacer el proyecto con Spring-MVC por que lo veo a pesar de haber estado debatiendo entre hacer Spring de backend y usar React en el frontend,se me sugirío hacerlo entero con Spring y en un futuro ya usaré React para el frontend.
+  * Al no usar react uso mucho javascript para algunos estilos como por ejemplo el de la página principal del endpoint "/clothes" que voy pasando cada x tiempo una foto distinta
 * 5º Semana 
-  * Estoy terminando el backend y realizando varios ajustes en cuanto al frontend para hacerlo más visual e intuitivo
+  * Estoy terminando el backend y realizando varios ajustes en cuanto al frontend para hacerlo más visual e intuitivo.
+  * Todos estos ajustes los realizo porque me he tirado muchas pero muchísimas horas buscando en distintas páginas de ropa para ir copiando estilos de una y de otra porque pienso que es lo más estético y lo que más llama la atención incluso lo que más fácil puede llegar a ser para el usuario.
 * 6º Semana 
   * Primera versión demo semifuncional
-  * Primera revisión de la documentación para ver que estén todos los puntos necesarios 
+  * Primera revisión de la documentación para ver que estén todos los puntos necesarios.
+  * En la primera versión semifuncional,se puede hacer un pedido correctamente además de ver de forma detalla la ropa,controlo varias excepciones como por ejemplo sino se selecciona una talla que te ponga;"Por favor selecciona una talla"
+  * Además también controlo varios errores de login y registro  y de manera visual se lo enseño al cliente
 * 7º Semana
   * Resultados finales (proyecto terminado: tutorial, aplicación…) 
   * Segunda revisión del documento donde ya estén todos los apartados necesarios 
   * Preparación de la presentación 
+  * Preparando javadoc y toda la documentación adicional del proyecto además de videos explicativos etc...
 * 8º Semana 
   * Pulimos los posibles “bugs”
+  * Correción de algunos códigos poco legibles también he intentado afinar un poco el código para que sea lo menos posible código denominado "spaguetti"
   * Entrega del documento final 
 * 9º Semana   
   * Organización de la presentación
@@ -78,6 +107,7 @@ La organización del proyecto está compuesta por las siguientes carpetas:
         - edit.html: muestra el formulario para editar un usuario,si tienes los requisitos suficientes para verlos(Admin).
       - help.html: al igual que acerca,es totalmente estético.
       - denegado.html: es un archivo el cual indica a un usuario sino tiene permisos pues lo redirigimos a la siguiente página.
+      - menu.html:es el principal endpoint al cuál se le redirige a un usuario que tiene el rol Customer en el cual el usuario puede elegir que tipo de ropa quiere ver,si la de hombre,mujer o toda la ropa.
       - error.html: en caso de que exista algún tipo de error en nuestra página lo redirigimos a está que resulta más cómodo para el cliente ver que hay un error y que tiene que contactar con soporte.
       - index.html: es la página a la que redirigimos por defecto una vez hecho el login.
       - login.html: es la página por defecto de nuestro login.
