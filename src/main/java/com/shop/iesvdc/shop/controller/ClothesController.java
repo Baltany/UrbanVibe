@@ -54,7 +54,7 @@ public class ClothesController {
      * Necesitamos la talla principalmente para hacer una consulta de las tallas disponibles de cada prenda
      *
      * @param sizeRepo
-     * @return tallas disponibles por prenda
+     * @return Size disponibles por prenda
      */
 
     @Autowired
@@ -64,14 +64,21 @@ public class ClothesController {
      * Necesitamos la categoria principalmente para hacer una consulta de las categorias que tiene cada prenda
      *
      * @param categoryRepo
-     * @return categorias de la prenda
+     * @return Category de la prenda
      */
     @Autowired
     private CategoryRepo categoryRepo;
 
 
+    /**
+     * Necesitamos la ropa con la que vamos a trabajar
+     *
+     * @param clothesRepo
+     * @return Clothes existente en la base de datos
+     */
     @Autowired
     private ClothesRepo clothesRepo;
+
 
     @Autowired
     private UserRepo userRepo;
