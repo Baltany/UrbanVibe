@@ -40,6 +40,12 @@ import lombok.NonNull;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+/**
+ * Esta clase es la encargada de manejar todos los endpoints que se encuentran en mi carpeta templates/clothes
+ * 
+ * @author Balbino Moyano Lopez
+ */
 @Controller
 @RequestMapping("/clothes")
 public class ClothesController {
@@ -49,8 +55,6 @@ public class ClothesController {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    @Autowired
-    private SexRepo sexRepo;
 
     @Autowired
     private ClothesRepo clothesRepo;
@@ -61,12 +65,6 @@ public class ClothesController {
     @Autowired
     private OrderService orderService;
 
-    
-    @Autowired
-    private PurchaseOrderRepo orderRepo;
-
-    @Autowired
-    private OrderTrackingRepo orderTrackingRepo;
 
     @Autowired
     private MailService mailService;
