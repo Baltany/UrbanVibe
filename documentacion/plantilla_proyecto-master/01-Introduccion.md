@@ -18,11 +18,17 @@
 \pagebreak
 
 ## Introducción
+
 El proyecto consiste en una página de ropa urbana que es lo que más a día de hoy está de moda,donde hay ropa tanto de mujer como de hombre,y todo diseñado a mano desde 0 con varias ideas proyectadas en mi cabeza y sobre todo con muchas ganas y dedicación y horas de trabajo en una de las etapas más duras que he vivido,y estoy muy contento de haber conseguido lo que he conseguido con este proyecto a pesar de las adversidades.
 
 Este proyecto surgió de una idea propia la cúal a mi siempre me ha gustado que es la de crear yo mi propia tienda de ropa con los productos que yo mismo he diseñado y poder hacer una venta de lo mismos.
 
 Otra de las principales ideas del proyecto sería una vez finalizado si es posible poder llegar a vender el software a alguna empresa que esté a punto de empezar en este mundo y necesite una tienda virtual, como digo es una idea ya luego al final hay que pulir muchas cosas y muchos detalles.
+
+El logo de la tienda principalmente es el siguiente:
+![UrbanVibe](../../src/main/resources/static/img/UrbanVibeHD.png)
+Si nos ponemos a analizar el logo podemos ver como la U hace referencia a una asa de una bolsa o esa es la intención que la U simule lo que es una asa de una bolsa y debajo podemos ver el nombre de la empresa junto a su eslogan,principalmente este sería el diseño que llevarían las bolsas.
+
 
 ## Datos del proyecto
 
