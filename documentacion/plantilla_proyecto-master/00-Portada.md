@@ -14,10 +14,10 @@ toc: false
 
 \pagebreak
 
-
----
 ![UrbanVibePortada](../../src/main/resources/static/img/WhatsAppImageFondo.jpeg)
 ![UrbanVibePortada](../../src/main/resources/static/img/RopaFondo.jpeg)
+
+---
 
 Este documento se encuentra bajo una licencia Creative Commons de Atribución-CompartirIgual (CC BY-SA). 
 
