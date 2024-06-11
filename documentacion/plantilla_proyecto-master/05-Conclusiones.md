@@ -73,7 +73,7 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
         renderCartItems(); 
         });
     ```
-    Además de abrirlo,si tiene articulos el carrito se renderiza las prendas ue existan.
+    Además de abrirlo,si tiene articulos el carrito se renderiza las prendas que existan.
 
 
     Modal de Edición:
