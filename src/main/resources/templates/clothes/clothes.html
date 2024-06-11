@@ -792,34 +792,9 @@
         setInterval(changeBackgroundImage, 5000);
 
 
-        
-    
-        /*const searchIcon = document.querySelector('.fa-search');
-        const searchInput = document.querySelector('.search-input');
-        
-        // Intentando hacer el buscador
-        
-        const productCards = document.querySelectorAll('.product-card');
 
     
-        searchIcon.addEventListener('click', () => {
-            searchInput.classList.toggle('active');
-            if (searchInput.classList.contains('active')) {
-                searchInput.focus();
-            }
-        });
-    
-        document.addEventListener('click', (event) => {
-            if (!searchIcon.contains(event.target) && !searchInput.contains(event.target)) {
-                searchInput.classList.remove('active');
-            }
-        });
-        */
-
-
-
-    
-        // Carrito de compras
+        /** Carrito de compras */
         const cartIcon = document.querySelector('.cart-icon');
         const cartSidebar = document.getElementById('cart-sidebar');
         const closeCart = document.querySelector('.close-cart');
@@ -836,12 +811,12 @@
         }
     
         saveChangesBtn.addEventListener('click', () => {
-            // Lógica para guardar cambios
         });
     
         cartIcon.addEventListener('click', () => {
             cartSidebar.classList.add('open');
-            renderCartItems(); // Renderizar el carrito cuando se abre
+            /** Renderizar el carrito cuando se abre */
+            renderCartItems(); 
         });
     
         closeCart.addEventListener('click', () => {
@@ -864,7 +839,7 @@
         closeEditModalIcon.onclick = closeEditModal;
         closeModalButton.onclick = closeEditModal;
 
-        // Función para obtener una cookie por su nombre
+        /** Función para obtener una cookie por su nombre */
         function getCookie(name) {
             const cname = name + "=";
             const decodedCookie = decodeURIComponent(document.cookie);
@@ -881,20 +856,19 @@
             return "";
         }
     
-        // Inicializar el carrito desde el localStorage
+        /** Inicializar el carrito desde el localStorage */
         const userIdElement = document.getElementById('userId');
         const userId = userIdElement.getAttribute('data-user-id');
 
         console.log("User ID:", userId);
 
         const cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-        //let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
         function getTotalCartItems() {
             return cart.reduce((total, item) => total + 1, 0);
         }
 
-        // Actualizar el contador del carrito
+        /** Actualizar el contador del carrito*/
         function updateCartCounter() {
             const totalItems = getTotalCartItems();
             cartCounter.textContent = totalItems > 0 ? totalItems : '';
@@ -906,13 +880,13 @@
                 const isSize = target.classList.contains('sizes');
                 
                 if (isSize) {
-                    // Si se hace clic en la talla, añadir al carrito
+                    /** Si se hace clic en la talla, añadir al carrito */
                     const clotheElement = target.closest('.product-card');
                     const clotheId = clotheElement.dataset.id;
                     const size = target.dataset.size;
                     addToCart(clotheId, size);
                 } else {
-                    // Si se hace clic en cualquier otra parte del producto, ir a los detalles
+                    /** Si se hace clic en cualquier otra parte del producto, ir a los detalles */
                     const clotheElement = target.closest('.product-card');
                     if (clotheElement) {
                         const clotheId = clotheElement.dataset.id;
@@ -922,7 +896,7 @@
             });
         });
 
-        // Function to add item to cart
+        /** Funcion que añade una prenda al carrito */
         function addToCart(clotheId, size = null) {
             console.log('Adding to cart:', clotheId, size);
             const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
@@ -935,10 +909,9 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Response from server:', data);
-                // Check if the product is already in the cart
+                /** Si el producto ya está que no se vuelva a añadir */
                 const existingProductIndex = cart.findIndex(item => item.id === data.id && item.size === data.size);
                 if (existingProductIndex === -1) {
-                    // The product is not in the cart, so we add it
                     console.log('The product is not in the cart. Adding product...');
                     const product = {
                         id: data.id,
@@ -949,14 +922,12 @@
                     };
                     cart.push(product);
                     localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-                    //localStorage.setItem('cart', JSON.stringify(cart));
                     console.log('Product added to cart:', product);
                 } else {
-                    // The product is already in the cart, do nothing
                     console.log('The product is already in the cart. Doing nothing.');
                 }
                 
-                // Render cart items and update the interface
+                /** Renderizamos el producto y añadimos uno al contador */
                 renderCartItems();
                 cartSidebar.classList.add('open'); 
                 updateCartCounter();
@@ -1012,7 +983,6 @@
         }
 
 
-        // Supongamos que esta función se llama cuando quieres editar un artículo
         function fetchEditData(id) {
             fetch(`clothes/edit/${id}`)
                 .then(response => response.json())
@@ -1024,7 +994,7 @@
         
 
         function openEditModal(id) {
-            console.log("Opening modal with ID:", id);  // Verifica el ID
+            console.log("Opening modal with ID:", id);  
             fetch(`/clothes/edit/${id}`)
                 .then(response => {
                     if (!response.ok) {
@@ -1035,7 +1005,6 @@
                 .then(data => {
                     console.log("Opening modal with data:", data);
         
-                    // Verifica que los elementos del DOM existen antes de establecer sus propiedades
                     const imageElement = document.getElementById('edit-item-image');
                     const descriptionElement = document.getElementById('description');
                     const sizeElement = document.getElementById('size');
@@ -1067,7 +1036,7 @@
                     }
         
                     if (sizesParagraph) {
-                        sizesParagraph.innerHTML = '';  // Limpiar contenido anterior
+                        sizesParagraph.innerHTML = '';  
         
                         const availableSizes = data.availableSizes || [];
                         availableSizes.forEach(size => {
@@ -1084,7 +1053,8 @@
                                 });
                                 sizeSpan.classList.add('selected-size');
                                 localStorage.setItem('selectedSize', size);
-                                data.size = size; // Actualizar la talla seleccionada en el modal
+                                /** Actualiza la talla */
+                                data.size = size; 
                             });
         
                             sizesParagraph.appendChild(sizeSpan);
@@ -1093,10 +1063,10 @@
                         console.error("Sizes paragraph element not found");
                     }
         
-                    // Mostrar el modal
+                    /** Muestra el modal de edición */
                     document.getElementById('edit-modal').style.display = 'flex';
         
-                    // Manejar el evento de guardar cambios
+                    /** Maneja el evento de guardar los cambios dentro del modal de edicion */
                     saveChangesBtn.onclick = () => saveChanges(data.id, data.size);
 
                 })
@@ -1123,10 +1093,10 @@
                 return response.json();
             })
             .then(data => {
-                console.log("Save changes response:", data); // Log para depurar
+                console.log("Save changes response:", data);
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
-                    cartItem.size = newSize; // Usar newSize en lugar de data.size
+                    cartItem.size = newSize;
                     localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
                     renderCartItems();
                 }
@@ -1143,7 +1113,7 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Fetched data:", data); // Log detallado
+                    console.log("Fetched data:", data);
                     if (data) {
                         openEditModal(data);
                     } else {
@@ -1164,7 +1134,7 @@
         }
     }
     
-        // Renderizar los elementos del carrito al cargar la página
+        /** Renderiza los elementos al cargar la página */
         renderCartItems();
         updateCartCounter();
     </script>

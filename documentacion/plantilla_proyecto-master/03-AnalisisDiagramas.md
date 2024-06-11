@@ -23,3 +23,4 @@ ______________________
 ![Mail](../../docs/Mail-Diagram.jpg)
 Este es el principal esquema que me ha ayudado a realizar la lógica de mandar un email,que he explico más detalladamente en el siguiente apartado de implementación
 
+\pagebreak

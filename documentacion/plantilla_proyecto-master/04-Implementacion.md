@@ -193,3 +193,5 @@ Para hacer la lógica de mandar el correo una vez el pedido ha terminado,uso el 
     }
 ```
 Con este código lo que obtengo es que el usuario el cúal está haciendo el pedido,es decir está logueado,recojo su email,compruebo si es nulo o no y con la ayuda de un instaceof de UserDetails,puedo obtener el nombre del usuario y con ello puedo obtener el email del usuario y paso el email a string y lo mando todo lo importante del pedido.
+
+\pagebreak

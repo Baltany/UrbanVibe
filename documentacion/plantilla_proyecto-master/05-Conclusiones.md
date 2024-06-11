@@ -24,6 +24,27 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
     Y el resultado obtenido de mezclar estas ideas es algo talque así:
     ![UrbanVibe](../../docs/imageUrbanVibeMenu.png)
 
+    Por ejemplo para hacer qque cada x segundo se vaya cambiado la foto he usado este código:
+    ```javascript
+        const heroBanner = document.getElementById('hero-banner');
+        const images = [
+            '/img/mainimagen.jpeg',
+            '/img/mainimagen2.jpeg',
+            '/img/mainimagen3.jpeg',
+            '/img/streetphoto.jpg',
+            '/img/streetphoto2.jpg'
+        ];
+        let currentImageIndex = 0;
+    
+        function changeBackgroundImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            heroBanner.style.backgroundImage = `url(${images[currentImageIndex]})`;
+        }
+    
+        setInterval(changeBackgroundImage, 5000);
+    ```
+    Primeramente añado todas las imagenes que yo deseo que estén en una lista con respectiva ruta,indico que foto va a ser la primera y con el método changeBackgroundImage() y despues de haber recogido el div con el DOM que se llama hero-banner,recorro la lista de uno en uno y le meto un intervalo de 5 segundos.
+
     La forma de mostrar la ropa también tiene su aquel aunque al final no deja de ser un div de width 100% y que cada div que muestra una prenda ocupe un 25% de ese width y ya luego la altura la deseada, en UrbanVibe se muestran así:
     ![UrbanVibe](../../docs/imageUrbanVibeClothes.png)
     
@@ -34,6 +55,37 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
 
 Y como podemos ver muestro el stock,el precio,la imagen,las tallas disponibles y categoría a la que pertenece,si le das a añadir al carrito sin antes haber seleccionado una talla,le aparecerá "Por favor seleccione una talla", de color rojo para que el usuario cliente sepa en todo momento que es lo que está pasando,luego una vez seleccione la talla se añadirá al carrito con la talla que el usuario ha elegido.
 
+Para manejar si el usuario hace click en la talla o en otro lugar he usado el siguiente código:
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(event) {
+                const target = event.target;
+                const isSize = target.classList.contains('sizes');
+                
+                if (isSize) {
+                    const clotheElement = target.closest('.product-card');
+                    const clotheId = clotheElement.dataset.id;
+                    const size = target.dataset.size;
+                    addToCart(clotheId, size);
+                } else {
+                    const clotheElement = target.closest('.product-card');
+                    if (clotheElement) {
+                        const clotheId = clotheElement.dataset.id;
+                        window.location.href = `clothes/details/${clotheId}`;
+                    }
+                }
+            });
+        });
+```
+Con el DOM recogemos el valor que buscamos,en este caso, la "cardview" en la cúal,si donde hace click el cliente es donde se encuentran las tallas entonces llamo a la función que me añade la ropa al carrito,y si no hace click en este lugar,entonces cojo el id de la ropa en donde haya hecho click y le redirecciono a su respectivo endpoint *"clothes/details/{clothes.id}"*
+
+
+
+
+
+
+
+\pagebreak
 
 
 

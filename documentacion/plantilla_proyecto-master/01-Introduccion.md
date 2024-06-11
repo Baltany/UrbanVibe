@@ -15,6 +15,8 @@
   * Experiencias personales y pequeñas explicaciones
 * Bibliografía y Webgrafía   
 
+\pagebreak
+
 ## Introducción
 El proyecto consiste en una página de ropa urbana que es lo que más a día de hoy está de moda,donde hay ropa tanto de mujer como de hombre,y todo diseñado a mano desde 0 con varias ideas proyectadas en mi cabeza y sobre todo con muchas ganas y dedicación y horas de trabajo en una de las etapas más duras que he vivido,y estoy muy contento de haber conseguido lo que he conseguido con este proyecto a pesar de las adversidades.
 
@@ -118,4 +120,5 @@ La organización del proyecto está compuesta por las siguientes carpetas:
   - setup.sql: es un archivo que sirve para inicializar la base de datos con el nombre que nosotros queramos ponerle a nuestra base de datos.
 - pom.xml: es nuestro archivo de dependecias,sin él, el proyecto sería inservible
 
+\pagebreak
 
