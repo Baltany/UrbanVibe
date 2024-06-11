@@ -45,6 +45,7 @@ Esta sería aproximadamente la planificación del proyecto:
 * 1º Semana 
   * En la primera semana de trabajo he esquematizado todo el proyecto,he buscado otras ideas de proyecto,además de hacer un diagrama UML de lo que a mi me gustaría que fuera finalmente este proyecto.
   * He dedicidido hacer el proyecto en spring debido a que he notado un importante interés en esta tecnología por las empresas que actualmente buscan desarrolladores de este estilo.
+  * Esta estapa fue indispensable para crear unas buenas bases para el proyecto(UrbanVibe),el haber hecho los diagramas y haberlo esquematizado todo me ha ayudado muchisimo en la elaboración del proyecto porque gracias a todos estos recursos he podido entender mejor como iban a interecatuar las clases entre si y lo que yo iba a necesitar para hacer que todo funcionara correctamente.
 * 2º Semana 
   * He intentado organizarme cada semana de proyecto para establecerme unos objetivos semanales
   * Breve esquema tanto de base de datos como diagramas
