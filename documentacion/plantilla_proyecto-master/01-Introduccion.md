@@ -94,6 +94,9 @@ Con este comando se nos ejecutará en los puertos que nosotros tengamos predefin
 ```spring
 mvn spring-boot:run
 ```
+Una vez ejecutemos el comando esto:
+![Docker](../../docs/imageSpring.png)
+
 Ejecutaremos el proyecto en el puerto por defecto que usa spring el 8080,si quisieramos cambiar el puerto por defecto de spring,lo deberemos de hacer en el archivo aplication.properties y poner algo talque así:
 ```application.properties
 server.port=7070
