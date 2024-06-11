@@ -47,9 +47,10 @@ Esta sería aproximadamente la planificación del proyecto:
   * He dedicidido hacer el proyecto en spring debido a que he notado un importante interés en esta tecnología por las empresas que actualmente buscan desarrolladores de este estilo.
   * Esta estapa fue indispensable para crear unas buenas bases para el proyecto(UrbanVibe),el haber hecho los diagramas y haberlo esquematizado todo me ha ayudado muchisimo en la elaboración del proyecto porque gracias a todos estos recursos he podido entender mejor como iban a interecatuar las clases entre si y lo que yo iba a necesitar para hacer que todo funcionara correctamente.
 * 2º Semana 
-  * He intentado organizarme cada semana de proyecto para establecerme unos objetivos semanales
-  * Breve esquema tanto de base de datos como diagramas
+  * He intentado profundizar en una planificación detallada en  del proyecto,definiendo tareas y una serie de objetivos intentando que sean unos plazos realistas como sería por ejemplo objetivos semanales
+  * También intenté hacerme un boceto de la estructura que iba a tener la base de datos para así tener una idea más clara de como se iba a almacenar y organizar la información de dicho proyecto.
   * He estado investigando páginas similares:Pull&Bear,Bershka,Zara,Mango...
+  * 
 * 3º Semana
   * He estado investigando más estilos para mi futura página de ropa además de estar mirando la posibilidad de añadir un bot en python para simular un atención al cliente
   * He estado estudiando diferentes maneras de contactarme con el usuario con el rol cliente como por ejemplo mensajería via gmail,etc...
