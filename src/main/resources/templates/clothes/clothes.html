@@ -976,9 +976,8 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-            //localStorage.setItem('cart', JSON.stringify(cart));
             renderCartItems();
-            // Actualizar el contador del carrito
+            /** Actualizar el contador del carrito */
             updateCartCounter(getCartItemCount());
         }
 
