@@ -232,6 +232,52 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 Con el DOM recogemos el valor que buscamos,en este caso, la "cardview" en la cúal,si donde hace click el cliente es donde se encuentran las tallas entonces llamo a la función que me añade la ropa al carrito,y si no hace click en este lugar,entonces cojo el id de la ropa en donde haya hecho click y le redirecciono a su respectivo endpoint *"clothes/details/{clothes.id}"*
 
+* orders.html: Para hacer esta ventana,creo que ha sido la menos costosa porque siempre he tenido en mente como quería que fuese ya que obviamente el cliente tiene que saberque tiene que hacer en todo momento y sobre todo ver la información de su pedido,
+además obviamente como al registrarte,no metes todos los datos neecsarios pues obviamente necesito un formulario que recoja todo lo posible en cuanto al usuario en cuestión,todo esto lo he pensado así para darl dinamismo a la aplicación y que no se hiciera pesada:
+![UrbanVibe](../../docs/imageUrbanVibeOrder.png)
+
+Recojo la ropa de la siguiente manera:
+```javascript
+cartData.forEach((item) => {
+                    if (!item.id || isNaN(item.id)) {
+                        console.error("Invalid item in cart:", item);
+                        return;
+                    }
+    
+                    const itemElement = document.createElement("div");
+                    itemElement.classList.add("order-item");
+    
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.description}">
+                        <div class="details-clothes">
+                            <b><p>${item.description}</p></b>
+                            <p>Talla: ${item.size}</p>
+                        </div>
+                        <div class="details-price"> 
+                            <p>${item.price}€</p>
+                        </div>
+                    `;
+    
+                    orderItemsContainer.appendChild(itemElement);
+                    totalPrice += parseFloat(item.price);
+                });
+```
+Aquí recojo los datos ue tengo almacenados del carrito del usuario y los muestro en pantalla de la misma manera y con los mismos estilos con la que muestro la ropa cuando se encuentra en el carrito.
+Y ya una vez recogida la ropa con el formulario que tengo **ACTUALIZO** al usuario con ese mismo id y creo **UNA LINEA PEDIDO**, esto es muy importante porque no hayq ue confundir,necesitamos la linea pedido para ver que pedidos hay y dentro de estos pedido que ropa se han llevado por esta razón es tan importante que creemos una linea pedido y no un pedido.
+
+Y una vez se ha creado y hemos terminado la compra se nos redirigirá al siguiente endpoint "/thnku"
+
+* thnku.html:
+En este endpoint únicamente me sirve para dar las gracias al usuario por su compra y a mime hace saber que si ha llegado a este endpoint también le ha llegado su respectivo correo indicando que la compra fue un éxito:
+
+
+
+![UrbanVibe](../../docs/imageUrbanVibeThnku.png)
+
+Y aquí está el correo verificando la compra:
+![UrbanVibe](../../docs/imageMail.png)
+
+
 
 
 

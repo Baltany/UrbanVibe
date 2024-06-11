@@ -229,7 +229,7 @@
     </main>    
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Obtener detalles del usuario autenticado
+        /** Obtener detalles del usuario autenticado */
         fetch("/clothes/user")
             .then((response) => {
                 if (!response.ok) {
@@ -238,16 +238,13 @@
                 return response.json();
             })
             .then((userData) => {
-                // Rellenar el formulario con los datos del usuario
                 document.getElementById("name").value = userData.name;
                 document.getElementById("surname").value = userData.surname;
                 document.getElementById("dni").value = userData.dni;
                 document.getElementById("address").value = userData.address;
                 
-                // Guardar el ID de usuario en localStorage
                 localStorage.setItem("userId", userData.id);
     
-                // Obtener el ID de usuario desde localStorage
                 const userId = localStorage.getItem("userId");
     
                 const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
@@ -256,7 +253,6 @@
                 let totalPrice = 0;
     
                 cartData.forEach((item) => {
-                    // Asegúrate de que item.id existe y es válido
                     if (!item.id || isNaN(item.id)) {
                         console.error("Invalid item in cart:", item);
                         return;
