@@ -23,3 +23,15 @@ docker run --rm -v $PWD:/home/marp/app/ -e LANG=$LANG marpteam/marp-cli presenta
 * Markdown All in One
 * Markdown Preview Enhanced
 * Markdown Shortcuts
+* Java Pack
+* Spring-boot
+* Docker
+* Database(Connector)
+* Beauty(Dar formato al código)
+* Error Lens(Indica los errores en el código)
+* Gitlab Workflow
+* IntellijCode
+* Tabnine(ID)
+* Markdownlint
+* Dracula(UI de Vscode)
+* Autoclose tag(HTML)
