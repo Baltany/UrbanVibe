@@ -50,10 +50,13 @@ Esta sería aproximadamente la planificación del proyecto:
   * He intentado profundizar en una planificación detallada en  del proyecto,definiendo tareas y una serie de objetivos intentando que sean unos plazos realistas como sería por ejemplo objetivos semanales
   * También intenté hacerme un boceto de la estructura que iba a tener la base de datos para así tener una idea más clara de como se iba a almacenar y organizar la información de dicho proyecto.
   * He estado investigando páginas similares:Pull&Bear,Bershka,Zara,Mango...
-  * 
+  
+  Todo esta investigación me sirve a mi para tener varias idea sobre como puedo hace runa interfaz vistosa,simple,atractiva y sobre todo intuitiva
+  
 * 3º Semana
   * He estado investigando más estilos para mi futura página de ropa además de estar mirando la posibilidad de añadir un bot en python para simular un atención al cliente
   * He estado estudiando diferentes maneras de contactarme con el usuario con el rol cliente como por ejemplo mensajería via gmail,etc...
+  * Esta semana fue una de las semanas marcadas por una cantidad razonable de horas investigando sobre nuevas tecnologías y herramientas para enriquecer y hacer más fácil la experiencia al usuario con el rol Cliente que en este caso yo lo he llamado "Customer" 
 * 4º Semana 
   * He decidio hacer el proyecto con Spring-MVC por que lo veo a pesar de haber estado debatiendo entre hacer Spring de backend y usar React en el frontend,se me sugirío hacerlo entero con Spring y en un futuro ya usaré React para el frontend.
   * Al no usar react uso mucho javascript para algunos estilos como por ejemplo el de la página principal del endpoint "/clothes" que voy pasando cada x tiempo una foto distinta
