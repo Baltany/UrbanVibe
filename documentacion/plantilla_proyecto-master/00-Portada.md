@@ -11,13 +11,13 @@ titlepage-rule-height: 0
 titlepage-background: "docs/background.odg"
 toc: false
 ---
-![UrbanVibePortada](../../src/main/resources/static/img/WhatsAppImageFondo.jpeg)
-![UrbanVibePortada](../../src/main/resources/static/img/RopaFondo.jpeg)
 
 \pagebreak
 
 
 ---
+![UrbanVibePortada](../../src/main/resources/static/img/WhatsAppImageFondo.jpeg)
+![UrbanVibePortada](../../src/main/resources/static/img/RopaFondo.jpeg)
 
 Este documento se encuentra bajo una licencia Creative Commons de Atribución-CompartirIgual (CC BY-SA). 
 
