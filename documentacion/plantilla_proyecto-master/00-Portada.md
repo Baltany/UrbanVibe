@@ -11,6 +11,8 @@ titlepage-rule-height: 0
 titlepage-background: "docs/background.odg"
 toc: false
 ---
+![UrbanVibePortada](../../src/main/resources/static/img/WhatsAppImageFondo.jpeg)
+![UrbanVibePortada](../../src/main/resources/static/img/RopaFondo.jpeg)
 
 \pagebreak
 

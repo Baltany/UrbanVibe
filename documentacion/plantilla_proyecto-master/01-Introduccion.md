@@ -51,7 +51,7 @@ Esta sería aproximadamente la planificación del proyecto:
   * También intenté hacerme un boceto de la estructura que iba a tener la base de datos para así tener una idea más clara de como se iba a almacenar y organizar la información de dicho proyecto.
   * He estado investigando páginas similares:Pull&Bear,Bershka,Zara,Mango...
   
-  Todo esta investigación me sirve a mi para tener varias idea sobre como puedo hace runa interfaz vistosa,simple,atractiva y sobre todo intuitiva
+  Todo esta investigación me sirve a mi para tener varias idea sobre como puedo hace runa interfaz vistosa,simple,atractiva y sobre todo intuitiva,en definitiva y para resumir,podemos decir que una lluvia de ideas para mi
   
 * 3º Semana
   * He estado investigando más estilos para mi futura página de ropa además de estar mirando la posibilidad de añadir un bot en python para simular un atención al cliente
