@@ -83,6 +83,12 @@ Para ejecutar el proyecto realizado en spring primeramente necesitaremos haber m
 ```docker
 docker-compose -f nombre_del_archivo.yml up -d
 ```
+Si ya tenemos el docker creado de antes nos aparecerá esto:
+![Docker](../../docs/imageCMDDocker.png)
+
+En cambio si es la primera vez que lo hacemos tendremos esto:
+
+
 Con este comando se nos ejecutará en los puertos que nosotros tengamos predefinidos en el archivo.yml el adminer,es decir, nuestra gestor de la base datos,para ver nuestra base de datos en ejecución entonces necesitaremos ejecutar spring que para ello podemos hacerlo de varias maneras,o desde visual studio con la extensión de spring que hay un botón de ejecutar o directamente con el comando:
 ```spring
 mvn spring-boot:run
