@@ -10,6 +10,8 @@ Apunta aquí cada Web, tutorial, vídeo que veas y qué has aprendido con él:
   <https://stackoverflow.com/questions/75534824/smtpsendfailedexception-and-mailconnectexception-while-sending-mail-using-java-m>
 * Generador de imagenes: <https://leonardo.ai/>
 * Creador de logo: <https://www.logomaker.com/>
+* Outlook: <https://outlook.live.com/mail/0/>
+* Documentaccion <https://devdocs.io/html/>
 
 
 \pagebreak
