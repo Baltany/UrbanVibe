@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.shop.iesvdc.shop.repos.MailRepo;
 
+/**
+ * Esta clase es un MailService encargada de hacer las comprobaciones y requisitos pertiennetes para mandar el correo
+ * @author Balbino Moyano Lopez
+ */
 @Service
 public class MailService implements MailRepo {
 
