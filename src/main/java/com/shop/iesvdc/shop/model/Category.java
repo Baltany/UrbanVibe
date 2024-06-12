@@ -7,6 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * Esta clase es la Entidad de Categoria donde distingo la ropa en sudadera,camiseta...
+ * @author Balbino Moyano Lopez
+ */
 @Data
 @Entity
 @NoArgsConstructor

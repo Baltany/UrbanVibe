@@ -224,7 +224,7 @@ public class UserController {
     
 
     /**
-     * Metodo que edita el usuario con comprobacioness previas de que no exista ese mismo dni etc...
+     * Metodo que edita el usuario con comprobaciones previas de que no exista ese mismo dni etc...
      * @param updatedUser
      * @param bindingResult
      * @param id

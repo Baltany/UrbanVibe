@@ -14,6 +14,10 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Esta clase es la Entidad de OrderTracking encargada de todo el seguimiento del pedido,la ropa que tiene cada pedido y el usuario que ha hecho la compra
+ * @author Balbino Moyano Lopez
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -31,15 +35,13 @@ public class OrderTracking {
     @JoinColumn(name = "clothes_id")
     private Clothes clothes;
 
-    //private int quantity;
-
     private double price;
 
     private String status;
 
     private String orderDate;
 
-    /*
+    /**
      * Recojo el valor de la talla como String
      */
     private String size;

@@ -18,6 +18,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
+/**
+ * Esta clase es la Entidad de Clothes que contiene todos los atributos que yo he visto mas necesarios en la ropa de hoy en dia
+ * @author Balbino Moyano Lopez
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,14 +35,12 @@ public class Clothes {
     private String description;
 
 
-    /*Seguramente esto también sea una lista de imagenes ya que por ejemplo unas zapatillas pueden tener varias imagenes en distintas posiciones */
     private String image;
 
     private double price;
 
     private String color;
 
-    /*Para tener un control del stock creo que sería necesario */
     private int stock;
 
 
@@ -57,22 +60,11 @@ public class Clothes {
     @ManyToMany
     private List<Sex> sexList;
 
-    /*
-     * 
-        @ManyToOne
-        @JoinColumn(name = "clothes_purchase_order_id")
-        @JsonBackReference
-        @ToString.Exclude
-        private PurchaseOrder purchaseOrder;
-     * 
-     */
-
     @OneToMany
     private List<OrderTracking> orderTraking;
 
 
 
-    // Si tienes un método toString personalizado, asegúrate de excluir purchaseOrder o hacerlo de manera segura
     @Override
     public String toString() {
         return "Clothes{" +
@@ -82,8 +74,8 @@ public class Clothes {
                 ", price=" + price +
                 ", color='" + color + '\'' +
                 ", stock=" + stock +
-                ", sizes=" + sizeList + // Añadido para mostrar las tallas
-                ", categories=" + categoryList + // Añadido para mostrar las categorías
+                ", sizes=" + sizeList + 
+                ", categories=" + categoryList +
                 '}';
     }
 
@@ -96,7 +88,6 @@ public class Clothes {
     }
 
     public static Clothes findById(Long clothesId) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 

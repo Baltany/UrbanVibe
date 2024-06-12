@@ -25,7 +25,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 
-
+/**
+ * Esta clase es la Entidad de PurchaseOrder aqui se guardar el pedido que hace el usuario sin los id de la ropa,orden de compra
+ * @author Balbino Moyano Lopez
+ */
 @Data
 @Entity
 @NoArgsConstructor
@@ -34,23 +37,12 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*posible cambio a float */
     private double totalPrice;
 
     private String orderDate;
 
-    /*
-     * Lista de articulos que ha comprado el cliente
-     * @JsonManagedRefence:se aplica al lado directo de la referencia cuando usamos relaciones de uno a muchos
-     */
-    // @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // //@JoinColumn(name = "purcharse_order_clothes_id")
-    // @JsonManagedReference
-    // @ToString.Exclude // Evita la recursividad en toString
 
-    // private List<Clothes> clothesList;
-
-    /*
+    /**
      * Varios pedidos pueden ser realizados por un mismo cliente    
      */
     @ManyToOne
@@ -61,7 +53,6 @@ public class PurchaseOrder {
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderTracking> orderTracking = new ArrayList<>();
 
-    // Si tienes un método toString personalizado, asegúrate de excluir clothesList o hacerlo de manera segura
     @Override
     public String toString() {
         return "PurchaseOrder{" +
@@ -69,7 +60,6 @@ public class PurchaseOrder {
                 ", totalPrice=" + totalPrice +
                 ", orderDate='" + orderDate + '\'' +
                 ", user=" + user +
-                // No incluyas clothesList aquí
                 '}';
     }
 
