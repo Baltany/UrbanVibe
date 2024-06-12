@@ -10,7 +10,6 @@
     
     <th:block th:fragment="styles">
         <style>
-            /* Estilos Generales */
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -228,8 +227,8 @@
     
             .checkout-btn {
                 display: block;
-                width: 80%; /* Ajusta el ancho del botón según sea necesario */
-                margin: 0 auto; /* Esto centrará el botón horizontalmente */
+                width: 80%;
+                margin: 0 auto; 
                 padding: 15px;
                 background: #333;
                 color: #fff;
@@ -405,7 +404,6 @@
                 background-color: #555;
             }
             
-            /* Cart Sidebar Styles */
             .cart-sidebar {
                 position: fixed;
                 top: 0;
@@ -507,26 +505,25 @@
             }
     
             .edit-item-image {
-                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-                height: auto !important; /* Esto mantendrá la proporción de la imagen */
-                max-height: 200px !important; /* Establece una altura máxima para la imagen */
-                display: block !important; /* Asegura que la imagen se muestre como un bloque */
-                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+                width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /** Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /** Establece una altura máxima para la imagen */
+                display: block !important; /** Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /** Esto centra la imagen horizontalmente */
             }
             
-            /* Añade estos estilos específicamente para las imágenes con la clase .edit-item-image */
             .edit-item-image img {
-                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-                height: auto !important; /* Esto mantendrá la proporción de la imagen */
-                max-height: 200px !important; /* Establece una altura máxima para la imagen */
-                display: block !important; /* Asegura que la imagen se muestre como un bloque */
-                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+                width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /** Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /** Establece una altura máxima para la imagen */
+                display: block !important; /** Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /** Esto centra la imagen horizontalmente */
             }
             .edit-item-details{
                 display: block !important;
                 justify-content: start;
                 align-items: center;
-                margin-top: 20px;/* Esto centrará la imagen horizontalmente */
+                margin-top: 20px;/** Esto centra la imagen horizontalmente */
     
                     }
     
@@ -536,7 +533,7 @@
                 max-height: 200px;
                 object-fit: cover;
                 border-radius: 10px;
-                margin-right: 10px; /* Esto centrará la imagen horizontalmente */
+                margin-right: 10px; /** Esto centra la imagen horizontalmente */
                     }
     
             #edit-item-title {
@@ -555,7 +552,7 @@
             #close-modal-exit {
                 background-color: #333;
                 color: #fff;
-                padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
+                padding: 10px 20px;
                 border: none;
                 border-radius: 5px;
                 font-size: 16px;
@@ -594,22 +591,22 @@
             
             }
             .cart-counter {
-                display: none; /* Ocultar el contador por defecto */
+                display: none; /** Ocultar el contador por defecto */
                 font-family: 'Dancing Script', cursive;
                 position: absolute;
                 top: -10px;
                 right: -10px;
-                background-color: rgb(245, 245, 220); /* Color de fondo rojo */
+                background-color: rgb(245, 245, 220); /** Color de fondo rojo */
                 color: black;
                 border-radius: 50%;
-                padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
-                font-size: 14px; /* Aumentar el tamaño de la fuente */
-                font-weight: bold; /* Hacer el texto en negrita */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+                padding: 5px 8px; /** Aumentar el relleno para que sea más visible */
+                font-size: 14px; /** Aumentar el tamaño de la fuente */
+                font-weight: bold; /** Hacer el texto en negrita */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /** Agregar sombra */
             }
     
             .cart-icon .cart-counter {
-                display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
+                display: inline; /* *Mostrar el contador cuando se pasa el ratón sobre el icono */
             }
             .form-control-description{
                 font-size: 18px;
