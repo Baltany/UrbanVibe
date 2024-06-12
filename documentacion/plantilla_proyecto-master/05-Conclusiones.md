@@ -200,8 +200,643 @@ El script que abre el modal de edición es el siguiente:
     
 ```
     
-Con este código lo que hago es ver a que prenda ha hecho click,comprobar si existen cada uno de sus atributos y una vez comprobados abrimos el modal y ejercemos la lógica de una edición de talla
+Con este código lo que hago es ver a que prenda ha hecho click,comprobar si existen cada uno de sus atributos y una vez comprobados abrimos el modal y ejercemos la lógica de una edición de talla.
 
+Y los estilos que he usado en esta página son los siguientes:
+```css
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 5.5%;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .nav-list {
+            cursor: pointer;
+            list-style: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        .nav-list li {
+            margin-right: 20px;
+        }
+        .nav-list li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .company-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            text-align: center;
+            margin-right: 10px;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .navbar-icons i {
+            font-size: 20px;
+            color: #fff;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        /**
+        .search-input {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 35px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            width: 0;
+            opacity: 0;
+            transition: width 0.4s ease, opacity 0.4s ease;
+        }
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+        }
+        */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-top: 80px;
+        }
+        .hero-banner {
+            background: #000;
+            text-align: center;
+            color: #fff;
+            padding: 100px 0;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .btn-primary {
+            background-color: #333;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .btn-primary:hover {
+            background-color: #555;
+        }
+        .featured-products {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 20px 0;
+            margin: 0;
+        }
+        .product-card {
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s;
+            padding: 10px;
+            width: 25%;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card:hover .size-container {
+            opacity: 1;
+        }
+        .product-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            margin-bottom: 5px;
+        }
+        .image-container {
+            position: relative;
+        }
+        .size-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .sizes {
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .product-price {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .footer {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        .footer p {
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .company-name {
+                margin-bottom: 10px;
+            }
+            .navbar-icons {
+                margin-top: 20px;
+            }
+            .navbar-icons i {
+                margin-right: 8px;
+            }
+            .product-card {
+                width: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            .btn-primary {
+                padding: 10px 20px;
+            }
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 80%; 
+            margin: 0 auto;
+            padding: 15px;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }        
+        .checkout-btn:hover {
+            background: #555;
+            transform: scale(1.05);
+        }
+        .marquee-container {
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: right 0.3s ease;
+        }
+        
+        .modal.open {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
+        .modal-header,
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .modal-footer {
+            border-top: 1px solid #ddd;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .modal-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .modal-form-group label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+        
+        .modal-form-group input,
+        .modal-form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .modal-form-group select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        #edit-item-image {
+            width: 45%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        
+        #edit-item-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        #edit-item-price {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        #save-changes-btn,
+        #close-modal-exit {
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        #save-changes-btn:hover,
+        #close-modal-exit:hover {
+            background-color: #555;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cart-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .close-cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+
+        .cart-items.edit-item-details{
+            overflow-x: hidden;
+        }
+        
+        .cart-item-title {
+            font-size: 18px;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .cart-item-price {
+            font-size: 16px;
+            color: #888;
+        }
+        
+        .checkout-section {
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .checkout-button {
+            display: block;
+            width: 70%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .checkout-button:hover {
+            background-color: #555;
+        }
+
+        .edit-item-image {
+            width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+            height: auto !important; /** Esto mantendrá la proporción de la imagen */
+            max-height: 200px !important; /** Establece una altura máxima para la imagen */
+            display: block !important; /** Asegura que la imagen se muestre como un bloque */
+            margin: 0 auto !important; /** Esto centra la imagen horizontalmente */
+        }
+        
+        .edit-item-image img {
+            width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+            height: auto !important; /** Esto mantendrá la proporción de la imagen */
+            max-height: 200px !important; /** Establece una altura máxima para la imagen */
+            display: block !important; /** Asegura que la imagen se muestre como un bloque */
+            margin: 0 auto !important; /** Esto centra la imagen horizontalmente */
+        }
+        .edit-item-details{
+            display: block !important;
+            justify-content: start;
+            align-items: center;
+            margin-top: 20px;/** Esto centra la imagen horizontalmente */
+
+                }
+
+        #edit-item-image{
+                    width: 45%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 10px; /** Esto centra la imagen horizontalmente */
+                }
+
+        #edit-item-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        #edit-item-price {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        #save-changes-btn, 
+        #close-modal-exit {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px; /** Asegura el mismo tamaño y relleno */
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #save-changes-btn:hover, 
+        #close-modal-exit:hover {
+            background-color: #555;
+        }   
+        
+
+        .edith2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .show-clothes{
+            display:block;
+            margin:10px;
+            margin-left:15%;
+        }
+
+        .edit-buttons{
+            display: flex;
+            margin: 0 -2rem;
+            align-items:center;
+
+
+        }
+
+        .buttons-edit-cancel{
+            margin: 0.8rem 0.2rem 0.2rem !important;
+            
+        
+        }
+        .cart-counter {
+            display: none; /** Ocultar el contador por defecto */
+            font-family: 'Dancing Script', cursive;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: rgb(245, 245, 220); /** Color de fondo rojo */
+            color: black;
+            border-radius: 50%;
+            padding: 5px 8px; /** Aumentar el relleno para que sea más visible */
+            font-size: 14px; /** Aumentar el tamaño de la fuente */
+            font-weight: bold; /** Hacer el texto en negrita */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /** Agregar sombra */
+        }
+
+        .cart-icon .cart-counter {
+            display: inline; /** Mostrar el contador cuando se pasa el ratón sobre el icono */
+        }
+        .form-control-description{
+            font-size: 18px;
+            color: #333;
+        }
+        .form-control-price{
+            color:#888;
+        }
+
+        .form-control span {
+            font-size: 1rem;
+            padding: 15px 20px;
+            border: 1px solid #ccc;
+            border-radius: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .form-control .selected-size {
+            background-color: black;
+            color: white;
+            flex-wrap: wrap;
+
+        }
+
+        .urban-contact{
+            text-decoration:none;
+            color:white;
+            cursor: pointer;
+        }
+
+```
+Estos estilos sirven para darle toda la estética a la página como por ejemplo los modales situados a la derecha de la página con z-index y muy importante el position:fixed para fijar la posición.
+Además de darle estilos a mis cardview y mi carrito.
 
 * details.html: esta es una de las páginas encargadas de hacer más visual eh intuitivo los atributos de la ropa,es decir,se muestran de una manera mejor planteada y mas visible y cómoda para el usuario:
 ![UrbanVibe](../../docs/imageUrbanVibeDetails.png)
