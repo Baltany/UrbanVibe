@@ -21,7 +21,6 @@ import jakarta.transaction.Transactional;
 
 /**
  * Esta clase es un OrderService encargada de hacer las comprobaciones y requisitos pertiennetes para ejecutar una orden de compra 
- * además de poder añadirle el estado a ENVIAdo
  * @author Balbino Moyano Lopez
  */
 @Service
