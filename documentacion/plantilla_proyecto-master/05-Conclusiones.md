@@ -283,9 +283,194 @@ El cúal está hecho en su mayoría con la documentación que tiene vanta en su 
 
 Y así podemos nosotros hacer nuestro propio efecto:
 ![VantaJS](../../docs/imageVantajsWeb.png)
-Y de manera dinámica podemos ver como como se va cambiando el fondo y los "pájaros" segun los estilos que le apliquemos en la parte del menú lateral derecho
+Y de manera dinámica podemos ver como como se va cambiando el fondo y los "pájaros" segun los estilos que le apliquemos en la parte del menú lateral derecho.
+
+* login.html:
+```html
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UrbanVibe - Log in</title>
+        <link rel="icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    </head>
+    <body>
+        <div class="container">
+            <div>
+
+                <h1>UrbanVibe</h1>
+                <br>
+            </div>
+
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username:</label>
+                    <input
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        type="text"
+                        placeholder="user215"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password:</label>
+                    <input
+                        name="password"
+                        type="password"
+                        id="password"
+                        placeholder="******"
+                        class="form-control"
+                        required="required">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Recordar sesión</label>
+                </div>
+                <div class="error-message" th:if="${param.error}">
+                    Usuario y/o contraseña incorrectos
+                </div>
+                <a href="/users/signup" class="forgot-password">Don't you have an account yet? Sign up!</a>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+    </body>
+</html>
+```
+Como podemos ver yo no uso un botón que me lleve al registro sino que uso una etiqueta "a" que me parece más cómodo para la experiencia del usuario. y luego en cuanto al registro:
 
 
+* register.html:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanVibe - Sign up</title>
+    <link rel="icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/UrbanVibeICON.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>UrbanVibe</h1>
+            <br>
+        </div>
+
+        <form th:action="@{/users/signup}" th:object="${user}" method="POST">
+            <div class="form-group">
+                <label for="mail" class="form-label">Mail:</label>
+                <input name="mail" type="email" id="mail" class="form-control" placeholder="example@example.es" th:field="*{mail}" required>
+            </div>
+            <div class="form-group">
+                <label for="username" class="form-label">Username:</label>
+                <input name="username" id="username" class="form-control" type="text" placeholder="user215" th:field="*{username}" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input name="password" type="password" id="password" placeholder="******" class="form-control" required>
+                <br/>
+                <div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="error"></div>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
+
+
+            </div>
+            
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary" onclick="window.location.href='/login'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+```
+
+Y este es el registro y los estilos que he usado tanto en el registro como para el login son los siguientes:
+```css
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url('/img/Default_A_skyscraper_in_new_yorkalso_i_want_the_statue_of_libe_0.jpg');
+            background-size: cover;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 350px;
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        input.form-control {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        label.form-label {
+            color: black;
+            font-weight: bold;
+            display: flex;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; 
+        }
+
+        .button-container button {
+            flex: 1; 
+            margin-right: 10px;
+        }
+
+        button.btn-primary {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button.btn-primary:hover {
+            background-color: black;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+```
+Con estos estilos como podemos ver ajusto una imagen de fondo(Nueva York),con la intención de simular el lugar de venta principal de la tienda de ropa,además de por ejemplo mostrar los errores con color y de una forma muy visible como es el color rojo,he usado el flex:1 para que ambos botones contengan el mismo ancho para el registro y algunos botones con sombra y sus respectivos hover.
 
 
 
