@@ -36,6 +36,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+/**
+ * Esta clase es la encargada de manejar todos los relacionados con los endpoints de usuarios
+ * CRUD completo
+ * @author Balbino Moyano Lopez
+ */
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -44,7 +49,6 @@ public class UserController {
 
     @Autowired private UserRolRepo userRolRepo;
 
-    @Autowired private PurchaseOrderRepo orderRepo;
 
 
     @GetMapping(path = "/")
