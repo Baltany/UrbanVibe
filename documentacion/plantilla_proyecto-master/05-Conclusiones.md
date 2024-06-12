@@ -277,6 +277,16 @@ En este endpoint únicamente me sirve para dar las gracias al usuario por su com
 Y aquí está el correo verificando la compra:
 ![UrbanVibe](../../docs/imageMail.png)
 
+Otro efecto chulo que tengo al iniciar sesión con rol de Admin o al cerrar sesión sería el siguiente:
+![VantaJS](../../docs/imageVantaJS.png)
+El cúal está hecho en su mayoría con la documentación que tiene vanta en su propia web,ya yo únicamente le he dado los estilos que a mi me gustan y más concuerdan con la página.
+
+Y así podemos nosotros hacer nuestro propio efecto:
+![VantaJS](../../docs/imageVantajsWeb.png)
+Y de manera dinámica podemos ver como como se va cambiando el fondo y los "pájaros" segun los estilos que le apliquemos en la parte del menú lateral derecho
+
+
+
 
 
 

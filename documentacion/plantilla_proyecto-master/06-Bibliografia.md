@@ -12,6 +12,7 @@ Apunta aquí cada Web, tutorial, vídeo que veas y qué has aprendido con él:
 * Creador de logo: <https://www.logomaker.com/>
 * Outlook: <https://outlook.live.com/mail/0/>
 * Documentaccion <https://devdocs.io/html/>
+* Vanta.js <https://www.vantajs.com/>
 
 
 \pagebreak
