@@ -8,6 +8,10 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Esta clase es la Entidad de Size donde distingo la ropa por tallas,XS,L,XXL...
+ * @author Balbino Moyano Lopez
+ */
 @Entity
 @Data
 @NoArgsConstructor

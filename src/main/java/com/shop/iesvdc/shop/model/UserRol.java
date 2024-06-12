@@ -8,7 +8,10 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Esta clase es la Entidad de UserRol donde distingo el Usuario segun su rol que desempenia ya sea cliente o admin
+ * @author Balbino Moyano Lopez
+ */
 @Entity
 @Data
 @NoArgsConstructor

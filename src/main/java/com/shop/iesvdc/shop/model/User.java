@@ -13,6 +13,10 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Esta clase es la Entidad de User donde defino los atributos que yo he visto necesarios que tenga un usuario en mi app
+ * @author Balbino Moyano Lopez
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -39,23 +43,20 @@ public class User {
 
     private boolean enable;
     
-    /*
+    /**
      * Primeramente lo he dejado como String,
      * luego posiblemente cree una clase(cp,potal,calle...) y use un @OneToMany para decir que un usuario puede tener varias direcciones
      */
     private String address;
 
-    /*
-     * ADMIN,SUPPLIER,CLIENT
-     */
 
     /**
-     * @ENUM
+     * @ENUM ADMIN,CLIENT
      */
     @ManyToMany
     private List<UserRol> rolList;
 
-    /*
+    /**
      * Un Usuario tiene una lista de Pedidos
      * @OneToMany
      */
