@@ -47,8 +47,6 @@ public class UserController {
     @Autowired private PurchaseOrderRepo orderRepo;
 
 
-
-
     @GetMapping(path = "/")
     public String findAll(Model model) {
         List<User> lUser = userRepo.findAll();
@@ -57,40 +55,6 @@ public class UserController {
 
     }
 
-    /*
-     * Register and Login
-     * Logica en el UserSevice
-     */
-    // @GetMapping("/register")
-    // public String registerForm(Model model) {
-    //     model.addAttribute("user", new User());
-    //     return "register";
-    // }
-
-    // @PostMapping("/register")
-    // public String register(@ModelAttribute("user") User user) {
-    //     userService.register(user);
-    //     return "redirect:/login";
-    // }
-
-    // @GetMapping("/login")
-    // public String loginForm() {
-    //     return "login";
-    // }
-
-    // @PostMapping("/login")
-    // public String login(@RequestParam String username, @RequestParam String password) {
-    //     if (userService.login(username, password)) {
-    //         /*deberia de redirigir al inicio que no se exactamente que será posiblemnte sería pedidos */
-    //         return "redirect:/dashboard";
-    //     } else {
-    //         return "login";
-    //     }
-    // }
-
-    /*
-      * ----------------------------------------------
-      */
 
     /*Devuelve  todos los usuarios que existan*/
     @GetMapping("")
@@ -145,9 +109,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signupUser(@ModelAttribute("user") @Validated User user, BindingResult result) {
-        // Verificar si hay errores de validación en el formulario
         if (result.hasErrors()) {
-            // Manejar errores de validación de forma adecuada (puedes personalizar el mensaje de error)
             return "error";
         }
 
@@ -161,28 +123,28 @@ public class UserController {
             return "users/signup";
         }
     
-        // Buscar el rol "Customer" en la base de datos
+        /** Buscar el rol "Customer" en la base de datos */
         UserRol customerRole = userRolRepo.findByRol("Customer");
         if (customerRole == null) {
-            // Manejar el caso donde el rol "Customer" no fue encontrado
+            /** Manejar el caso donde el rol "Customer" no fue encontrado */
             throw new RuntimeException("Default role 'Customer' not found");
         }
     
-        // Obtener la lista de roles del usuario o inicializarla si es null
+        /** Obtener la lista de roles del usuario o inicializarla si es null */
         List<UserRol> userRoles = user.getRolList();
         if (userRoles == null) {
             userRoles = new ArrayList<>();
         }
     
-        // Agregar el rol "Customer" a la lista de roles del usuario si no está presente
+        /** Agregar el rol "Customer" a la lista de roles del usuario si no está presente */
         if (!userRoles.contains(customerRole)) {
             userRoles.add(customerRole);
         }
     
-        // Establecer la lista actualizada de roles en el usuario
+        /** Establecer la lista actualizada de roles en el usuario */
         user.setRolList(userRoles);
     
-        // Codificar la contraseña antes de guardarla
+        /** Codificar la contraseña antes de guardarla */
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
 
@@ -217,13 +179,7 @@ public class UserController {
             
         }
     }
-    
-    /*Busca y borra el usuario por id */
-    // @PostMapping("/delete/{id}")
-    // public String deleteUser(@PathVariable("id") @NonNull Long id) {
-    //     userRepo.deleteById(id);
-    //     return "redirect:/users";
-    // }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
