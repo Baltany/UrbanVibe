@@ -278,7 +278,7 @@
     
                 totalPriceElement.textContent = totalPrice.toFixed(2);
     
-                // Añadir evento de envío de formulario aquí
+                /** Añadir evento de envío de formulario aquí */
                 const orderForm = document.getElementById("order-form");
                 orderForm.addEventListener("submit", function (event) {
                     event.preventDefault();
@@ -288,7 +288,7 @@
                     const dni = document.getElementById("dni").value;
                     const direccion = document.getElementById("address").value;
     
-                    // Validar datos antes de enviarlos
+                    /** Validar datos antes de enviarlos */
                     if (!nombre || !apellidos || !dni || !direccion) {
                         alert("Please fill in all required fields.");
                         return;
@@ -296,7 +296,7 @@
     
                     const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
     
-                    // Verificar que todos los ítems tengan un id válido
+                    /** Verificar que todos los ítems tengan un id válido */
                     let invalidItem = false;
                     cartData.forEach((item) => {
                         if (!item.id || isNaN(item.id)) {
@@ -335,7 +335,8 @@
                     .then((responseData) => {
                         console.log("Order placed:", responseData);
                         localStorage.removeItem(`cart_${userId}`);
-                        window.location.href = responseData.redirectUrl; // Usa la URL de redirección del servidor
+                        /** Usa la URL de redirección del servidor */
+                        window.location.href = responseData.redirectUrl; 
                     })
                     .catch((error) => {
                         console.error("Error:", error);
