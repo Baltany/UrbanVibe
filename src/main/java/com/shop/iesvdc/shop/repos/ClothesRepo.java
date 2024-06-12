@@ -9,7 +9,16 @@ import org.springframework.data.repository.query.Param;
 
 import com.shop.iesvdc.shop.model.Clothes;
 
+/**
+ * Esta clase es la interfaz ClothesRepository encargada de los metodos necesarios para las prendas de ropa
+ * @author Balbino Moyano Lopez
+ */
 public interface ClothesRepo extends JpaRepository<Clothes,Long> {
+    /**
+     * Busca la ropa por sexo asignado
+     * @param sex
+     * @return
+     */
     @Query("SELECT c FROM Clothes c JOIN c.sexList s WHERE s.sex = :sex")
     List<Clothes> findAllBySex(@Param("sex") String sex);
 
