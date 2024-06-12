@@ -81,7 +81,6 @@ public class UserController {
         if (result.hasErrors()) {
             modelo.addAttribute("titulo","Error al añadir usuario" );
             modelo.addAttribute("mensaje", result.toString());
-            // Si hay errores de validación, regresar al formulario de añadir usuario   
             return "error";
         }
 
@@ -95,15 +94,15 @@ public class UserController {
             return "users/add";
         }
 
-        // Guardar el usuario en la base de datos si cumple las condiciones anteriores
+        /** Guardar el usuario en la base de datos si cumple las condiciones anteriores */
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepo.save(user);
 
-        // Redirigir al listado de usuarios después de añadir uno nuevo
         return "redirect:/users";
     }
 
 
+    /** Muestra el formulario de registro */
     @GetMapping("/signup")
     public String signupUserForm(Model model) {
         model.addAttribute("user", new User());
@@ -111,6 +110,13 @@ public class UserController {
         return "users/signup";
     }
 
+
+    /**
+     * Metodo encargado de la logica del registro y codificar password
+     * @param user
+     * @param result
+     * @return
+     */
     @PostMapping("/signup")
     public String signupUser(@ModelAttribute("user") @Validated User user, BindingResult result) {
         if (result.hasErrors()) {
@@ -158,14 +164,14 @@ public class UserController {
 
     
         try {
-            // Guardar el usuario en la base de datos
+            /** uardar el usuario en la base de datos */
             userRepo.save(user);
         } catch (Exception e) {
-            // Manejar cualquier error durante el guardado del usuario
+            /** Manejar cualquier error durante el guardado del usuario */
             return "error";
         }
     
-        // Redirigir al usuario a la página de login (o a donde sea apropiado)
+        /** Redirigir al usuario a la página de login (o a donde sea apropiado) */
         return "redirect:/login";
     }
 
@@ -217,6 +223,14 @@ public class UserController {
     }
     
 
+    /**
+     * Metodo que edita el usuario con comprobacioness previas de que no exista ese mismo dni etc...
+     * @param updatedUser
+     * @param bindingResult
+     * @param id
+     * @param model
+     * @return
+     */
     @PostMapping("/edit/{id}")
     public String updateUser(@ModelAttribute("user") @Validated User updatedUser,
                              BindingResult bindingResult,
