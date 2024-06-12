@@ -867,6 +867,128 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 Con el DOM recogemos el valor que buscamos,en este caso, la "cardview" en la cúal,si donde hace click el cliente es donde se encuentran las tallas entonces llamo a la función que me añade la ropa al carrito,y si no hace click en este lugar,entonces cojo el id de la ropa en donde haya hecho click y le redirecciono a su respectivo endpoint *"clothes/details/{clothes.id}"*
 
+Y estos son sus respectivos estilos:
+```css
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .details-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 5rem;
+        }
+
+        .details-left {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .details-image {
+            max-width: 100%;
+            max-height: 600px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .details-right {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .details-right h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .details-right p {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .details-right ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+        }
+
+        .details-right ul li {
+            font-size: 1rem;
+            padding: 15px 20px;
+            border: 1px solid #ccc;
+            border-radius: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .details-right ul li:hover {
+            border-color: #000;
+            background-color: #f7f7f7;
+        }
+
+        .details-right ul li.active {
+            border-color: #000;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .details-right button {
+            padding: 15px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .details-right button:hover {
+            background-color: #333;
+        }
+
+        .added {
+            background-color: green;
+            cursor: default;
+        }
+
+        .subtitle {
+            margin-top: -1rem;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+```
+Estos estilos son muy importantes tanto por el error que le indico al usuario de un color llamativo para que sepa que tiene que añadir la talla como para que la talla se vea atractiva y la ropa que el usuario tiene intención de comprar se vea de una forma clara.
+
 * orders.html: Para hacer esta ventana,creo que ha sido la menos costosa porque siempre he tenido en mente como quería que fuese ya que obviamente el cliente tiene que saberque tiene que hacer en todo momento y sobre todo ver la información de su pedido,
 además obviamente como al registrarte,no metes todos los datos neecsarios pues obviamente necesito un formulario que recoja todo lo posible en cuanto al usuario en cuestión,todo esto lo he pensado así para darl dinamismo a la aplicación y que no se hiciera pesada:
 ![UrbanVibe](../../docs/imageUrbanVibeOrder.png)
