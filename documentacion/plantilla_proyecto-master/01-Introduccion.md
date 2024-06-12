@@ -30,6 +30,8 @@ Otra de las principales ideas del proyecto sería una vez finalizado si es posib
 
 El logo de la tienda principalmente es el siguiente:
 ![UrbanVibe](../../src/main/resources/static/img/UrbanVibeHD.png)
+
+
 Si nos ponemos a analizar el logo podemos ver como la U hace referencia a una asa de una bolsa o esa es la intención que la U simule lo que es una asa de una bolsa y debajo podemos ver el nombre de la empresa junto a su eslogan,principalmente este sería el diseño que llevarían las bolsas.
 
 
@@ -113,36 +115,68 @@ He puesto el puerto 7070,pero se podría poner otro sin problemas siempre y cuan
 
 ## Organización del proyecto
 La organización del proyecto está compuesta por las siguientes carpetas:
+
+
 - docs: aquí se alojan todas las fotos o documentos de interés que necesitemos.
+  
 - src:
+  
   - main:
+  
     - conf:aquí se alojan todo tipo de configuraciones relacionadas con la seguridad,login,register....
+    
     - controller:aquí se alojan todo tipo de controladores con el que manejamos su crud completo de nuestras clases modelo
+    
     - model: nuestras clases entidad y las que le dan sentido al proyecto
+    
     - repo: se alojan todas las interfaces necesarias 
+    
     - service: aquí pondremos si fuera necesario los servicios de nuestras clases modelo
+    
     - ShopApplication.java: Es el archivo principal de nuestro proyecto, sin él,no ejecutaría
+  
   - resources: se encuentra el codigo de basicamente todo el frontend que uso:
+    
     - static: aquí se encuentra todas las imagenes,etc.
+    
     - application.properties: se encuentran las contraseñas necesarias para que se conecte con la base de datos,no se debería de subir a git por motivos obvios.
+    
     - import.sql: se encuentra todos los insert si queremos añadir algun dato en alguna tabla directamente en la base de datos.
+    
     - templates: aquí se encuentran todas las plantillas.
+      
       - users: en el encontramos los archivos:
+      
         - users.html: muestra todos los usuarios,si tienes los requisitos suficientes para verlos(Admin),además de poder borrar y editar los usuarios.
+        
         - add.html: muestra el formulario para añadir un usuario,si tienes los requisitos suficientes para verlos(Admin).
+        
         - edit.html: muestra el formulario para editar un usuario,si tienes los requisitos suficientes para verlos(Admin).
+      
       - help.html: al igual que acerca,es totalmente estético.
+      
       - denegado.html: es un archivo el cual indica a un usuario sino tiene permisos pues lo redirigimos a la siguiente página.
+      
       - menu.html:es el principal endpoint al cuál se le redirige a un usuario que tiene el rol Customer en el cual el usuario puede elegir que tipo de ropa quiere ver,si la de hombre,mujer o toda la ropa.
+      
       - error.html: en caso de que exista algún tipo de error en nuestra página lo redirigimos a está que resulta más cómodo para el cliente ver que hay un error y que tiene que contactar con soporte.
+      
       - index.html: es la página a la que redirigimos por defecto una vez hecho el login.
+      
       - login.html: es la página por defecto de nuestro login.
+      
       - signup.html: es la página para hacer un registro.
+
 - stack: aquí se encuentran los archivos:
+  
   - docker-compose.yml: este archivo es nuestro contenedor y dentro montamos las imagenes que necesitamos y el motor de base de datos que usamos
+  
   - .env: aquí encontramos las contraseñas de nuestro docker-compose
+  
   - setup.sql: es un archivo que sirve para inicializar la base de datos con el nombre que nosotros queramos ponerle a nuestra base de datos.
+
 - pom.xml: es nuestro archivo de dependecias,sin él, el proyecto sería inservible
+
 
 \pagebreak
 
