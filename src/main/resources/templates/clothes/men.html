@@ -10,7 +10,6 @@
     
     <th:block th:fragment="styles">
         <style>
-            /* Estilos Generales */
             @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -228,8 +227,8 @@
     
             .checkout-btn {
                 display: block;
-                width: 80%; /* Ajusta el ancho del botón según sea necesario */
-                margin: 0 auto; /* Esto centrará el botón horizontalmente */
+                width: 80%; 
+                margin: 0 auto;
                 padding: 15px;
                 background: #333;
                 color: #fff;
@@ -405,7 +404,6 @@
                 background-color: #555;
             }
             
-            /* Cart Sidebar Styles */
             .cart-sidebar {
                 position: fixed;
                 top: 0;
@@ -507,26 +505,25 @@
             }
     
             .edit-item-image {
-                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-                height: auto !important; /* Esto mantendrá la proporción de la imagen */
-                max-height: 200px !important; /* Establece una altura máxima para la imagen */
-                display: block !important; /* Asegura que la imagen se muestre como un bloque */
-                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+                width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /** Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /** Establece una altura máxima para la imagen */
+                display: block !important; /** Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /** Esto centrará la imagen horizontalmente */
             }
             
-            /* Añade estos estilos específicamente para las imágenes con la clase .edit-item-image */
             .edit-item-image img {
-                width: 50% !important; /* Ajusta el ancho de la imagen según sea necesario */
-                height: auto !important; /* Esto mantendrá la proporción de la imagen */
-                max-height: 200px !important; /* Establece una altura máxima para la imagen */
-                display: block !important; /* Asegura que la imagen se muestre como un bloque */
-                margin: 0 auto !important; /* Esto centrará la imagen horizontalmente */
+                width: 50% !important; /** Ajusta el ancho de la imagen según sea necesario */
+                height: auto !important; /** Esto mantendrá la proporción de la imagen */
+                max-height: 200px !important; /** Establece una altura máxima para la imagen */
+                display: block !important; /** Asegura que la imagen se muestre como un bloque */
+                margin: 0 auto !important; /** Esto centrará la imagen horizontalmente */
             }
             .edit-item-details{
                 display: block !important;
                 justify-content: start;
                 align-items: center;
-                margin-top: 20px;/* Esto centrará la imagen horizontalmente */
+                margin-top: 20px;/** Esto centrará la imagen horizontalmente */
     
                     }
     
@@ -536,7 +533,7 @@
                 max-height: 200px;
                 object-fit: cover;
                 border-radius: 10px;
-                margin-right: 10px; /* Esto centrará la imagen horizontalmente */
+                margin-right: 10px; /** Esto centrará la imagen horizontalmente */
                     }
     
             #edit-item-title {
@@ -555,7 +552,7 @@
             #close-modal-exit {
                 background-color: #333;
                 color: #fff;
-                padding: 10px 20px; /* Añadido para asegurar el mismo tamaño y relleno */
+                padding: 10px 20px; /** Añadido para asegurar el mismo tamaño y relleno */
                 border: none;
                 border-radius: 5px;
                 font-size: 16px;
@@ -594,22 +591,22 @@
             
             }
             .cart-counter {
-                display: none; /* Ocultar el contador por defecto */
+                display: none; /** Ocultar el contador por defecto */
                 font-family: 'Dancing Script', cursive;
                 position: absolute;
                 top: -10px;
                 right: -10px;
-                background-color: rgb(245, 245, 220); /* Color de fondo rojo */
+                background-color: rgb(245, 245, 220); /** Color de fondo rojo */
                 color: black;
                 border-radius: 50%;
-                padding: 5px 8px; /* Aumentar el relleno para que sea más visible */
-                font-size: 14px; /* Aumentar el tamaño de la fuente */
-                font-weight: bold; /* Hacer el texto en negrita */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+                padding: 5px 8px; /** Aumentar el relleno para que sea más visible */
+                font-size: 14px; /** Aumentar el tamaño de la fuente */
+                font-weight: bold; /** Hacer el texto en negrita */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /** Agregar sombra */
             }
     
             .cart-icon .cart-counter {
-                display: inline; /* Mostrar el contador cuando se pasa el ratón sobre el icono */
+                display: inline; 
             }
             .form-control-description{
                 font-size: 18px;
@@ -789,7 +786,7 @@
         const cartIcon = document.querySelector('.cart-icon');
         const cartSidebar = document.getElementById('cart-sidebar');
         const closeCart = document.querySelector('.close-cart');
-        const cartCounter = document.querySelector('.cart-counter'); // Contador
+        const cartCounter = document.querySelector('.cart-counter'); /** Contador */
 
     
         const editModal = document.getElementById('edit-modal');
@@ -802,12 +799,11 @@
         }
     
         saveChangesBtn.addEventListener('click', () => {
-            // Lógica para guardar cambios
         });
     
         cartIcon.addEventListener('click', () => {
             cartSidebar.classList.add('open');
-            renderCartItems(); // Renderizar el carrito cuando se abre
+            renderCartItems(); 
         });
     
         closeCart.addEventListener('click', () => {
@@ -818,7 +814,6 @@
         closeEditModalIcon.onclick = closeEditModal;
         closeModalButton.onclick = closeEditModal;
 
-        // Función para obtener una cookie por su nombre
         function getCookie(name) {
             const cname = name + "=";
             const decodedCookie = decodeURIComponent(document.cookie);
@@ -835,20 +830,17 @@
             return "";
         }
     
-        // Inicializar el carrito desde el localStorage
         const userIdElement = document.getElementById('userId');
         const userId = userIdElement.getAttribute('data-user-id');
 
         console.log("User ID:", userId);
 
         const cart = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
-        //let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
         function getTotalCartItems() {
             return cart.reduce((total, item) => total + 1, 0);
         }
 
-        // Actualizar el contador del carrito
         function updateCartCounter() {
             const totalItems = getTotalCartItems();
             cartCounter.textContent = totalItems > 0 ? totalItems : '';
@@ -860,13 +852,11 @@
                 const isSize = target.classList.contains('sizes');
                 
                 if (isSize) {
-                    // Si se hace clic en la talla, añadir al carrito
                     const clotheElement = target.closest('.product-card');
                     const clotheId = clotheElement.dataset.id;
                     const size = target.dataset.size;
                     addToCart(clotheId, size);
                 } else {
-                    // Si se hace clic en cualquier otra parte del producto, ir a los detalles
                     const clotheElement = target.closest('.product-card');
                     if (clotheElement) {
                         const clotheId = clotheElement.dataset.id;
@@ -876,7 +866,6 @@
             });
         });
 
-        // Function to add item to cart
         function addToCart(clotheId, size = null) {
             console.log('Adding to cart:', clotheId, size);
             const url = size ? `/clothes/addToCart/${clotheId}?size=${size}` : `/clothes/addToCart/${clotheId}`;
@@ -889,10 +878,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Response from server:', data);
-                // Check if the product is already in the cart
                 const existingProductIndex = cart.findIndex(item => item.id === data.id && item.size === data.size);
                 if (existingProductIndex === -1) {
-                    // The product is not in the cart, so we add it
                     console.log('The product is not in the cart. Adding product...');
                     const product = {
                         id: data.id,
@@ -903,14 +890,11 @@
                     };
                     cart.push(product);
                     localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-                    //localStorage.setItem('cart', JSON.stringify(cart));
                     console.log('Product added to cart:', product);
                 } else {
-                    // The product is already in the cart, do nothing
                     console.log('The product is already in the cart. Doing nothing.');
                 }
                 
-                // Render cart items and update the interface
                 renderCartItems();
                 cartSidebar.classList.add('open'); 
                 updateCartCounter();
@@ -959,9 +943,7 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-            //localStorage.setItem('cart', JSON.stringify(cart));
             renderCartItems();
-            // Actualizar el contador del carrito
             updateCartCounter(getCartItemCount());
         }
     
@@ -976,7 +958,7 @@
         
 
         function openEditModal(id) {
-            console.log("Opening modal with ID:", id);  // Verifica el ID
+            console.log("Opening modal with ID:", id);  
             fetch(`/clothes/edit/${id}`)
                 .then(response => {
                     if (!response.ok) {
@@ -987,7 +969,6 @@
                 .then(data => {
                     console.log("Opening modal with data:", data);
         
-                    // Verifica que los elementos del DOM existen antes de establecer sus propiedades
                     const imageElement = document.getElementById('edit-item-image');
                     const descriptionElement = document.getElementById('description');
                     const sizeElement = document.getElementById('size');
@@ -1019,7 +1000,7 @@
                     }
         
                     if (sizesParagraph) {
-                        sizesParagraph.innerHTML = '';  // Limpiar contenido anterior
+                        sizesParagraph.innerHTML = '';  
         
                         const availableSizes = data.availableSizes || [];
                         availableSizes.forEach(size => {
@@ -1036,7 +1017,7 @@
                                 });
                                 sizeSpan.classList.add('selected-size');
                                 localStorage.setItem('selectedSize', size);
-                                sizeElement.innerText = size; // Actualizar la talla seleccionada en el modal
+                                sizeElement.innerText = size; 
                             });
         
                             sizesParagraph.appendChild(sizeSpan);
@@ -1045,10 +1026,10 @@
                         console.error("Sizes paragraph element not found");
                     }
         
-                    // Mostrar el modal
+                    /** Muestra el modal de edicion */
                     document.getElementById('edit-modal').style.display = 'flex';
         
-                    // Manejar el evento de guardar cambios
+                    /** Manejar el evento de guardar cambios */
                     document.getElementById('save-changes-btn').onclick = () => saveChanges(data.id, document.getElementById('size').innerText);
                 })
                 .catch(error => {
@@ -1069,12 +1050,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log("Save changes response:", data); // Log para depurar
+                console.log("Save changes response:", data);
                 const cartItem = cart.find(item => item.id === clotheId);
                 if (cartItem) {
                     cartItem.size = data.size;
                     localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
-                    //localStorage.setItem('cart', JSON.stringify(cart));
                     renderCartItems();
                 }
                 closeEditModal();
@@ -1089,7 +1069,7 @@
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Fetched data:", data); // Log detallado
+                    console.log("Fetched data:", data); 
                     if (data) {
                         openEditModal(data);
                     } else {
@@ -1110,7 +1090,7 @@
         }
     }
     
-        // Renderizar los elementos del carrito al cargar la página
+        /** Renderizar los elementos del carrito al cargar la página */
         renderCartItems();
         updateCartCounter();
     </script>

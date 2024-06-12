@@ -176,7 +176,6 @@
             const userIdElement = document.getElementById("userId");
             const userId = userIdElement ? userIdElement.getAttribute("data-user-id") : null;
     
-            // Verificar si los elementos necesarios existen
             if (!addToCartButton) {
                 console.error("No se encontró el botón 'Añadir al carrito'.");
                 return;
@@ -217,7 +216,7 @@
                     idClothe = parseInt(idClotheElement.innerText.trim());
                 }
                 
-                // Ahora, idClothe contiene el ID de la ropa como un número natural
+                /** Ahora, idClothe contiene el ID de la ropa como un número natural */
                 console.log('ID de la ropa:', idClothe);
 
 
@@ -231,7 +230,6 @@
                         image: document.querySelector('.details-image').src
                     };
     
-                    // Guardar en localStorage bajo la clave del usuario
                     const cartData = JSON.parse(localStorage.getItem(`cart_${userId}`)) || [];
                     cartData.push(clothe);
                     localStorage.setItem('cart_' + userId, JSON.stringify(cartData));
@@ -241,7 +239,6 @@
                     addToCartButton.classList.add("added");
                     addToCartButton.disabled = true;
     
-                    // Redirigir y abrir el carrito
                     setTimeout(() => {
                         window.location.href = "/clothes?openCart=true";
                     }, 500); 
@@ -250,14 +247,9 @@
                 }
             });
     
-            // Abrir carrito si el parámetro openCart está en la URL
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('openCart') === 'true') {
-                // Lógica para abrir el carrito
                 console.log("Carrito abierto");
-                // Aquí puedes agregar la lógica para abrir tu carrito
-                // Ejemplo: mostrar un modal del carrito
-                // document.getElementById('cartModal').style.display = 'block';
             }
         });
     </script>
