@@ -48,17 +48,18 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
 
 
 
-    Primeramente añado todas las imagenes que yo deseo que estén en una lista con respectiva ruta,indico que foto va a ser la primera y con el método changeBackgroundImage() y despues de haber recogido el div con el DOM que se llama hero-banner,recorro la lista de uno en uno y le meto un intervalo de 5 segundos.
+Primeramente añado todas las imagenes que yo deseo que estén en una lista con respectiva ruta,indico que foto va a ser la primera y con el método changeBackgroundImage() y despues de haber recogido el div con el DOM que se llama hero-banner,recorro la lista de uno en uno y le meto un intervalo de 5 segundos.
 
-    La forma de mostrar la ropa también tiene su aquel aunque al final no deja de ser un div de width 100% y que cada div que muestra una prenda ocupe un 25% de ese width y ya luego la altura la deseada, en UrbanVibe se muestran así:
+La forma de mostrar la ropa también tiene su aquel aunque al final no deja de ser un div de width 100% y que cada div que muestra una prenda ocupe un 25% de ese width y ya luego la altura la deseada, en UrbanVibe se muestran así:
 ![UrbanVibe](../../docs/imageUrbanVibeClothes.png)
     
-    Si nos fijamos en el video que tengo, podemos ver como tiene un hover que en cuanto tu pones el ratón encima del div,aparece las tallas que tiene disponibles,las cuales si tu pulsas en una de las tallas que aparece,automáticamente se añade al carrito en cambio si tu haces click en cualquier otro lugar que no sea donde se encuentran las tallas,se redirige a la siguiente página
+Si nos fijamos en el video que tengo, podemos ver como tiene un hover que en cuanto tu pones el ratón encima del div,aparece las tallas que tiene disponibles,las cuales si tu pulsas en una de las tallas que aparece,automáticamente se añade al carrito en cambio si tu haces click en cualquier otro lugar que no sea donde se encuentran las tallas,se redirige a la siguiente página
 
     También en este endpoint podemos ver 2 ventanas modales;una de ellas se despliega cuanto hacemos click en el símbolo del carrito,mientras otra de ella se muestra cuando hacemos click en el lápiz,esto indica que vamos a cambiar la talla de la ropa;
 
     Modal de carrito:
-    ```html
+
+```html
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <span class="cart-title">Cesta</span>
@@ -67,21 +68,23 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
         <ul class="cart-items"></ul>
         <button class="checkout-btn" onclick="checkCart()">Purchase Order</button>
     </div>
-    ```
+```
 
-    Y con este script abro el carrito manualmente:
+Y con este script abro el carrito manualmente:
     
-    ```javascript
+```javascript
         cartIcon.addEventListener('click', () => {
         cartSidebar.classList.add('open');
         /** Renderizar el carrito cuando se abre */
         renderCartItems(); 
         });
-    ```
-    Además de abrirlo,si tiene articulos el carrito se renderiza las prendas que existan.
+```
+    
+Además de abrirlo,si tiene articulos el carrito se renderiza las prendas que existan.
 
 
-    Modal de Edición:
+Modal de Edición:
+
 ```html
 <div class="modal" id="edit-modal">
     <div class="modal-content">
