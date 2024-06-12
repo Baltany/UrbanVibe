@@ -26,8 +26,8 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
     Y el resultado obtenido de mezclar estas ideas es algo talque así:
 ![UrbanVibe](../../docs/imageUrbanVibeMenu.png)
 
-    Por ejemplo para hacer qque cada x segundo se vaya cambiado la foto he usado este código:
-    ```javascript
+    Por ejemplo para hacer que cada x segundo se vaya cambiado la foto he usado este código:
+```javascript
         const heroBanner = document.getElementById('hero-banner');
         const images = [
             '/img/mainimagen.jpeg',
@@ -44,7 +44,10 @@ En cuanto a experiencias personales,aquí voy a explicar como he desarrollado en
         }
     
         setInterval(changeBackgroundImage, 5000);
-    ```
+```
+
+
+
     Primeramente añado todas las imagenes que yo deseo que estén en una lista con respectiva ruta,indico que foto va a ser la primera y con el método changeBackgroundImage() y despues de haber recogido el div con el DOM que se llama hero-banner,recorro la lista de uno en uno y le meto un intervalo de 5 segundos.
 
     La forma de mostrar la ropa también tiene su aquel aunque al final no deja de ser un div de width 100% y que cada div que muestra una prenda ocupe un 25% de ese width y ya luego la altura la deseada, en UrbanVibe se muestran así:
