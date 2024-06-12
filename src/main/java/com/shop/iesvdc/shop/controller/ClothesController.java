@@ -80,49 +80,68 @@ public class ClothesController {
     private ClothesRepo clothesRepo;
 
 
+    /**
+     * Necesitamos el usuario que es cliente en este caso que va probar el software
+     *
+     * @param userRepo
+     * @return User existente en la base de datos
+     */
     @Autowired
     private UserRepo userRepo;
 
+    /**
+     * Necesitamos el pedido y lo obtenemos mediante un Service
+     *
+     * @param orderService
+     * @return OrderTracking existente en la base de datos
+     */
     @Autowired
     private OrderService orderService;
 
-
+    /**
+     * Necesitamos el usuario que está logueado y le mandamos un email al finalizar
+     *
+     * @param mailService
+     * @return Mail al correo del usuario que esta haciendo login
+     */
     @Autowired
     private MailService mailService;
 
+    /**
+     * Mostrar toda la ropa
+     * @param model
+     * @return Clothes
+     */
     @GetMapping("")
     public String findAll(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     
-        // Verificar si el usuario está autenticado
+        /** Verificar si el usuario está autenticado */
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
-            // Buscar el usuario por nombre de usuario en el repositorio
+            /** Buscar el usuario por nombre de usuario en el repositorio */
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
+            /** Verificar si se encontró el usuario */
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
+                /** Obtener el usuario desde el Optional */
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
-                Long userId = user.getId();
-                
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
+                /** Obtener el ID del usuario || cada usuario tiene su propio carrito */
+                Long userId = user.getId();                
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
+                /** Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.) */
                 model.addAttribute("message", "No such user");
                 return "error";
             }
         } else {
-            // Manejar el caso en el que el usuario no está autenticado
+            /** Manejar el caso en el que el usuario no está autenticado */
             model.addAttribute("message", "User not authenticated");
             return "error";
         }
     
-        // Resto del código para cargar la página de ropa
         List<Clothes> lClothes = clothesRepo.findAll();
         model.addAttribute("clothes", lClothes);
         
@@ -130,79 +149,68 @@ public class ClothesController {
     }
     
     
-    
+    /**
+     * Obtener la ropa por Sexo
+     * @param model
+     * @return Clothes Sex
+     */
     @GetMapping("/men")
     public String findAllMen(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     
-        // Verificar si el usuario está autenticado
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
-            // Buscar el usuario por nombre de usuario en el repositorio
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
                 Long userId = user.getId();
                 
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
                 model.addAttribute("message", "No such user");
                 return "error";
             }
         } else {
-            // Manejar el caso en el que el usuario no está autenticado
             model.addAttribute("message", "User not authenticated");
             return "error";
         }
     
-        // Resto del código para cargar la página de ropa
         List<Clothes> lClothes = clothesRepo.findAllBySex("men");
         model.addAttribute("clothes", lClothes);
         
         return "clothes/men";
     }
 
+    /**
+     * Obtener la ropa por Sexo
+     * @param model
+     * @return Clothes Sex
+     */
     @GetMapping("/women")
     public String findAllWomen(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    
-        // Verificar si el usuario está autenticado
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            
-            // Buscar el usuario por nombre de usuario en el repositorio
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
                 Long userId = user.getId();
                 
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que no se encuentra el usuario (podría lanzar una excepción, redirigir, etc.)
                 model.addAttribute("message", "No such user");
                 return "error";
             }
         } else {
-            // Manejar el caso en el que el usuario no está autenticado
             model.addAttribute("message", "User not authenticated");
             return "error";
         }
     
-        // Resto del código para cargar la página de ropa
         List<Clothes> lClothes = clothesRepo.findAllBySex("women");
         model.addAttribute("clothes", lClothes);
         
@@ -261,14 +269,13 @@ public class ClothesController {
             response.put("price", clothesData.getPrice());
             response.put("size", clothesData.getSizeList().isEmpty() ? null : clothesData.getSizeList().get(0).getSize());
     
-            // Obtener las tallas asignadas a la prenda
+            /** Obtener las tallas asignadas a la prenda*/
             List<String> assignedSizes = clothesData.getSizeList().stream()
                     .map(Size::getSize)
                     .collect(Collectors.toList());
             response.put("availableSizes", assignedSizes);
     
-            // Log detallado para depuración
-            System.out.println("Response (detailed): " + response);
+            //System.out.println("Response (detailed): " + response);
     
             return ResponseEntity.ok(response);
         } else {
@@ -279,7 +286,12 @@ public class ClothesController {
     
     
     
-    
+    /**
+     * Añadir ropa al carrito
+     * @param id
+     * @param size
+     * @return Clothes añadidos al carrito
+     */
     @PostMapping("/addToCart/{id}")
     public ResponseEntity<?> addToCart(@PathVariable Long id, @RequestParam(required = false) String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
@@ -298,35 +310,41 @@ public class ClothesController {
     }
 
 
+    /**
+     * Metodo que actualiza la talla del carrito
+     * @param id
+     * @param size
+     * @return
+     */
     @PostMapping("/updateCart/{id}")
     public ResponseEntity<Map<String, Object>> updateCart(@PathVariable Long id, @RequestParam String size) {
         Optional<Clothes> optionalClothes = clothesRepo.findById(id);
         if (optionalClothes.isPresent()) {
             Clothes clothe = optionalClothes.get();
-            List<Size> newSizeList = sizeRepo.findBySize(size); // Asumiendo que tienes un método en SizeRepo para encontrar una talla por su nombre
-            clothe.setSizeList(newSizeList); // Actualizar la lista de tallas
-            clothesRepo.save(clothe); // Guardar cambios en la base de datos
+            List<Size> newSizeList = sizeRepo.findBySize(size); 
+            /** Actualiza la lista de tallas */
+            clothe.setSizeList(newSizeList);
+            /** Guardar cambios en la base de datos */
+            clothesRepo.save(clothe); 
     
-            // Devuelve la talla como string, no la lista
+            /** Devuelve la talla como string, no la lista */
             return ResponseEntity.ok(Map.of(
                 "id", clothe.getId(),
                 "description", clothe.getDescription(),
                 "price", clothe.getPrice(),
                 "image", clothe.getImage(),
-                "size", size // Devolver la talla seleccionada
+                "size", size 
             ));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Clothes not found"));
         }
     }
     
-    
-
-
-
-
-    /*
-     * Endpoint clothes
+    /**
+     * Metodo que me lleva hacia los detalles de la prenda de ropa
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping("/details/{id}")
     public String seeClothesDetails(@PathVariable Long id, Model model) {
@@ -335,26 +353,21 @@ public class ClothesController {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
-            // Buscar el usuario por nombre de usuario en el repositorio
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
                 Long userId = user.getId();
                 
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que el usuario no está autenticado
                 model.addAttribute("message", "User not authenticated");
                 return "error";
             }
         }
     
+        /** Encuentra la ropa por id y la añade al usuario correspondiente a su respectivo carrito */
         Optional<Clothes> clothe = clothesRepo.findById(id);
         if (clothe.isPresent()) {
             model.addAttribute("clothe", clothe.get());
@@ -382,8 +395,11 @@ public class ClothesController {
     }    
     
 
-    /*
-     * Endpoint men
+    /**
+     * Devuelve la ropa por sexo para que puedan entrar tanto desde el endpoint men/women
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping("/details/men/{id}")
     public String seeMenClothesDetails(@PathVariable Long id, Model model) {
@@ -393,21 +409,15 @@ public class ClothesController {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
-            // Buscar el usuario por nombre de usuario en el repositorio
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
                 Long userId = user.getId();
                 
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que el usuario no está autenticado
                 model.addAttribute("message", "User not authenticated");
                 return "redirect:/clothes/men";
             }
@@ -440,8 +450,11 @@ public class ClothesController {
         }
     }
 
-    /*
-     * Endpoint women
+    /**
+     * Devuelve la ropa por sexo para que puedan entrar tanto desde el endpoint men/women
+     * @param id
+     * @param model
+     * @return
      */
     @GetMapping("/details/women/{id}")
     public String seeWomenClothesDetails(@PathVariable Long id, Model model) {
@@ -450,21 +463,15 @@ public class ClothesController {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             
-            // Buscar el usuario por nombre de usuario en el repositorio
             Optional<User> userOptional = userRepo.findByUsername(username);
             
-            // Verificar si se encontró el usuario
             if (userOptional.isPresent()) {
-                // Obtener el usuario desde el Optional
                 User user = userOptional.get();
                 
-                // Obtener el ID del usuario
                 Long userId = user.getId();
                 
-                // Pasar el ID del usuario al modelo para que esté disponible en tu vista
                 model.addAttribute("userId", userId);
             } else {
-                // Manejar el caso en el que el usuario no está autenticado
                 model.addAttribute("message", "User not authenticated");
                 return "redirect:/clothes/women";
             }
@@ -521,7 +528,10 @@ public class ClothesController {
     }
     
 
-    // Endpoint para obtener el usuario autenticado
+    /**
+     * Metodo que me recoge el usuario logueado al cual hay que mandarl el correo
+     * @return User logueado
+     */
     @GetMapping("/user")
     public ResponseEntity<?> getAuthenticatedUser() {
         Optional<User> user = getLoggedUser();
@@ -532,7 +542,10 @@ public class ClothesController {
         }
     }
 
-    // Método para obtener el usuario autenticado
+    /**
+     * Metodo que me recoge el usuario logueado al cual hay que mandarl el correo
+     * @return User logueado
+     */
     public Optional<User> getLoggedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
@@ -545,7 +558,12 @@ public class ClothesController {
         return Optional.empty();
     }
 
-
+    /**
+     * 
+     * Metodo que crea una linea pedido,además de mandar el correo de ahi el necesotar el MailService
+     * @param orderData
+     * @return Order
+     */
     @PostMapping("/orders")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> orderData) {
         try {
@@ -554,9 +572,11 @@ public class ClothesController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
             }
     
+            /** Actualizamos el usuario */
             User user = userOpt.get();
             updateUserWithOrderData(user, orderData);
     
+            /** Verificamos que el carro no este vacio */
             if (!orderData.containsKey("cart") || !(orderData.get("cart") instanceof List)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order items are missing or invalid");
             }
@@ -592,7 +612,7 @@ public class ClothesController {
             String message = generateOrderEmailMessage(user, savedOrder);
             mailService.sendMail(to, subject, message);
     
-            // En lugar de devolver la orden completa, devolver un mensaje de éxito y la URL de redirección
+            /** En lugar de devolver la orden completa, devolver un mensaje de éxito y la URL de redirección */
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Order created successfully");
             response.put("redirectUrl", "/thnku");
@@ -605,7 +625,11 @@ public class ClothesController {
         
         
 
-    
+    /**
+     * Actualizar el usuario antes de hacer el pedido
+     * @param user
+     * @param orderData
+     */
     private void updateUserWithOrderData(User user, Map<String, Object> orderData) {
         if (orderData.containsKey("name")) {
             user.setName(orderData.get("name").toString());
@@ -622,6 +646,12 @@ public class ClothesController {
         userRepo.save(user);
     }
 
+    /**
+     * Manda el correo al usuario logueado
+     * @param user
+     * @param order
+     * @return Mail
+     */
     private String generateOrderEmailMessage(User user, PurchaseOrder order) {
         StringBuilder message = new StringBuilder();
         message.append("Thank you for your order, ").append(user.getName()).append("!\n\n");
@@ -641,6 +671,11 @@ public class ClothesController {
     
 
 
+    /**
+     * Metodo que actualiza el usuario
+     * @param user
+     * @return User actualizado
+     */
     @PostMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {

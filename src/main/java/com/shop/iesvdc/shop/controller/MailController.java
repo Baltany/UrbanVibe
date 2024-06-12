@@ -14,10 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.iesvdc.shop.domain.MailDTO;
 import com.shop.iesvdc.shop.service.MailService;
 
+/**
+ * Esta clase es la encargada de manejar todos los correos que se envian a través de la app
+ * 
+ * @author Balbino Moyano Lopez
+ */
 @RestController
+/** Tiene ese nombre porque lo utilice para hacer la simulación de incidencias de usuario */
 @RequestMapping("/help")
 public class MailController {
-    
+
     @Autowired
     private MailService emailService;
 
