@@ -94,7 +94,8 @@
     <script>
 function loadOrderDetails(button) {
     const orderId = $(button).data('order-id');
-    $('#detailsModal').data('order-id', orderId); // Configurar el ID del pedido en el modal
+    /** Configurar el ID del pedido en el modal */
+    $('#detailsModal').data('order-id', orderId); 
     $.ajax({
         url: "/orders/clothes/" + orderId,
         method: "GET",
