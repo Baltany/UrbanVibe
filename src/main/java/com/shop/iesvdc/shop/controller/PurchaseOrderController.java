@@ -28,22 +28,44 @@ import com.shop.iesvdc.shop.repos.ClothesRepo;
 import com.shop.iesvdc.shop.repos.UserRepo;
 import com.shop.iesvdc.shop.repos.PurchaseOrderRepo;
 
+/**
+ * Esta clase es la encargada de manejar todos los endpoints que se encuentran en mi carpeta templates/orders
+ * 
+ * @author Balbino Moyano Lopez
+ */
 @Controller
 @RequestMapping("/orders")
 public class PurchaseOrderController {
 
+    /**
+     * Necesitamos la orden de compra
+     */
     @Autowired
     private PurchaseOrderRepo purchaseOrderRepo;
 
+    /**
+     * Necesitamos la ropa que tiene el pedido
+     */
     @Autowired
     private ClothesRepo clothesRepo;
 
+    /**
+     * Necesitamos el usuario que hace la compra
+     */
     @Autowired
     private UserRepo userRepo;
     
+    /**
+     * Necesitamos el seguimiento del pedido para ver que ropa tiene cada pedido,estado,talla...
+     */
     @Autowired
     private OrderTrackingRepo orderTrackingRepo;
 
+    /**
+     * Encuentra todos los seguimientos de pedido
+     * @param model
+     * @return 
+     */
     @GetMapping("")
     public String findAll(Model model) {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepo.findAll();
@@ -70,7 +92,6 @@ public class PurchaseOrderController {
 
     @PostMapping("/add")
     public String addForm(@ModelAttribute("order") PurchaseOrder purchaseOrder) {
-        // TODO: Validar y procesar la solicitud POST
         purchaseOrderRepo.save(purchaseOrder);
         return "redirect:/orders";
     }
@@ -122,31 +143,10 @@ public class PurchaseOrderController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable Long id, @ModelAttribute("order") PurchaseOrder purchaseOrder) {
-        // TODO: Validar y procesar la solicitud POST
         purchaseOrderRepo.save(purchaseOrder);
         return "redirect:/orders";
     }
 
-
-    /*
-     * Para hacer la lógica de una ventana flotante que me muestre los datos del pedido
-     */
-
-
-    /*
-    @GetMapping("/clothes/{id}")
-    @ResponseBody
-    public ResponseEntity<List<Clothes>> getClothesByOrderId(@PathVariable Long id) {
-        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(id);
-        if (purchaseOrder.isPresent()) {
-            List<Clothes> clothesList = purchaseOrder.get().getClothesList();
-            return ResponseEntity.ok(clothesList);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-     * 
-     */
 
     @GetMapping("/clothes/{id}")
     @ResponseBody
@@ -167,7 +167,6 @@ public class PurchaseOrderController {
         Optional<PurchaseOrder> purchaseOrderOpt = purchaseOrderRepo.findById(id);
         if (purchaseOrderOpt.isPresent()) {
             PurchaseOrder purchaseOrder = purchaseOrderOpt.get();
-            //purchaseOrder.setClothesList(updatedClothes);
             purchaseOrderRepo.save(purchaseOrder);
             return ResponseEntity.ok("Detalles de ropa actualizados correctamente");
         } else {
@@ -176,6 +175,11 @@ public class PurchaseOrderController {
     }
 
 
+    /**
+     * Metodo que hace que podamos cambiar el pedido de status a enviado
+     * @param id
+     * @return
+     */
     @PostMapping("/ship/{id}")
     @ResponseBody
     public ResponseEntity<String> shipOrder(@PathVariable Long id) {
@@ -189,7 +193,7 @@ public class PurchaseOrderController {
                 OrderTracking tracking;
     
                 if (!existingTrackings.isEmpty()) {
-                    // Aquí manejamos múltiples resultados, por ejemplo, actualizando todos
+                    /** Aquí manejamos múltiples resultados, por ejemplo, actualizando todos */
                     for (OrderTracking existingTracking : existingTrackings) {
                         existingTracking.setStatus("ENVIADO");
                         existingTracking.setOrderDate(LocalDate.now().toString());
@@ -198,8 +202,7 @@ public class PurchaseOrderController {
                     }
                     tracking = existingTrackings.get(0);
                 } else {
-                    // Si no existe, crea uno nuevo
-                    tracking = new OrderTracking();
+                    /** Si no existe, crea uno nuevo */                    tracking = new OrderTracking();
                     tracking.setStatus("ENVIADO");
                     tracking.setOrderDate(LocalDate.now().toString());
                     tracking.setPurchaseOrder(order);

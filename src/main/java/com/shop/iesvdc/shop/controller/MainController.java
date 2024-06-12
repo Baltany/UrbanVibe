@@ -5,6 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+/**
+ * Esta clase es la encargada de manejar todos los endpoints que se encuentran en mi carpeta templates y son imprescindibles como por ejemplo /index
+ * 
+ * @author Balbino Moyano Lopez
+ */
 @Controller
 public class MainController {
     

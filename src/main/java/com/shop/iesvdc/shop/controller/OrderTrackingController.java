@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Esta clase es la encargada de manejar todos los relacionados con el seguimiento del pedido
+ * CRUD completo
+ * @author Balbino Moyano Lopez
+ */
 @Controller
 @RequestMapping("/order-tracking")
 public class OrderTrackingController {

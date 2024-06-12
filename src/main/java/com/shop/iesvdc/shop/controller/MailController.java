@@ -27,6 +27,11 @@ public class MailController {
     @Autowired
     private MailService emailService;
 
+    /**
+     * Manda el correo pasando a json por eso la necesidad del mailDTO
+     * @param mailDTO
+     * @return
+     */
     @PostMapping("/send")
     public ResponseEntity<?> receiveRequestEmail(@RequestBody MailDTO mailDTO){
 
