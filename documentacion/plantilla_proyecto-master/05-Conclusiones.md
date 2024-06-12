@@ -1024,6 +1024,174 @@ Y ya una vez recogida la ropa con el formulario que tengo **ACTUALIZO** al usuar
 
 Y una vez se ha creado y hemos terminado la compra se nos redirigirá al siguiente endpoint "/thnku"
 
+Los estilos que usa esta página son los siguientes:
+```css
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header nav {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .checkout-container {
+        max-width: 70%;
+        margin: 2.5% auto;
+        padding: 1rem;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .order-summary {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        height: 50%;
+      }
+
+      #order-items{
+        min-width: 22rem;
+      }
+
+      .order-items {
+        margin-bottom: 1rem;
+        flex: 1;
+      }
+
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid #ddd;
+        width: auto !important;
+      }
+
+      .order-item img {
+        max-width: 100px;
+        margin-right: 1rem;
+      }
+
+      .order-total {
+        text-align: right;
+        font-size: 1.2rem;
+      }
+
+      .form-container {
+        flex: 1;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        margin-left: 0.2rem;
+        max-width: 60%;
+      }
+
+      #checkout-button {
+        display: block;
+        width: 50%;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin:1rem;
+
+      }
+
+      #checkout-button:hover {
+        background-color: #555;
+      }
+
+      .cancel-btn{
+        display: block;
+        width: 50%;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin:1rem;
+      }
+      .cancel-btn:hover{
+        background-color: #555;
+
+      }
+
+
+      .details-clothes {
+        display: grid;
+        align-items: left;
+        text-align: left;
+        width: 75%;
+      }
+      .details-price {
+        width: 30%;
+        margin-right: 2rem;
+        margin: 0;
+      }
+
+      .details-price p{
+        margin-right: 0.5rem;
+      }
+
+      .order-box {
+        max-width:auto;
+        height: 35rem;
+        overflow-y: auto;
+        min-width:40%;
+
+      }
+
+      .form-container {
+        flex: 1;
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        margin-left: 0.2rem;
+        max-width: 60%;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: calc(100% - 1rem);
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .urban-title{
+        font-size:30px;
+        font-weight: bold;
+        cursor: pointer;
+
+    }
+    .btns-action{
+      display:flex;
+      width:100%;
+    }
+```
+Gracias a estos estilos,le doy formato a mi formulario,a la forma de ver la ropa que se recoge del carrito del usuario.
+
 * thnku.html:
 En este endpoint únicamente me sirve para dar las gracias al usuario por su compra y a mime hace saber que si ha llegado a este endpoint también le ha llegado su respectivo correo indicando que la compra fue un éxito:
 
